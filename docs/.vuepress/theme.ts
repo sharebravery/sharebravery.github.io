@@ -3,7 +3,7 @@ import navbar from "./navbar";
 import sidebar from "./sidebar";
 
 export default hopeTheme({
-  hostname: "https://github.com/sharebravery/sharebravery.github.io",
+  // hostname: "https://sharebravery.github.io/",
 
   author: {
     name: "sharebravery",
