@@ -29,6 +29,7 @@ dist/
 # VuePress Temp
 **/.vuepress/.cache/
 **/.vuepress/.temp/
+**/.vuepress/dist/
 
 # editors
 .vscode/

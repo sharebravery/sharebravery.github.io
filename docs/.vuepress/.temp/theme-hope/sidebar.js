@@ -1,1 +1,1 @@
-export const sidebarData = {"/":[{"text":"Hackintosh","icon":"info","collapsable":true,"prefix":"hackintosh/","children":["uu.md"]},{"text":"服务器","icon":"icon-emmet","collapsable":true,"prefix":"server/","children":["CCAA.md","WeEngine.md","MediaWiki.md","JavaWeb.md"]},{"text":"知识手册","collapsable":true,"prefix":"handbook/","children":["package.md"]}]}
+export const sidebarData = {"/":[{"text":"Hackintosh","icon":"info","collapsable":true,"prefix":"hackintosh/","children":["uu.md"]},{"text":"知识手册","collapsable":true,"prefix":"handbook/","children":["package.md"]}]}
