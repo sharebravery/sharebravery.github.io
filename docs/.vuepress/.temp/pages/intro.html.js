@@ -1,4 +1,4 @@
-export const data = JSON.parse("{\"key\":\"v-184f4da6\",\"path\":\"/intro.html\",\"title\":\"关于我\",\"lang\":\"zh-CN\",\"frontmatter\":{\"icon\":\"medrt\",\"title\":\"关于我\",\"index\":false,\"copyright\":false},\"excerpt\":\"\",\"headers\":[],\"readingTime\":{\"minutes\":0.04,\"words\":11},\"filePathRelative\":\"intro.md\"}")
+export const data = JSON.parse("{\"key\":\"v-184f4da6\",\"path\":\"/intro.html\",\"title\":\"关于我\",\"lang\":\"zh-CN\",\"frontmatter\":{\"icon\":\"medrt\",\"title\":\"关于我\",\"index\":false,\"copyright\":false,\"summary\":\"UU\",\"head\":[[\"meta\",{\"property\":\"og:url\",\"content\":\"https://sharebravery.github.io/intro.html\"}],[\"meta\",{\"property\":\"og:site_name\",\"content\":\"sharebravery\"}],[\"meta\",{\"property\":\"og:title\",\"content\":\"关于我\"}],[\"meta\",{\"property\":\"og:type\",\"content\":\"article\"}],[\"meta\",{\"property\":\"og:locale\",\"content\":\"zh-CN\"}]]},\"excerpt\":\"\",\"headers\":[],\"readingTime\":{\"minutes\":0.04,\"words\":11},\"filePathRelative\":\"intro.md\"}")
 
 if (import.meta.webpackHot) {
   import.meta.webpackHot.accept()
