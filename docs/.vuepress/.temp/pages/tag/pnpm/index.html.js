@@ -1,1 +1,0 @@
-export const data = JSON.parse("{\"key\":\"v-28fc3986\",\"path\":\"/tag/pnpm/\",\"title\":\"pnpm 标签\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"pnpm 标签\",\"blog\":{\"type\":\"category\",\"name\":\"pnpm\",\"key\":\"tag\"},\"layout\":\"Blog\"},\"excerpt\":\"\",\"headers\":[],\"git\":{},\"readingTime\":{\"minutes\":0,\"words\":0},\"filePathRelative\":null}")

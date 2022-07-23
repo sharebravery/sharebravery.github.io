@@ -1,1 +1,0 @@
-export const sidebarData = {"/":[{"text":"Hackintosh","icon":"info","collapsable":true,"prefix":"hackintosh/","children":["uu.md"]},{"text":"知识手册","collapsable":true,"prefix":"handbook/","children":["package.md"]}]}
