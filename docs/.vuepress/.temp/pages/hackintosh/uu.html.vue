@@ -1,0 +1,47 @@
+<template><div><h1 id="黑苹果-hackintosh-简单步骤教程" tabindex="-1"><a class="header-anchor" href="#黑苹果-hackintosh-简单步骤教程" aria-hidden="true">#</a> 黑苹果(Hackintosh)简单步骤教程</h1>
+<p>​	刚开始玩黑果的时候，网上资料确实不少,但是有一些教程复杂到令人望而生畏。于是在自己摸索的过程中有了这一份笔记。</p>
+<ol>
+<li>
+<h3 id="准备好一个32g的u盘和镜像" tabindex="-1"><a class="header-anchor" href="#准备好一个32g的u盘和镜像" aria-hidden="true">#</a> 准备好一个32G的U盘和镜像</h3>
+<p><img src="https://img-blog.csdnimg.cn/20200810183246743.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjI4NDMwMg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+<li>
+<h3 id="使用etcher或者transmac刻录镜像-制作启动盘-etcher只需选择镜像便可以自动制作了" tabindex="-1"><a class="header-anchor" href="#使用etcher或者transmac刻录镜像-制作启动盘-etcher只需选择镜像便可以自动制作了" aria-hidden="true">#</a> 使用Etcher或者TransMac刻录镜像，制作启动盘（Etcher只需选择镜像便可以自动制作了）</h3>
+</li>
+</ol>
+<p>​	<img src="https://img-blog.csdnimg.cn/20200810183441409.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjI4NDMwMg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">
+3. ### 将合适的EFI文件替换U盘的EFI文件，一般情况下替换config.plist文件即可（使用DiskGenius)</p>
+<p>​	<img src="https://img-blog.csdnimg.cn/20200810183516287.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjI4NDMwMg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">
+​</p>
+<ol start="4">
+<li>
+<h3 id="重启从u盘启动进入clover页面" tabindex="-1"><a class="header-anchor" href="#重启从u盘启动进入clover页面" aria-hidden="true">#</a> 重启从U盘启动进入Clover页面</h3>
+</li>
+<li>
+<h3 id="选择安装从u盘安装mac" tabindex="-1"><a class="header-anchor" href="#选择安装从u盘安装mac" aria-hidden="true">#</a> 选择安装从U盘安装Mac</h3>
+</li>
+<li>
+<h3 id="进入安装页面-先选择磁盘工具将要安装的磁盘-分区抹掉为mac-日志-格式" tabindex="-1"><a class="header-anchor" href="#进入安装页面-先选择磁盘工具将要安装的磁盘-分区抹掉为mac-日志-格式" aria-hidden="true">#</a> 进入安装页面，先选择磁盘工具将要安装的磁盘/分区抹掉为Mac（日志）格式</h3>
+</li>
+<li>
+<h3 id="返回安装页面-一路安装" tabindex="-1"><a class="header-anchor" href="#返回安装页面-一路安装" aria-hidden="true">#</a> 返回安装页面，一路安装</h3>
+</li>
+<li>
+<h3 id="第一次安装完毕-自动重启" tabindex="-1"><a class="header-anchor" href="#第一次安装完毕-自动重启" aria-hidden="true">#</a> 第一次安装完毕，自动重启</h3>
+</li>
+<li>
+<h3 id="重启完毕进入第二次安装设置-一路next完毕即可进入mac桌面" tabindex="-1"><a class="header-anchor" href="#重启完毕进入第二次安装设置-一路next完毕即可进入mac桌面" aria-hidden="true">#</a> 重启完毕进入第二次安装设置，一路next完毕即可进入Mac桌面</h3>
+<p><img src="https://img-blog.csdnimg.cn/20200810183833487.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjI4NDMwMg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+<li>
+<h3 id="进入桌面后插上网线-安装网卡及其他驱动。" tabindex="-1"><a class="header-anchor" href="#进入桌面后插上网线-安装网卡及其他驱动。" aria-hidden="true">#</a> 进入桌面后插上网线，安装网卡及其他驱动。</h3>
+</li>
+<li>
+<h3 id="如果没有网线-则回到win系统-下载好驱动-再进入mac系统安装" tabindex="-1"><a class="header-anchor" href="#如果没有网线-则回到win系统-下载好驱动-再进入mac系统安装" aria-hidden="true">#</a> 如果没有网线，则回到win系统，下载好驱动，再进入Mac系统安装</h3>
+</li>
+<li>
+<h3 id="百度-问群" tabindex="-1"><a class="header-anchor" href="#百度-问群" aria-hidden="true">#</a> 百度/问群</h3>
+</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/20200810183942849.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjI4NDMwMg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</div></template>
