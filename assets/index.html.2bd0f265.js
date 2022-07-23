@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-7476acc1","path":"/category/hackintosh/","title":"Hackintosh \u5206\u7C7B","lang":"zh-CN","frontmatter":{"title":"Hackintosh \u5206\u7C7B","blog":{"type":"category","name":"Hackintosh","key":"category"},"layout":"Blog"},"excerpt":"","headers":[],"git":{},"readingTime":{"minutes":0,"words":0},"filePathRelative":null}');export{t as data};
