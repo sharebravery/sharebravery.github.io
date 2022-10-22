@@ -1,6 +1,6 @@
 ---
 icon: medrt
-title: 关于我
+title: About
 index: false
 
 copyright: false
