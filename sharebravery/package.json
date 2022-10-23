@@ -1,0 +1,18 @@
+{
+  "name": "sharebravery",
+  "version": "2.0.1",
+  "description": "做一个勇敢者 拥有坚定的信念",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "docs:build": "vuepress build src",
+    "docs:clean-dev": "vuepress dev src --clean-cache",
+    "docs:dev": "vuepress dev src"
+  },
+  "devDependencies": {
+    "@vuepress/client": "2.0.0-beta.52",
+    "vue": "^3.2.41",
+    "vuepress": "2.0.0-beta.52",
+    "vuepress-theme-hope": "2.0.0-beta.113"
+  }
+}

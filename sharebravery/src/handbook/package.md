@@ -5,7 +5,7 @@ tag:
   - pnpm
   - yarn
   - 知识手册
-categories:
+categorie:
   - 知识手册
 ---
 
