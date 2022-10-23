@@ -1,0 +1,1 @@
+import{U as e,V as t,W as n,X as o}from"./app.fc33cca0.js";import"./vendor.c275bba7.js";const c={},s=o("p",null,"星海拾沙，聚以相汇，谨以此记。",-1),_=[s];function r(a,l){return t(),n("div",null,_)}const f=e(c,[["render",r],["__file","index.html.vue"]]);export{f as default};
