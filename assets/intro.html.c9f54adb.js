@@ -1,0 +1,1 @@
+import{U as e,V as t,W as o,X as n}from"./app.73988f25.js";import"./vendor.506c23d9.js";const c={},r=n("p",null,"前进 前进 前进",-1),s=[r];function _(a,l){return t(),o("div",null,s)}const f=e(c,[["render",_],["__file","intro.html.vue"]]);export{f as default};
