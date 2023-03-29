@@ -5,7 +5,6 @@
  */
 import { hopeTheme } from "vuepress-theme-hope";
 import navbar from "./navbar";
-import sidebar from "./sidebar";
 
 import { version } from "../../package.json";
 
@@ -23,7 +22,7 @@ export default hopeTheme({
 
   repo: "https://github.com/sharebravery/sharebravery.github.io",
 
-  docsDir: "demo/src",
+  docsDir: "docs",
 
   themeColor: {
     blue: "#2196f3",
@@ -66,7 +65,9 @@ export default hopeTheme({
   // },
 
   plugins: {
-    blog: true,
+    blog: {
+      excerptLength: 0,
+    },
 
     comment: {
       /**
