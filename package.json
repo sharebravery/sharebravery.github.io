@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "pnpm run docs:dev",
-    "docs:build": "vuepress build docs && yarn release",
+    "docs:build": "vuepress build docs && git add . && git commit -m 'Updated' && yarn release",
     "docs:clean-dev": "vuepress dev docs --clean-cache",
     "docs:dev": "vuepress dev docs",
     "release": "standard-version"

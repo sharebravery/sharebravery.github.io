@@ -1,6 +1,13 @@
+/*
+ * @Description: ^_^
+ * @Author: sharebravery
+ * @Date: 2023-03-28 17:49:06
+ */
 import { hopeTheme } from "vuepress-theme-hope";
 import navbar from "./navbar";
 import sidebar from "./sidebar";
+
+const { version } = require("../../package.json");
 
 export default hopeTheme({
   // hostname: "https://sharebravery.github.io",
@@ -37,7 +44,7 @@ export default hopeTheme({
   // sidebar
   sidebar: "structure",
 
-  footer: "MIT Licensed | Copyright © 2022-present sharebravery",
+  footer: `Apache Licensed | Copyright © 2023-present sharebravery v${version}`,
 
   displayFooter: true,
 
@@ -87,7 +94,7 @@ export default hopeTheme({
     },
 
     mdEnhance: {
-      enableAll: false,
+      // enableAll: false,
       presentation: {
         plugins: ["highlight", "math", "search", "notes", "zoom"],
       },
