@@ -12,10 +12,10 @@
     "release": "standard-version"
   },
   "devDependencies": {
-    "@vuepress/client": "2.0.0-beta.52",
+    "@vuepress/client": "2.0.0-beta.61",
     "standard-version": "^9.5.0",
-    "vue": "^3.2.41",
-    "vuepress": "2.0.0-beta.52",
-    "vuepress-theme-hope": "2.0.0-beta.113"
+    "vue": "^3.2.47",
+    "vuepress": "2.0.0-beta.61",
+    "vuepress-theme-hope": "2.0.0-beta.199"
   }
 }

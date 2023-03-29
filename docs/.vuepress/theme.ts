@@ -7,7 +7,7 @@ import { hopeTheme } from "vuepress-theme-hope";
 import navbar from "./navbar";
 import sidebar from "./sidebar";
 
-const { version } = require("../../package.json");
+import { version } from "../../package.json";
 
 export default hopeTheme({
   // hostname: "https://sharebravery.github.io",
@@ -36,9 +36,9 @@ export default hopeTheme({
   navbar: navbar,
 
   navbarLayout: {
-    left: ["Brand"],
+    start: ["Brand"],
     center: [],
-    right: ["Outlook", "Search", "Links", "Language", "Repo"],
+    end: ["Outlook", "Search", "Links", "Language", "Repo"],
   },
 
   // sidebar
@@ -66,9 +66,7 @@ export default hopeTheme({
   // },
 
   plugins: {
-    blog: {
-      autoExcerpt: true,
-    },
+    blog: true,
 
     comment: {
       /**
