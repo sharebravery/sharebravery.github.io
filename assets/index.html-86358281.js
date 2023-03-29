@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-4d264f0b","path":"/server/aliyun/2020/","title":"2020","lang":"zh-CN","frontmatter":{"title":"2020","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":10},"filePathRelative":null,"excerpt":"\\n"}');export{e as data};

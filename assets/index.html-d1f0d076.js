@@ -1,1 +1,0 @@
-import{_ as t,W as a,X as n,Y as e,$ as s}from"./framework-dc03c577.js";const c={},o=e("h1",{id:"hackintosh",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#hackintosh","aria-hidden":"true"},"#"),s(" Hackintosh")],-1),r=e("p",null,"探索，求知，加油！",-1),_=[o,r];function i(d,h){return a(),n("div",null,_)}const f=t(c,[["render",i],["__file","index.html.vue"]]);export{f as default};
