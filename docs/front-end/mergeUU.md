@@ -1,5 +1,5 @@
 ---
-title: 前端导出合并二（ExcelJSuu）
+title: 前端表格导出合并二（ExcelJSuu）
 date: 2022-10-23
 tag:
   - excel
@@ -8,9 +8,10 @@ categories:
   - vue
 ---
 
-    基于国产ExcelJS封装的一个工具类，简化原有的函数操作。
+    业务需要，做了个前端导出，由于有部分数据长度不固定，所以合并范围需要动态计算，为了能够支持修改样式，使用了国产的ExcelJS。
+    基于国产ExcelJS封装的一个工具类，封装简化原有的函数操作，并将使用方式向sheetjs靠拢，保持API使用一致。
 
-```
+```typescript
 export class ExcelJSuu {
   constructor(public worksheet: Worksheet) {}
 
@@ -30,7 +31,10 @@ export class ExcelJSuu {
    * @return {*}  {{ row: string[][]; merges: Range[] }}
    * @memberof ExcelJSuu
    */
-  buildRowAndMergesByInterval(row: string[], interval: number): { row: string[][]; merges: Range[] } {
+  buildRowAndMergesByInterval(
+    row: string[],
+    interval: number
+  ): { row: string[][]; merges: Range[] } {
     const newRow = row.reduce((pre, cur) => {
       if (pre.length + 1 == row.length * interval) {
         pre.push(cur);
@@ -62,10 +66,15 @@ export class ExcelJSuu {
    * @return {*}  {string[][]}
    * @memberof ExcelJSuu
    */
-  buildHeadersAndMerges(columns: IUuColumn[]): { headers: string[][]; merges: Range[] } {
+  buildHeadersAndMerges(columns: IUuColumn[]): {
+    headers: string[][];
+    merges: Range[];
+  } {
     const m = calcHeaders(columns);
 
-    const mgs = new Array(...m.values()).map((e) => [e.top, e.left, e.bottom, e.right] as Range);
+    const mgs = new Array(...m.values()).map(
+      (e) => [e.top, e.left, e.bottom, e.right] as Range
+    );
 
     return {
       headers: flatCells(m),
@@ -102,7 +111,11 @@ export class ExcelJSuu {
    * @return {*}  {string[][]}
    * @memberof ExcelJSuu
    */
-  buildBaseSheet(columns: IUuTableColumnsType, tableData: any[], autoMerge = true): string[][] {
+  buildBaseSheet(
+    columns: IUuTableColumnsType,
+    tableData: any[],
+    autoMerge = true
+  ): string[][] {
     const headersAndMgs = this.buildHeadersAndMerges(columns);
 
     const sheet = this.buildSheet(columns, tableData);
@@ -126,9 +139,13 @@ export class ExcelJSuu {
    * @param {MergeCells} v
    * @memberof ExcelJSuu
    */
-  merges(v: ([top: number, left: number, bottom: number, right: number] | number[])[]): void {
+  merges(
+    v: ([top: number, left: number, bottom: number, right: number] | number[])[]
+  ): void {
     v.forEach((item) => {
-      this.worksheet.mergeCells(item as [top: number, left: number, bottom: number, right: number]);
+      this.worksheet.mergeCells(
+        item as [top: number, left: number, bottom: number, right: number]
+      );
     });
   }
 
@@ -155,7 +172,13 @@ export class ExcelJSuu {
    * @param {Fill} fill
    * @memberof ExcelJSuu
    */
-  setFillByRange(top: number, left: number, bottom: number, right: number, fill: Fill) {
+  setFillByRange(
+    top: number,
+    left: number,
+    bottom: number,
+    right: number,
+    fill: Fill
+  ) {
     const rows = this.worksheet.getRows(top, bottom);
     rangeArray(left, right).forEach((num) => {
       rows.forEach((row) => {
@@ -178,12 +201,12 @@ export class ExcelJSuu {
 
       column.eachCell(function (cell, rowNumber) {
         cell.border = {
-          top: { style: 'thin', color: { argb: 'ff000000' } },
-          left: { style: 'thin', color: { argb: 'ff000000' } },
-          bottom: { style: 'thin', color: { argb: 'ff000000' } },
-          right: { style: 'thin', color: { argb: 'ff000000' } },
+          top: { style: "thin", color: { argb: "ff000000" } },
+          left: { style: "thin", color: { argb: "ff000000" } },
+          bottom: { style: "thin", color: { argb: "ff000000" } },
+          right: { style: "thin", color: { argb: "ff000000" } },
         };
-        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+        cell.alignment = { vertical: "middle", horizontal: "center" };
 
         for (const key in style) {
           cell[key] = style[key];
@@ -238,7 +261,11 @@ export class ExcelJSuu {
    * @param {object} [style]
    * @memberof ExcelJSuu
    */
-  setStyleInViewByColumn(start: number, end: number, style?: Partial<Style>): void {
+  setStyleInViewByColumn(
+    start: number,
+    end: number,
+    style?: Partial<Style>
+  ): void {
     rangeArray(start, end).forEach((num) => {
       const column = this.worksheet.getColumn(num);
       column.eachCell(function (cell, rowNumber) {
@@ -255,9 +282,12 @@ export class ExcelJSuu {
    * @param {Workbook} workbook
    * @memberof ExcelJSuu
    */
-  async writeXLSXFile(workbook: Workbook, filename = this.worksheet.name): Promise<void> {
+  async writeXLSXFile(
+    workbook: Workbook,
+    filename = this.worksheet.name
+  ): Promise<void> {
     const buffer = await workbook.xlsx.writeBuffer();
-    const blob = new Blob([buffer], { type: 'application/octet-stream' });
+    const blob = new Blob([buffer], { type: "application/octet-stream" });
 
     openDownloadDialog(blob, filename);
   }
@@ -271,15 +301,21 @@ export class ExcelJSuu {
    * @return {*}  {Promise<Workbook>}
    * @memberof ExcelJSuu
    */
-  async insertRowWithBuffer(workbook: Workbook, pos: number, values: any[]): Promise<Workbook> {
+  async insertRowWithBuffer(
+    workbook: Workbook,
+    pos: number,
+    values: any[]
+  ): Promise<Workbook> {
     const buffer = await workbook.xlsx.writeBuffer();
 
     const newWb = await workbook.xlsx.load(buffer);
 
-    const worksheet = newWb.worksheets.find((e) => e.name === this.worksheet.name);
+    const worksheet = newWb.worksheets.find(
+      (e) => e.name === this.worksheet.name
+    );
 
     if (!worksheet) {
-      console.warn('找不到工作表');
+      console.warn("找不到工作表");
       return;
     }
 
@@ -292,34 +328,39 @@ export class ExcelJSuu {
 
 - 用例
 
-```
-  /**
+```typescript
+/**
 -
 - @param queryHeader 第一排表头数组
 - @param data 所有处理好的表格数据
   \*/
-  async function exportTable(queryHeader = tableHeader1.value, data = tableData.value) {
+async function exportTable(
+  queryHeader = tableHeader1.value,
+  data = tableData.value
+) {
   const workbook = exportTableByExcelJSuu(
-  unref(columns) as IUuTableColumnsType,
-  data,
-  queryHeader ?? ['学校', '考试', '考试时间', '年级', '班级', '考试总分']
+    unref(columns) as IUuTableColumnsType,
+    data,
+    queryHeader ?? ["学校", "考试", "考试时间", "年级", "班级", "考试总分"]
   );
 
-const [worksheet] = workbook.worksheets;
+  const [worksheet] = workbook.worksheets;
+  ty;
 
-worksheet.name = '全科成绩.xlsx';
+  worksheet.name = "全科成绩.xlsx";
 
-const excelJSuu = new ExcelJSuu(worksheet);
+  const excelJSuu = new ExcelJSuu(worksheet);
 
-const length = excelJSuu.flatColumns(unref(columns) as IUuTableColumnsType).length;
+  const length = excelJSuu.flatColumns(
+    unref(columns) as IUuTableColumnsType
+  ).length;
 
-excelJSuu.setFillByRange(1, 1, 3, length, {
-type: 'pattern',
-pattern: 'solid',
-fgColor: { argb: 'ffc2f8ed' },
-});
+  excelJSuu.setFillByRange(1, 1, 3, length, {
+    type: "pattern",
+    pattern: "solid",
+    fgColor: { argb: "ffc2f8ed" },
+  });
 
-excelJSuu.writeXLSXFile(workbook);
+  excelJSuu.writeXLSXFile(workbook);
 }
-
 ```
