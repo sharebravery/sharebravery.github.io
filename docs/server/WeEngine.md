@@ -2,18 +2,19 @@
 title: 基于ECS构建微信公众号管理系统 WeEngine
 date: 2020-08-08
 tags:
- - 阿里云七天训练营
+  - 阿里云七天训练营
+  - 服务器
 categories:
- -  后端笔记
+  - 后端笔记
 ---
 
 ## 一、微擎安装
 
-#### 1. 1使用宝塔来安装LAMP环境
+#### 1. 1 使用宝塔来安装 LAMP 环境
 
 ![20200808092315](https://pic.downk.cc/item/5f2d57a114195aa594fd029e.png)
 
-#### 1.2下载微擎并解压
+#### 1.2 下载微擎并解压
 
 下载地址：
 
@@ -21,9 +22,9 @@ categories:
 https://cdn.w7.cc/download/WeEngine-Laster-Online.zip
 ```
 
-#### 1.3 使用Xshell登录服务器，在/www/wwwroot/default下创建WeEngine文件夹
+#### 1.3 使用 Xshell 登录服务器，在/www/wwwroot/default 下创建 WeEngine 文件夹
 
-#### 1.4 使用Xftp将解压后的install.php文件上传至WeEngine
+#### 1.4 使用 Xftp 将解压后的 install.php 文件上传至 WeEngine
 
 #### 1.5 使用宝塔添加网站，勾选数据库，记住用户和密码。
 
@@ -31,7 +32,7 @@ https://cdn.w7.cc/download/WeEngine-Laster-Online.zip
 
 <img src="https://pic.downk.cc/item/5f2e36db14195aa594472f0e.png" alt="20200808090600" style="zoom:75%;" />
 
-#### 1.7 在 Xshell中运行chown命令为目录赋予权限：
+#### 1.7 在 Xshell 中运行 chown 命令为目录赋予权限：
 
 ```
 chown -R www /www/wwwroot/default
@@ -43,7 +44,7 @@ chown -R www /www/wwwroot/default
 
 ![41806c0cc29c22e1b8725b3f3d83f193_907x332](https://pic.downk.cc/item/5f2e371614195aa594474813.png)
 
-#### 1.9  配置数据库参数
+#### 1.9 配置数据库参数
 
 将刚才记住的数据库信息输入
 
@@ -77,13 +78,14 @@ chown -R www /www/wwwroot/default
 
 <img src="https://pic.downk.cc/item/5f2e3ff514195aa5944aa863.png" />
 
-#### 2.7 注意AppId和AppSecret在公众号的开发里的基本配置里
+#### 2.7 注意 AppId 和 AppSecret 在公众号的开发里的基本配置里
 
 ![20200808111117](https://pic.downk.cc/item/5f2e400d14195aa5944ab489.png)
 
-#### 2.8 在微信公众号的后台添加开发者信息，将系统给出的 Token和 Key 复制到【基本配置】中
+#### 2.8 在微信公众号的后台添加开发者信息，将系统给出的 Token 和 Key 复制到【基本配置】中
 
 <img src="https://pic.downk.cc/item/5f2e403414195aa5944ac31a.png" alt="20200808105053" style="zoom:75%;" />
 
 #### 2.9 接入完成，测试
+
 <Valine></Valine>

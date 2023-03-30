@@ -1,9 +1,9 @@
 ---
 title: 前端表格导出合并一（XLSX）
-date: 2022-10-23
+date: 2022-10-22
 tag:
   - excel
-  - merge
+  - ts
 categories:
   - vue
 ---

@@ -3,6 +3,7 @@ title: 黑苹果(Hackintosh)简单步骤教程
 date: 2020-05-05
 tag:
   - Hackintosh
+  - 黑苹果
 categories:
   - Hackintosh
 ---

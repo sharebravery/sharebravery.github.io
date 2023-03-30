@@ -3,6 +3,7 @@ title: 阿里云ECS——搭建Java Web开发环境
 date: 2020-08-11
 tags:
   - 阿里云七天训练营
+  - 服务器
 categories:
   - 后端笔记
 ---
