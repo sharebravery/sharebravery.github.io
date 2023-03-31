@@ -16,13 +16,13 @@ categories:
 
 先观察一下 sheetjs !merges 函数合并所需要的数据
 
-```
+```typescript
 workSheet['!merges'] =  [ { s: { r: 0, c: 0 }, e: { r: 0, c: 0 } } ];
 ```
 
 ExccelJS 的则是
 
-```
+```typescript
 // 按开始行，开始列，结束行，结束列合并
 worksheet.mergeCells(10,11,12,13);
 ```
