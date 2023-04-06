@@ -1,19 +1,14 @@
 ---
-title: 使用 node（nestjs）爬取小说一
+title: 使用node（nestjs）连接mongodb
 date: 2022-03-15
 tag:
   - node
-  - 爬虫
   - nestjs
-  - mongo
+  - mongodb
   - ts
 categories:
   - node
 ---
-
-# 使用 node（nestjs）爬取小说
-
-想写个爬取小说的爬虫，因为喜欢使用 ts，所以用上了 nestjs。
 
 ## 创建项目
 
