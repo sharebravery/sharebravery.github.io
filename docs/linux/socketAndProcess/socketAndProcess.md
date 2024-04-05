@@ -1,123 +1,119 @@
-# Linux下的Socket和进程使用
+# Linux 下的 Socket 和进程使用
 
-在Linux环境中，通过搭建服务器端和客户端服务来实现Socket通信，并利用多进程来有效地管理客户端。
+在 Linux 环境中，通过搭建服务器端和客户端服务来实现 Socket 通信，并利用多进程来有效地管理客户端。
 
-# Socket通讯流程
+# Socket 通讯流程
 
-下面是socket服务端和客户端通讯流程：
+下面是 socket 服务端和客户端通讯流程：
 
-![socket.drawio](C:\Users\share\Desktop\Blog\socketAndProcess\images\socket.drawio.svg)
+![socket.drawio](./images/socket.drawio.svg)
 
-
-
-使用Socket我们需要了解几个常用的函数：
+使用 Socket 我们需要了解几个常用的函数：
 
 ## 服务端：
 
 ### socket
 
 > NAME
->        socket - create an endpoint for communication
+> socket - create an endpoint for communication
 >
 > SYNOPSIS
->        #include <sys/types.h>          /* See NOTES */
->        #include <sys/socket.h>
+> #include <sys/types.h> /_ See NOTES _/
+> #include <sys/socket.h>
 >
 >        int socket(int domain, int type, int protocol);
 
-socket函数用来创建一个通信端点， domain为指定通信域， 常用通信协议族有 AF_INET（ IPv4），AF_INET6（IPv6）；type为socket，常用的有SOCK_STREAM（TCP），SOCK_DGRAM(UDP)；protocol 指定通信协议，可以使用默认0。
+socket 函数用来创建一个通信端点， domain 为指定通信域， 常用通信协议族有 AF_INET（ IPv4），AF_INET6（IPv6）；type 为 socket，常用的有 SOCK_STREAM（TCP），SOCK_DGRAM(UDP)；protocol 指定通信协议，可以使用默认 0。
 
 ### bind
 
 > NAME
->        bind - bind a name to a socket
+> bind - bind a name to a socket
 >
 > SYNOPSIS
->        #include <sys/types.h>          /* See NOTES */
->        #include <sys/socket.h>
+> #include <sys/types.h> /_ See NOTES _/
+> #include <sys/socket.h>
 >
 >        int bind(int sockfd, const struct sockaddr *addr,
 >                 socklen_t addrlen);
 
-使用bind绑定socket文件描述符。
+使用 bind 绑定 socket 文件描述符。
 
 ### listen
 
 > NAME
->        listen - listen for connections on a socket
+> listen - listen for connections on a socket
 >
 > SYNOPSIS
->        #include <sys/types.h>          /* See NOTES */
->        #include <sys/socket.h>
+> #include <sys/types.h> /_ See NOTES _/
+> #include <sys/socket.h>
 >
 >        int listen(int sockfd, int backlog);
 
-使用listen监听socket连接。
+使用 listen 监听 socket 连接。
 
 ### accept
 
 > NAME
->        accept, accept4 - accept a connection on a socket
+> accept, accept4 - accept a connection on a socket
 >
 > SYNOPSIS
->        #include <sys/types.h>          /* See NOTES */
->        #include <sys/socket.h>
+> #include <sys/types.h> /_ See NOTES _/
+> #include <sys/socket.h>
 >
 >        int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 
-使用accept接受socket连接。
+使用 accept 接受 socket 连接。
 
 ### recv
 
 > NAME
->        recv, recvfrom, recvmsg - receive a message from a socket
+> recv, recvfrom, recvmsg - receive a message from a socket
 >
 > SYNOPSIS
->        #include <sys/types.h>
->        #include <sys/socket.h>
+> #include <sys/types.h>
+> #include <sys/socket.h>
 
-使用recv函数接收socket消息。
+使用 recv 函数接收 socket 消息。
 
 ### send
 
 > NAME
->        send, sendto, sendmsg - send a message on a socket
+> send, sendto, sendmsg - send a message on a socket
 >
 > SYNOPSIS
->        #include <sys/types.h>
->        #include <sys/socket.h>
+> #include <sys/types.h>
+> #include <sys/socket.h>
 
-使用send函数发送socket消息。
+使用 send 函数发送 socket 消息。
 
 ### connect
 
 > NAME
->        connect - initiate a connection on a socket
+> connect - initiate a connection on a socket
 >
 > SYNOPSIS
->        #include <sys/types.h>          /* See NOTES */
->        #include <sys/socket.h>
+> #include <sys/types.h> /_ See NOTES _/
+> #include <sys/socket.h>
 >
 >        int connect(int sockfd, const struct sockaddr *addr,
 >                    socklen_t addrlen);
 
-客户端可以使用connect连接到socket服务端。
+客户端可以使用 connect 连接到 socket 服务端。
 
 ### close
 
 > NAME
->        close - close a file descriptor
+> close - close a file descriptor
 >
 > SYNOPSIS
->        #include <unistd.h>
+> #include <unistd.h>
 >
 >        int close(int fd);
 
-关闭socket。
+关闭 socket。
 
-
-
-## Socket代码实现
+## Socket 代码实现
 
 ### server.c
 
@@ -229,8 +225,6 @@ int main(int argc, char *argv[])
 }
 ```
 
-
-
 ### client.c
 
 ```c
@@ -317,3 +311,6 @@ int main(int argc, char *argv[])
 }
 ```
 
+![Snipaste_2024-04-05_17-58-24](./images/Snipaste_2024-04-05_17-58-24.png)
+
+![socket.drawio](./images/Snipaste_2024-04-05_17-58-36.png)
