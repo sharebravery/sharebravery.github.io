@@ -38,7 +38,19 @@
 
 ### 3.3 在 Ubuntu 中扩展刚才的空间
 
-安装 `gparted` 工具：
+#### 3.3.1 使用自带Disks工具进行扩容
+
+如果能够使用自带的Disks工具进行扩容则不用进行下面的使用gparted的操作
+
+经过测试，我一台电脑使用Disks进行操作成功，另一台电脑使用gparted操作成功
+
+
+
+在系统应用中找到Disks，点击Resize扩容即可
+
+![](https://cdn.jsdelivr.net/gh/sharebravery/album@master/20240624161737.png)
+
+#### 3.3.2 安装 `gparted` 工具：
 
 ```shell
 sudo apt install gparted

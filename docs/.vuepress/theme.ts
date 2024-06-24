@@ -20,7 +20,7 @@ export default hopeTheme({
 
   logo: "/logo.svg",
 
-  repo: "https://github.com/sharebravery/sharebravery.github.io",
+  repo: "https://github.com/sharebravery",
 
   docsDir: "docs",
 

@@ -9,6 +9,6 @@ categories:
 
 # Git 常用手册
 
-- 打包 master 分枝的所有文件
+- 打包 master 分支的所有文件
 
   ` git archive --format=zip --output master.zip master`
