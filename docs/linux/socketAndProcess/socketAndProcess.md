@@ -314,3 +314,10 @@ int main(int argc, char *argv[])
 ![Snipaste_2024-04-05_17-58-24](./images/Snipaste_2024-04-05_17-58-24.png)
 
 ![socket.drawio](./images/Snipaste_2024-04-05_17-58-36.png)
+
+---
+
+*END*
+
+---
+
