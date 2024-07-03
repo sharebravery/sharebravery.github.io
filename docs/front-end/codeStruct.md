@@ -115,7 +115,7 @@ export class pspService {
 
 可以体验一下，你会喜欢上一键生成API的快感：
 
-[openapi-genuu](**[openapi-genuu](https://github.com/sharebravery/openapi-genuu)**)
+[openapi-genuu](https://github.com/sharebravery/openapi-genuu)
 
 具体的使用方法和注意事项请看这个：
 [爽了！一键生成TS模型及接口方法](https://juejin.cn/post/7338704641842479167)
