@@ -37,7 +37,7 @@ export default hopeTheme({
       displayFooter: true,
 
       blog: {
-        description: "Explorer of the World",
+        description: "Relentless Spirit, Unwavering Faith",
         intro: "/intro.html",
       },
 
@@ -114,6 +114,11 @@ export default hopeTheme({
     // Fixed: Correct way to configure icon assets in V2
     icon: {
       assets: "fontawesome-with-brands",
+    },
+
+    // Enable local search
+    slimsearch: {
+      indexContent: true,
     },
 
     comment: {

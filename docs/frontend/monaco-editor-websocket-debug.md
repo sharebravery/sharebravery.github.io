@@ -1,6 +1,6 @@
 ---
 title: "Online Debugging with Monaco Editor & WebSockets"
-date: 2026-01-25
+date: 2022-12-02
 categories:
   - Frontend
 tags:

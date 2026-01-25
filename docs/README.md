@@ -6,7 +6,7 @@ title: Home
 heroImage: /avatar.svg
 heroText: Share Bravery
 heroFullScreen: true
-tagline: Be Brave, Stand Firm
+tagline: Relentless Spirit, Unwavering Faith
 index: false
 bgImage: https://bing.com/th?id=OHR.MostarBridge_ZH-CN5920156936_1920x1080.jpg
 ---
