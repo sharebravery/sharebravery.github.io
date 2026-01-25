@@ -2,9 +2,9 @@
 title: 搭建 Wiki 知识库 MediaWiki
 date: 2020-08-07
 tags:
-  - 阿里云七天训练营
-  - 服务器
-  - 后端笔记
+  - Cloud
+  - Server
+  - Backend
 categories:
   - DevOps
 ---

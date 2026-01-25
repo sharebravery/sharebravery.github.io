@@ -1,12 +1,13 @@
 ---
-title: 阿里云ECS——搭建Java Web开发环境
+title: "阿里云 ECS——搭建 Java Web 开发环境"
 date: 2020-08-11
 tags:
-  - 阿里云七天训练营
-  - 服务器
+  - Cloud
+  - Server
 categories:
   - 后端技术
 ---
+
 
 # 阿里云 ECS——搭建 Java Web 开发环境
 
@@ -69,7 +70,7 @@ mysql -uroot -p
 2. 5 执行以下命令，修改 MySQL 默认密码。
 
 ```
-set global validate_password_policy=0;  #修改密码安全策略为低（只校验密码长度，至少8位）。
+set global validate_password_policy=0;  #修改密码安全策略为低（只校验密码长度，至少 8 位）。
 ALTER USER 'root'@'localhost' IDENTIFIED BY '12345678';
 ```
 

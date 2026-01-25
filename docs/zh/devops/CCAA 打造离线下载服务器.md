@@ -2,12 +2,13 @@
 title: CCAA 打造离线下载服务器
 date: 2020-08-10
 tags:
-  - 阿里云七天训练营
-  - 服务器
-  - 后端笔记
+  - Cloud
+  - Server
+  - Backend
 categories:
   - DevOps
 ---
+
 
 # CCAA 打造离线下载服务器
 
@@ -48,15 +49,15 @@ bash <(curl -Lsk https://raw.githubusercontent.com/helloxz/ccaa/master/ccaa.sh) 
 #### 1.6 管理 CCAA
 
 ```
-#进入CCAA管理界面* ccaa
+#进入 CCAA 管理界面* ccaa
 
-*#查看ccaa状态* ccaa status
+*#查看 ccaa 状态* ccaa status
 
-*#启动ccaa* ccaa start
+*#启动 ccaa* ccaa start
 
-*#停止ccaa* ccaa stop
+*#停止 ccaa* ccaa stop
 
-*#重启ccaa* ccaa restart
+*#重启 ccaa* ccaa restart
 
 *#查看当前版本* ccaa -v
 ```

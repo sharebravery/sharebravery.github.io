@@ -1,15 +1,16 @@
 ---
-title: node爬虫爬取小说（nestjs、IP代理池）
+title: "node 爬虫爬取小说（nestjs、IP 代理池）"
 date: 2022-03-10
 tags:
   - Node.js
   - NestJS
   - MySQL
   - TypeScript
-  - IP Proxy Pool
+  - Proxy
 categories:
   - 后端技术
 ---
+
 
 项目使用 nestjs、mysql、superagent 等实现小说的爬取，并写了一个 IP 代理池。
 
@@ -143,7 +144,7 @@ export class CrawlController {
     private booksRepository: Repository<Book>
   ) {}
 
-  // TODO:  引入IP池
+  // TODO:  引入 IP 池
   // TODO:  控制并发
   // TODO:  爬虫伪装
   // TODO:  断点续传
@@ -409,7 +410,7 @@ export class CrawlService {
   timeoutNumber = 0;
 
   /**
-   *获取html页面
+   *获取 html 页面
    *
    * @param {string} requestUrl
    * @param {string} [requestType]
@@ -565,7 +566,7 @@ import { AuditMetadata } from "../entitys/auditMetadata.entity";
 
 @Entity()
 export class Proxy extends AuditMetadata {
-  @ApiProperty({ description: "IP地址" })
+  @ApiProperty({ description: "IP 地址" })
   @PrimaryColumn()
   ip: string;
 
@@ -631,7 +632,7 @@ export class ProxyController {
   constructor(private readonly proxyService: ProxyService) {}
 
   @ApiOperation({
-    summary: "抓取代理进入IP池",
+    summary: "抓取代理进入 IP 池",
   })
   @Get("GetProxyList")
   GetProxyList() {

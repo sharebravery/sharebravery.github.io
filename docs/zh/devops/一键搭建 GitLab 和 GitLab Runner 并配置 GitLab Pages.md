@@ -5,6 +5,7 @@ categories:
   - DevOps
 ---
 
+
 # 一键搭建 GitLab 和 GitLab Runner 并配置 GitLab Pages
 
 使用 Docker Compose，可以快速实现 GitLab 的自托管部署，提升代码管理和 CI/CD 流程的自动化。GitLab 是一个功能丰富的 Git 仓库管理平台，提供 Git 存储库托管、代码审查、持续集成和部署（CI/CD）等功能。而 GitLab Runner 是 GitLab 的 CI/CD 组件，负责执行 CI/CD 作业。
@@ -41,7 +42,7 @@ categories:
    }
    EOF
 
-   # 重启docker服务
+   # 重启 docker 服务
    sudo systemctl daemon-reload && sudo systemctl restart docker
    ```
 

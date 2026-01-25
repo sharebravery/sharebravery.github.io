@@ -2,9 +2,9 @@
 title: 基于 ECS 构建微信公众号管理系统 WeEngine
 date: 2020-08-08
 tags:
-  - 阿里云七天训练营
-  - 服务器
-  - 后端笔记
+  - Cloud
+  - Server
+  - Backend
 categories:
   - DevOps
 ---

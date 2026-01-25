@@ -2,14 +2,13 @@
 title: 在线代码编辑器 Monaco Editor、WebSocket 在线调试
 date: 2022-12-02
 tags:
-  - monaco-editor
-  - websocket
-  - online-debugger
-  - 在线编辑器
+  - Editor
+  - Network
   - Vue.js
 categories:
   - 前端开发
 ---
+
 
 由于有大量的爬虫配置需要调试，下载运行后端代码过于笨重，于是使用和 VS Code 同样的编辑器 Monaco Editor 加上 WebSocket 实现在线调试。
 

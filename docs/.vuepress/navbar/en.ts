@@ -4,17 +4,17 @@ export const enNavbar = navbar([
   "/",
   {
     text: "Frontend",
-    icon: "code",
+    icon: "laptop-code",
     link: "/frontend/",
   },
   {
     text: "Backend",
-    icon: "server",
+    icon: "network-wired",
     link: "/backend/",
   },
   {
     text: "DevOps",
-    icon: "terminal",
+    icon: "server",
     link: "/devops/",
   },
   {
@@ -24,8 +24,8 @@ export const enNavbar = navbar([
   },
   {
     text: "Tools",
-    icon: "wrench",
+    icon: "toolbox",
     link: "/tools/",
   },
-  { text: "Timeline", icon: "history", link: "/timeline/" },
+  { text: "Timeline", icon: "timeline", link: "/timeline/" },
 ]);

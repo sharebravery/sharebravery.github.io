@@ -1,9 +1,10 @@
 ---
 title: 预测市场系列（一）：从零开发 Polymarket 跟单 Bot
-date: 2026-01-24
+date: 2025-10-24
 categories:
   - 后端技术
 ---
+
 
 # 预测市场系列（一）：从零开发 Polymarket 跟单 Bot
 
@@ -13,7 +14,7 @@ categories:
 
 作为程序员，参与一个市场最好的方式不是去“赌”结果，而是去**建设工具**
 
-我们现在来写一个最简单的polymarket跟单bot
+我们现在来写一个最简单的 polymarket 跟单 bot
 
 为什么？因为跟单 Bot 是最完美的“工程练兵场”：
 
@@ -114,7 +115,7 @@ if (Math.abs(bestAsk - targetPrice) / targetPrice > MAX_SLIPPAGE) {
 
 ## 🕳️ 那些需要注意的“坑”
 
-在实际开发中，你需要注意一些 Polymarket一些概念
+在实际开发中，你需要注意一些 Polymarket 一些概念
 
 ### 1. 账号体系 (Proxy Wallet)
 

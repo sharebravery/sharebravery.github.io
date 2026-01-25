@@ -4,17 +4,17 @@ export const zhNavbar = navbar([
   "/zh/",
   {
     text: "前端开发",
-    icon: "code",
+    icon: "laptop-code",
     link: "/zh/frontend/",
   },
   {
     text: "后端技术",
-    icon: "server",
+    icon: "network-wired",
     link: "/zh/backend/",
   },
   {
     text: "DevOps",
-    icon: "terminal",
+    icon: "server",
     link: "/zh/devops/",
   },
   {
@@ -24,8 +24,8 @@ export const zhNavbar = navbar([
   },
   {
     text: "效率工具",
-    icon: "wrench",
+    icon: "toolbox",
     link: "/zh/tools/",
   },
-  { text: "行星轨迹", icon: "history", link: "/zh/timeline/" },
+  { text: "行星轨迹", icon: "timeline", link: "/zh/timeline/" },
 ]);

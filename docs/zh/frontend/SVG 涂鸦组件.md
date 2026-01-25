@@ -2,13 +2,12 @@
 title: SVG 涂鸦组件
 date: 2022-06-09
 tags:
-  - SVG
-  - 画图
-  - 图形
-  - vue组件
+  - Visualization
+  - Vue.js
 categories:
   - 前端开发
 ---
+
 
 # SVG 涂鸦组件（可 npm 发布）
 

@@ -3,11 +3,12 @@ title: 💡 上帝说要有光：Linux GPIO 入门指南
 date: 2025-06-11
 tags:
   - Linux
-  - 嵌入式
-  - GPIO
+  - Embedded
+  - Hardware
 categories:
   - 硬件与系统
 ---
+
 
 # 💡 上帝说要有光：Linux GPIO 入门指南
 
@@ -44,7 +45,7 @@ echo 53 | sudo tee /sys/class/gpio/export
 
 ### 2. 定规矩 (Direction)
 
-引脚是用来**读**（输入，如按钮）还是**写**（输出，如LED）？这里我们要控制 LED，所以是 Output。
+引脚是用来**读**（输入，如按钮）还是**写**（输出，如 LED）？这里我们要控制 LED，所以是 Output。
 
 ```bash
 # "这引脚我要用来对外输出信号"
