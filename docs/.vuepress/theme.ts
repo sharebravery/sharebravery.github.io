@@ -37,7 +37,7 @@ export default hopeTheme({
       displayFooter: true,
 
       blog: {
-        description: "A Frontend Developer",
+        description: "Explorer of the World",
         intro: "/intro.html",
       },
 
@@ -58,7 +58,7 @@ export default hopeTheme({
       displayFooter: true,
 
       blog: {
-        description: "做一个勇敢者 拥有坚定的信念",
+        description: "世界的探索者",
         intro: "/zh/intro.html",
         medias: {
           Email: "sharebravery@gmail.com",
