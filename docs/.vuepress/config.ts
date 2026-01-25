@@ -12,7 +12,7 @@ export default defineUserConfig({
     "/": {
       lang: "en-US",
       title: "sharebravery",
-      description: "Be brave and have firm beliefs",
+      description: "Be Brave, Stand Firm",
     },
     "/zh/": {
       lang: "zh-CN",
