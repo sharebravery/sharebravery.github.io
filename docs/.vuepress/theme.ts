@@ -1,15 +1,10 @@
-/*
- * @Description: ^_^
- * @Author: sharebravery
- * @Date: 2023-03-28 17:49:06
- */
 import { hopeTheme } from "vuepress-theme-hope";
-import navbar from "./navbar.js";
-
-import { version } from "../../package.json";
+import { enNavbar, zhNavbar } from "./navbar/index.js";
+import { enSidebar, zhSidebar } from "./sidebar/index.js";
 
 export default hopeTheme({
-  // hostname: "https://sharebravery.github.io",
+  hostname: "https://sharebravery.github.io",
+
   author: {
     name: "sharebravery",
     url: "https://github.com/sharebravery",
@@ -17,42 +12,65 @@ export default hopeTheme({
 
   logo: "/logo.svg",
 
-  repo: "https://github.com/sharebravery",
+  repo: "sharebravery/sharebravery.github.io",
 
   docsDir: "docs",
 
-  // navbar
-  navbar,
-
-  navbarLayout: {
-    start: ["Brand"],
-    center: [],
-    end: ["Outlook", "Search", "Links", "Language", "Repo"],
-  },
-
-  // sidebar
-  sidebar: "structure",
-
-  footer: `Apache Licensed | Copyright © 2025-present sharebravery v${version}`,
-
-  displayFooter: true,
-
-  pageInfo: ["Author", "Original", "Date", "Category", "Tag", "ReadingTime"],
-
+  // Blog configuration
   blog: {
-    description: "做一个勇敢者 拥有坚定的信念",
-    intro: "/intro.html",
     medias: {
       Email: "sharebravery@gmail.com",
     },
-    timeline: "行星轨迹",
   },
 
-  // encrypt: {
-  //   config: {
-  //     "/guide/encrypt.html": ["1234"],
-  //   },
-  // },
+  locales: {
+    /**
+     * English locale config (Root)
+     */
+    "/": {
+      // navbar
+      navbar: enNavbar,
+      // sidebar
+      sidebar: enSidebar,
+      footer: "Default footer",
+      displayFooter: true,
+
+      blog: {
+        description: "A Frontend Developer",
+        intro: "/intro.html",
+      },
+
+      metaLocales: {
+        editLink: "Edit this page on GitHub",
+      },
+    },
+
+    /**
+     * Chinese locale config
+     */
+    "/zh/": {
+      // navbar
+      navbar: zhNavbar,
+      // sidebar
+      sidebar: zhSidebar,
+      footer: "默认页脚",
+      displayFooter: true,
+
+      blog: {
+        description: "做一个勇敢者 拥有坚定的信念",
+        intro: "/zh/intro.html",
+        medias: {
+            Email: "sharebravery@gmail.com",
+        },
+        timeline: "行星轨迹",
+      },
+
+      // page meta
+      metaLocales: {
+        editLink: "在 GitHub 上编辑此页",
+      },
+    },
+  },
 
   markdown: {
     align: true,
@@ -61,68 +79,32 @@ export default hopeTheme({
     component: true,
     demo: true,
     figure: true,
+    gfm: true,
     imgLazyload: true,
     imgSize: true,
     include: true,
     mark: true,
-    stylize: [
-      {
-        matcher: "Recommended",
-        replacer: ({ tag }) => {
-          if (tag === "em")
-            return {
-              tag: "Badge",
-              attrs: { type: "tip" },
-              content: "Recommended",
-            };
-        },
-      },
-    ],
+    mermaid: true,
     sub: true,
     sup: true,
     tabs: true,
     vPre: true,
-
-    // install chart.js before enabling it
-    // chart: true,
-
-    // insert component easily
-
-    // install echarts before enabling it
-    // echarts: true,
-
-    // install flowchart.ts before enabling it
-    // flowchart: true,
-
-    // gfm requires mathjax-full to provide tex support
-    // gfm: true,
-
-    // install katex before enabling it
     math: {
-      // 启用前安装 katex
       type: "katex",
     },
-
-    // install mathjax-full before enabling it
-    // mathjax: true,
-
-    // install mermaid before enabling it
-    mermaid: true,
-
-    // playground: {
-    //   presets: ["ts", "vue"],
-    // },
-
-    // install reveal.js before enabling it
-    // revealJs: {
-    //   plugins: ["highlight", "math", "search", "notes", "zoom"],
-    // },
-
-    // install @vue/repl before enabling it
-    // vuePlayground: true,
-
-    // install sandpack-vue3 before enabling it
-    // sandpack: true,
+    stylize: [
+        {
+          matcher: "Recommended",
+          replacer: ({ tag }) => {
+            if (tag === "em")
+              return {
+                tag: "Badge",
+                attrs: { type: "tip" },
+                content: "Recommended",
+              };
+          },
+        },
+    ],
   },
 
   plugins: {
@@ -130,29 +112,21 @@ export default hopeTheme({
       excerptLength: 0,
     },
 
+    // Fixed: Correct way to configure icon assets in V2
+    icon: {
+      assets: "fontawesome-with-brands",
+    },
+
     comment: {
-      /**
-       * Using Giscus
-       */
       provider: "Giscus",
       repo: "sharebravery/sharebravery.github.io",
       repoId: "R_kgDOHtEibw",
       category: "Announcements",
       categoryId: "DIC_kwDOHtEib84CQYyN",
-
-      /**
-       * Using Twikoo
-       */
-      // provider: "Twikoo",
-      // envId: "https://twikoo.ccknbc.vercel.app",
-
-      /**
-       * Using Waline
-       */
-      // provider: "Waline",
-      // serverURL: "https://vuepress-theme-hope-comment.vercel.app",
     },
 
-
+    components: {
+      components: ["Badge", "VPCard"],
+    },
   },
 });

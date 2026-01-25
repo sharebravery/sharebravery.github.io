@@ -1,9 +1,9 @@
 ---
-icon: medrt
-title: About
-index: false
-date: 2020-01-01
-copyright: false
+title: Intro
+icon: circle-info
+star: true
 ---
 
-前进 前进 前进
+Hello! I am a software developer.
+
+This is my personal blog intro.

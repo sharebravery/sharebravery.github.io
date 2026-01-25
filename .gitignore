@@ -3,6 +3,8 @@ node_modules/
 .pnp
 .pnp.js
 
+ISSUE.md
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
