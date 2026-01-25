@@ -10,9 +10,9 @@ export default hopeTheme({
     url: "https://github.com/sharebravery",
   },
 
-  logo: "/logo.svg",
+  logo: "/avatar.svg",
 
-  repo: "sharebravery/sharebravery.github.io",
+  repo: "https://github.com/sharebravery",
 
   docsDir: "docs",
 
@@ -61,7 +61,7 @@ export default hopeTheme({
         description: "做一个勇敢者 拥有坚定的信念",
         intro: "/zh/intro.html",
         medias: {
-            Email: "sharebravery@gmail.com",
+          Email: "sharebravery@gmail.com",
         },
         timeline: "行星轨迹",
       },
@@ -94,17 +94,17 @@ export default hopeTheme({
       type: "katex",
     },
     stylize: [
-        {
-          matcher: "Recommended",
-          replacer: ({ tag }) => {
-            if (tag === "em")
-              return {
-                tag: "Badge",
-                attrs: { type: "tip" },
-                content: "Recommended",
-              };
-          },
+      {
+        matcher: "Recommended",
+        replacer: ({ tag }) => {
+          if (tag === "em")
+            return {
+              tag: "Badge",
+              attrs: { type: "tip" },
+              content: "Recommended",
+            };
         },
+      },
     ],
   },
 

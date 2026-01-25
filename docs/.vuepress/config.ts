@@ -5,7 +5,7 @@ export default defineUserConfig({
   base: "/",
 
   head: [
-    ["link", { rel: "icon", href: "/logo.svg" }],
+    ["link", { rel: "icon", href: "/avatar.svg" }],
   ],
 
   locales: {

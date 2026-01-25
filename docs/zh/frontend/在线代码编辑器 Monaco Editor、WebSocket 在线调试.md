@@ -1,12 +1,10 @@
 ---
 title: 在线代码编辑器 Monaco Editor、WebSocket 在线调试
 date: 2022-12-02
-tags:
-  - Editor
-  - Network
-  - Vue.js
 categories:
   - 前端开发
+tags:
+  - IDE
 ---
 
 

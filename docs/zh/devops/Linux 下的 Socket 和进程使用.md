@@ -3,6 +3,8 @@ title: Linux 下的 Socket 和进程使用
 date: 2025-06-11
 categories:
   - DevOps
+tags:
+  - Linux
 ---
 
 # Linux 下的 Socket 和进程使用

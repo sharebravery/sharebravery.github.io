@@ -1,11 +1,9 @@
 ---
 title: 搭建 Wiki 知识库 MediaWiki
 date: 2020-08-07
-tags:
-  - Cloud
-  - Server
-  - Backend
 categories:
+  - DevOps
+tags:
   - DevOps
 ---
 

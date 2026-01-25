@@ -3,6 +3,8 @@ title: 利用 RS485 实现 Modbus 通信的完整步骤
 date: 2025-06-11
 categories:
   - 硬件与系统
+tags:
+  - Hardware
 ---
 
 # 利用 RS485 实现 Modbus 通信的完整步骤

@@ -1,11 +1,10 @@
 ---
 title: "阿里云 ECS——搭建 Java Web 开发环境"
 date: 2020-08-11
-tags:
-  - Cloud
-  - Server
 categories:
   - 后端技术
+tags:
+  - Java
 ---
 
 

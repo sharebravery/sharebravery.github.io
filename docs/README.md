@@ -2,7 +2,7 @@
 home: true
 icon: home
 title: Home
-heroImage: /logo.svg
+heroImage: /avatar.svg
 bgImage: /bg.svg
 heroText: Share Bravery
 tagline: Be brave and have firm beliefs

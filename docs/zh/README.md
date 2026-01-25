@@ -3,7 +3,7 @@ home: true
 layout: Blog
 icon: rocket
 title: 火星前进基地
-heroImage: /logo.svg
+heroImage: /avatar.svg
 heroText: sharebravery
 heroFullScreen: true
 tagline: 做一个勇敢者 拥有坚定的信念

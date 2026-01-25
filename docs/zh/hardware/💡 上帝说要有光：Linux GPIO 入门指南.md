@@ -1,12 +1,11 @@
 ---
 title: 💡 上帝说要有光：Linux GPIO 入门指南
 date: 2025-06-11
-tags:
-  - Linux
-  - Embedded
-  - Hardware
 categories:
   - 硬件与系统
+tags:
+  - Linux
+  - GPIO
 ---
 
 

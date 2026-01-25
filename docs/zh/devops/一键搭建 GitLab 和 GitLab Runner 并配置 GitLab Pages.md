@@ -3,6 +3,9 @@ title: 一键搭建 GitLab 和 GitLab Runner 并配置 GitLab Pages
 date: 2025-06-11
 categories:
   - DevOps
+tags:
+  - GitLab
+  - Git
 ---
 
 

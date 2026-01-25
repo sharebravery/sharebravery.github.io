@@ -1,11 +1,9 @@
 ---
 title: CCAA 打造离线下载服务器
 date: 2020-08-10
-tags:
-  - Cloud
-  - Server
-  - Backend
 categories:
+  - DevOps
+tags:
   - DevOps
 ---
 

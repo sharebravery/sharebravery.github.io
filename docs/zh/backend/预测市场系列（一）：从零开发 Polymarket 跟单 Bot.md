@@ -3,6 +3,8 @@ title: 预测市场系列（一）：从零开发 Polymarket 跟单 Bot
 date: 2025-10-24
 categories:
   - 后端技术
+tags:
+  - Backend
 ---
 
 

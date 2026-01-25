@@ -1,11 +1,9 @@
 ---
 title: 基于 ECS 构建微信公众号管理系统 WeEngine
 date: 2020-08-08
-tags:
-  - Cloud
-  - Server
-  - Backend
 categories:
+  - DevOps
+tags:
   - DevOps
 ---
 

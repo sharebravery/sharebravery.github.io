@@ -1,11 +1,10 @@
 ---
 title: "🚑 Git 常用手册"
 date: 2021-07-23
-tags:
-  - Git
-  - Productivity
 categories:
   - 效率工具
+tags:
+  - Git
 ---
 
 

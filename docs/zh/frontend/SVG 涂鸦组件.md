@@ -1,11 +1,10 @@
 ---
 title: SVG 涂鸦组件
 date: 2022-06-09
-tags:
-  - Visualization
-  - Vue.js
 categories:
   - 前端开发
+tags:
+  - Frontend
 ---
 
 

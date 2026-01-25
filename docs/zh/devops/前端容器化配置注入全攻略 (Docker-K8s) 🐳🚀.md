@@ -3,6 +3,9 @@ title: 前端容器化配置注入全攻略 (Docker/K8s) 🐳🚀
 date: 2025-09-28
 categories:
   - DevOps
+tags:
+  - Docker
+  - Kubernetes
 ---
 
 # 前端容器化配置注入全攻略 (Docker/K8s) 🐳🚀
