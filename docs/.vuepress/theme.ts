@@ -18,6 +18,7 @@ export default hopeTheme({
 
   // Blog configuration
   blog: {
+    excerptLength: 200,
     medias: {
       Email: "sharebravery@gmail.com",
     },
@@ -108,9 +109,7 @@ export default hopeTheme({
   },
 
   plugins: {
-    blog: {
-      excerptLength: 0,
-    },
+    blog: true,
 
     // Fixed: Correct way to configure icon assets in V2
     icon: {

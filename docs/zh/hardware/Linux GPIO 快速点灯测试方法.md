@@ -1,7 +1,7 @@
 ---
 title: 💡 上帝说要有光：Linux GPIO 入门指南
 date: 2025-06-11
-tag:
+tags:
   - Linux
   - 嵌入式
   - GPIO

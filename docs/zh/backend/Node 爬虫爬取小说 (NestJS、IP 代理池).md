@@ -1,13 +1,12 @@
 ---
 title: node爬虫爬取小说（nestjs、IP代理池）
 date: 2022-03-10
-tag:
+tags:
   - Node.js
   - NestJS
   - MySQL
   - TypeScript
-  - IP代理池
-  - Node.js
+  - IP Proxy Pool
 categories:
   - 后端技术
 ---

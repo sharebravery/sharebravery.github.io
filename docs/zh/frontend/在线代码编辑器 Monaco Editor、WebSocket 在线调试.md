@@ -1,7 +1,7 @@
 ---
 title: 在线代码编辑器 Monaco Editor、WebSocket 在线调试
 date: 2022-12-02
-tag:
+tags:
   - monaco-editor
   - websocket
   - online-debugger

@@ -1,7 +1,7 @@
 ---
 title: SVG 涂鸦组件
 date: 2022-06-09
-tag:
+tags:
   - SVG
   - 画图
   - 图形
