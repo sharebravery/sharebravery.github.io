@@ -1,6 +1,6 @@
 ---
 title: Frontend Container Config Injection Guide (Docker/K8s) 🐳
-date: 2026-01-25
+date: 2025-09-28
 categories:
   - DevOps
 tags:

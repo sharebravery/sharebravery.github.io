@@ -1,6 +1,6 @@
 ---
 title: "💡 Let There Be Light: The Linux GPIO Starter Guide"
-date: 2026-01-25
+date: 2025-06-11
 categories:
   - Hardware & System
 tags:

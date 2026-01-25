@@ -1,6 +1,6 @@
 ---
 title: "🚑 Git Panic Room: A Guide for the Desperate"
-date: 2026-01-25
+date: 2021-07-23
 categories:
   - Productivity Tools
 tags:
