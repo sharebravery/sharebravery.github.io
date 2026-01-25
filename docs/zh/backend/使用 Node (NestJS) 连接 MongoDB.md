@@ -2,11 +2,11 @@
 title: 使用node（nestjs）连接mongodb
 date: 2022-03-15
 tag:
-  - node
-  - nestjs
-  - mongodb
-  - ts
-  - node
+  - Node.js
+  - NestJS
+  - MongoDB
+  - TypeScript
+  - Node.js
 categories:
   - 后端技术
 ---

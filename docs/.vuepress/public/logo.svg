@@ -1,45 +1,28 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="68px" height="47px" viewBox="0 0 68 47" enable-background="new 0 0 68 47" xml:space="preserve">  <image id="image0" width="68" height="47" x="0" y="0"
-    href="data:image/png;base64,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" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="flameGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF4E50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F9D423;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Flame Body -->
+  <path d="M256 480c-88.4 0-160-71.6-160-160 0-80 50-140 120-240 10-14 20-30 40-48 20 18 30 34 40 48 70 100 120 160 120 240 0 88.4-71.6 160-160 160z" fill="url(#flameGrad)"/>
+
+  <!-- Inner Flame/Face Highlight -->
+  <path d="M256 420c-55.2 0-100-44.8-100-100 0-40 30-80 70-140 10-15 20-25 30-35 10 10 20 20 30 35 40 60 70 100 70 140 0 55.2-44.8 100-100 100z" fill="#FFFFFF" fill-opacity="0.2"/>
+
+  <!-- Playful Face -->
+  <!-- Eyes -->
+  <circle cx="216" cy="300" r="18" fill="#2D2D2D"/>
+  <circle cx="222" cy="294" r="6" fill="#FFFFFF"/>
+
+  <path d="M280 300 Q296 280 312 300" stroke="#2D2D2D" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+  <!-- Smile -->
+  <path d="M230 340 Q256 360 282 340" stroke="#2D2D2D" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+  <!-- Sparkles/Stars -->
+  <path d="M400 120 L410 100 L420 120 L440 130 L420 140 L410 160 L400 140 L380 130 Z" fill="#F9D423"/>
+  <path d="M100 380 L110 360 L120 380 L140 390 L120 400 L110 420 L100 400 L80 390 Z" fill="#F9D423"/>
 </svg>

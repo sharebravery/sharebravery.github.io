@@ -6,7 +6,7 @@ tag:
   - websocket
   - online-debugger
   - 在线编辑器
-  - vue
+  - Vue.js
 categories:
   - 前端开发
 ---

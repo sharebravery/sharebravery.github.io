@@ -27,5 +27,5 @@ export const zhNavbar = navbar([
     icon: "wrench",
     link: "/zh/tools/",
   },
-  { text: "行星轨迹", icon: "solar-system", link: "/zh/timeline/" },
+  { text: "行星轨迹", icon: "history", link: "/zh/timeline/" },
 ]);

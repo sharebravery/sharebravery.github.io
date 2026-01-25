@@ -27,4 +27,5 @@ export const enNavbar = navbar([
     icon: "wrench",
     link: "/tools/",
   },
+  { text: "Timeline", icon: "history", link: "/timeline/" },
 ]);
