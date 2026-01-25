@@ -1,5 +1,5 @@
 ---
-title: SVG涂鸦组件
+title: SVG 涂鸦组件
 date: 2022-06-09
 tag:
   - SVG
@@ -12,7 +12,7 @@ categories:
 
 # SVG 涂鸦组件（可 npm 发布）
 
-我司有一个阅卷系统，涉及到了阅卷打分，需要写一个涂鸦组件，经过 SVG 和 Canvas 的对比使用了 SVG（后续增加需求开发小程序端，由于小程序不支持 svg 画图，使用了 canvas）。
+我司有一个阅卷系统，涉及到了阅卷打分，需要写一个涂鸦组件，经过 SVG 和 Canvas 的对比使用了 SVG（后续增加需求开发小程序端，由于小程序不支持 SVG 画图，使用了 canvas）。
 
 ## 独立组件配置
 
@@ -72,7 +72,7 @@ categories:
 
 ## 本地开发
 
-> _本项目运行_ _`yarn link `_
+> _本项目运行_ _`yarn link`_
 >
 > 使用项目运行\* _`yarn link your project name`_
 
@@ -86,9 +86,9 @@ categories:
 
 注意创建 SVG 元素需要使用 createElementNS
 
-`document.createElementNS("http://www.w3.org/2000/svg", name); `
+`document.createElementNS("http://www.w3.org/2000/svg", name);`
 
-```
+```typescript
 export default function createElement<K extends keyof SVGElementTagNameMap>(
   name: K,
   brush?: Partial<Brush>
@@ -105,7 +105,6 @@ export default function createElement<K extends keyof SVGElementTagNameMap>(
 
   return el;
 }
-
 ```
 
 ### drawingText

@@ -1,5 +1,5 @@
 ---
-title: 在线代码编辑器monaco-editor、websocket在线调试
+title: 在线代码编辑器 Monaco Editor、WebSocket 在线调试
 date: 2022-12-02
 tag:
   - monaco-editor
@@ -11,13 +11,13 @@ categories:
   - 前端开发
 ---
 
-由于有大量的爬虫配置需要调试，下载运行后端代码过于笨重，于是使用和 vscode 同样的编辑器 monaco-editor 加上 websocket 实现在线调试。
+由于有大量的爬虫配置需要调试，下载运行后端代码过于笨重，于是使用和 VS Code 同样的编辑器 Monaco Editor 加上 WebSocket 实现在线调试。
 
 ## useMonaco
 
-对 monaco-editor 提供的 API 进行一些基础的封装以便提供外部使用，这里有一点需要注意的是读取值(getValue)和赋值（setValue）的时候需要使用 toRaw 函数对 editor 包裹一层，不然页面会卡死。
+对 Monaco Editor 提供的 API 进行一些基础的封装以便提供外部使用，这里有一点需要注意的是读取值 (getValue) 和赋值 (setValue) 的时候需要使用 toRaw 函数对 editor 包裹一层，不然页面会卡死。
 
-### toRaw()官网说法
+### toRaw() 官网说法
 
 > 根据一个 Vue 创建的代理返回其原始对象。这是一个可以用于临时读取而不引起代理访问/跟踪开销，或是写入而不触发更改的特殊方法。不建议保存对原始对象的持久引用，请谨慎使用。
 >
@@ -236,7 +236,7 @@ ul {
 
 ## useSignalR
 
-长链接服务使用了@microsoft/signalr，由于涉及到的业务不复杂，所以没有做过多的封装。
+长链接服务使用了 @microsoft/signalr，由于涉及到的业务不复杂，所以没有做过多的封装。
 
 ```typescript
 /*

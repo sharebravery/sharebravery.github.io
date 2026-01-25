@@ -1,15 +1,15 @@
 ---
-title: 前端容器化配置注入全攻略（docker/k8s） 🐳🚀
+title: 前端容器化配置注入全攻略 (Docker/K8s) 🐳🚀
 date: 2025-09-28
 categories:
   - DevOps
 ---
 
-# 前端容器化配置注入全攻略（docker/k8s） 🐳🚀
+# 前端容器化配置注入全攻略 (Docker/K8s) 🐳🚀
 
-如果你的前端应用经常需要修改配置，是否想过像后端一样预留一个配置文件方便修改就好了，介绍几种配置注入的方式，还有K8s的相关配置.
+如果你的前端应用经常需要修改配置，是否想过像后端一样预留一个配置文件方便修改就好了，介绍几种配置注入的方式，还有 K8s 的相关配置.
 
-最近和一个团队合作，看到他们团队用了Node起了个BFF层，结合K8s提供了一些配置给前端，研究了一下主流的几种提供配置给前端的方式，在前端项目中，无论是 Node 服务还是 Nginx 托管的 SPA，**环境配置**都是必须面对的问题。这里总结了几种主流方式，把配置注入到前端应用中，并结合 **Docker 构建**和 **Kubernetes ConfigMap**，整理成两大类：**构建时注入**和**运行时注入**.
+最近和一个团队合作，看到他们团队用了 Node 起了个 BFF 层，结合 K8s 提供了一些配置给前端，研究了一下主流的几种提供配置给前端的方式，在前端项目中，无论是 Node 服务还是 Nginx 托管的 SPA，**环境配置**都是必须面对的问题。这里总结了几种主流方式，把配置注入到前端应用中，并结合 **Docker 构建**和 **Kubernetes ConfigMap**，整理成两大类：**构建时注入**和**运行时注入**.
 
 ------
 
@@ -21,9 +21,9 @@ categories:
 
 Dockerfile 示例：
 
-（这里纯前端无Node服务的话，只需要写VITE_MODE，不需要写NODE_ENV，Vite会根据Vite Mode来改变NODE_ENV）
+（这里纯前端无 Node 服务的话，只需要写 VITE_MODE，不需要写 NODE_ENV，Vite 会根据 Vite Mode 来改变 NODE_ENV）
 
-```
+```dockerfile
 FROM node:20-alpine AS build-stage
 WORKDIR /app
 
@@ -38,7 +38,7 @@ CMD ["node", "server/index.js"]
 
 CI/CD 构建示例：
 
-```
+```yaml
 script:
   - |
     if [ "$BRANCH" == "main" ]; then
@@ -59,7 +59,7 @@ script:
 
 有时我们希望镜像带上构建信息，如 Git SHA 或分支名：
 
-```
+```shell
 docker build -t myapp:dev-$(git rev-parse --short HEAD) .
 ```
 
@@ -69,9 +69,9 @@ docker build -t myapp:dev-$(git rev-parse --short HEAD) .
 
 ### 1.3 HTML 内嵌配置（`<label>` 或 `<script>`）
 
-构建时注入 ，可以把配置信息直接写入HTML中：
+构建时注入 ，可以把配置信息直接写入 HTML 中：
 
-```
+```html
 <label id="STORE_INIT" style="display:none;">
 {
   "API_URL": "http://api.example.com",
@@ -82,7 +82,7 @@ docker build -t myapp:dev-$(git rev-parse --short HEAD) .
 
 前端读取：
 
-```
+```javascript
 const config = JSON.parse(document.getElementById('CONFIG_WEB_STORE').innerText);
 console.log(config.API_URL, config.APP_NAME);
 ```
@@ -100,7 +100,7 @@ console.log(config.API_URL, config.APP_NAME);
 
 前端可以从 `/config/web.config.json` 获取配置，配合 Kubernetes ConfigMap：
 
-```
+```json
 {
   "API_URL": "http://api.example.com",
   "APP_NAME": "TEST_APP"
@@ -109,7 +109,7 @@ console.log(config.API_URL, config.APP_NAME);
 
 Deployment 示例：
 
-```
+```yaml
 volumeMounts:
   - name: frontend-config
     mountPath: /usr/share/nginx/html/config
@@ -121,7 +121,7 @@ volumes:
 
 Node 或 Nginx 服务都可以读取 JSON 文件，前端通过 `fetch` 获取：
 
-```
+```javascript
 fetch('/config/web.config.json')
   .then(res => res.json())
   .then(cfg => console.log(cfg));
@@ -138,7 +138,7 @@ fetch('/config/web.config.json')
 
 > 📝 小技巧：JSON 文件路径可通过 Dockerfile 的 `VOLUME` 或 Kubernetes `volumeMounts` 预留，让 ConfigMap 自动覆盖
 
-其实直接用Nginx是最稳妥的，BFF层很多时候并没有必要，都是后端的职能，后端提供了VO就没必要折腾了（99%的团队是用不上BFF的），因为我看到团队中的BFF层的作用基本就是提供了文件静态服务，提供了配置，就加入了一个node后端框架和服务，属实无必要，反而增加了程序复杂性，前端需要启动node服务才能跑起来，如无必要勿增实体。
+其实直接用 Nginx 是最稳妥的，BFF 层很多时候并没有必要，都是后端的职能，后端提供了 VO 就没必要折腾了（99% 的团队是用不上 BFF 的），因为我看到团队中的 BFF 层的作用基本就是提供了文件静态服务，提供了配置，就加入了一个 node 后端框架和服务，属实无必要，反而增加了程序复杂性，前端需要启动 node 服务才能跑起来，如无必要勿增实体。
 
 ------
 
