@@ -18,7 +18,7 @@ export default hopeTheme({
 
   // Blog configuration
   blog: {
-    excerptLength: 200,
+    // excerptLength: 200,
     medias: {
       Email: "sharebravery@gmail.com",
     },

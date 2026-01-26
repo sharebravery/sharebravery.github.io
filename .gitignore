@@ -4,6 +4,9 @@ node_modules/
 .pnp.js
 
 example-doc
+.baoyu-skills
+.agents
+.claude
 
 ISSUE.md
 

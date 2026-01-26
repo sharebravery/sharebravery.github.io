@@ -4,7 +4,7 @@ layout: Blog
 icon: home
 title: Home
 heroImage: /avatar.svg
-heroText: Share Bravery
+heroText: ShareBravery
 heroFullScreen: true
 tagline: Relentless Spirit, Unwavering Faith
 index: false
