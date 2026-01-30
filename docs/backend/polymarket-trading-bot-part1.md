@@ -9,27 +9,19 @@ tags:
   - Polymarket
 ---
 
-
 # 预测市场系列（一）：从零开发 Polymarket 跟单 Bot
 
-> ⚠️ **写在前面**：本文旨在探讨技术实现，不构成投资建议
+> 本文仅探讨技术实现，不构成投资建议
 
-预测市场最近热度起飞，我也开始系统性研究 Polymarket， 现在把自己的一些东西分享出来
+预测市场最近热度起飞。作为程序员，参与一个市场最好的方式不是去"赌"结果，而是去**建设工具**。
 
-作为程序员，参与一个市场最好的方式不是去“赌”结果，而是去**建设工具**
+跟单 Bot 是最完美的"工程练兵场"：逻辑简单，但覆盖了 API 交互、签名机制、订单簿匹配、滑点控制等量化交易的基础设施。
 
-我们现在来写一个最简单的 polymarket 跟单 bot
-
-为什么？因为跟单 Bot 是最完美的“工程练兵场”：
-
-1. **逻辑简单**：不需要复杂的概率建模，只需要盯着“聪明钱”的钱包
-2. **覆盖面全**：API 交互、签名机制、订单簿匹配、滑点控制……这些量化交易的基础设施，在这个场景里全都能接触到
-
-这篇文章就基于 **Polymarket 官方 API**，聊聊怎么从零设计并实现一个跟单 Bot，以及开发过程中需要注意的“坑”![](https://raw.githubusercontent.com/sharebravery/post/post/src/20260124215133885.png)
+这篇文章聊聊怎么从零设计并实现一个基于 Polymarket 官方 API 的跟单 Bot，以及开发过程中需要注意的"坑"。
 
 ---
 
-## 🏗️ 架构设计：极简主义
+## 架构设计：极简主义
 
 如无必要，勿增实体。一个跟单 Bot 的核心逻辑流程大致如下：
 
@@ -39,11 +31,11 @@ tags:
 
 ---
 
-## 🕵️ 第一步：监听
+## 第一步：监听
 
-要实现跟单，首先得知道目标地址干了什么。Polymarket 提供了 Data API 来查询用户活动
+要实现跟单，首先得知道目标地址干了什么。Polymarket 提供了 Data API 来查询用户活动。
 
-虽然官方也提供了 WebSocket，但对于简单的跟单需求，**轮询**其实是最稳妥且容易实现的方案
+虽然官方也提供了 WebSocket，但对于简单的跟单需求，**轮询**其实是最稳妥且容易实现的方案。
 
 ### 核心接口：Activity
 
@@ -67,19 +59,21 @@ async function fetchLatestActivity(walletAddress: string) {
 }
 ```
 
-### 💡 工程要点：状态去重
+### 工程要点：状态去重
 
-API 返回的数据可能有延迟或重复。你肯定不想因为网络波动，导致同一笔交易跟了两次。 **最佳实践**：务必使用 `transactionHash` 作为唯一键进行去重。在内存中维护一个 `Set<string>` 记录已处理的 Hash
+API 返回的数据可能有延迟或重复。你肯定不想因为网络波动，导致同一笔交易跟了两次。
+
+**最佳实践**：务必使用 `transactionHash` 作为唯一键进行去重。在内存中维护一个 `Set<string>` 记录已处理的 Hash。
 
 ---
 
-## ⚡ 第二步：执行
+## 第二步：执行
 
 一旦监听到目标地址有了新动作（比如买入了 `Trump Win`），我们就需要通过 **CLOB (Central Limit Order Book)** 接口进行跟单。
 
 Polymarket 官方提供了非常完善的 TypeScript SDK `@polymarket/clob-client`，强烈建议直接使用，别自己去手搓签名逻辑。
 
-### 核心操作：下单 (Order)
+### 核心操作：下单
 
 跟单最讲究速度，所以我们通常使用 **FAK (Fill-And-Kill)** 类型的市价单。这种订单会立即吃掉盘口的流动性，未成交部分自动撤销，不会挂单暴露意图。
 
@@ -100,9 +94,11 @@ async function followTrade(client: ClobClient, tokenId: string, amount: number) 
 }
 ```
 
-### 💡 工程要点：滑点保护
+### 工程要点：滑点保护
 
-大佬买入的时候价格是 $0.5，等你收到信号去买的时候，价格可能已经被机器人抬到了 $0.6。 在下单前，一定要先查询当前的 Orderbook，计算滑点。
+大佬买入的时候价格是 $0.5，等你收到信号去买的时候，价格可能已经被机器人抬到了 $0.6。
+
+在下单前，一定要先查询当前的 Orderbook，计算滑点。
 
 ```typescript
 // 伪代码：滑点检查
@@ -110,20 +106,20 @@ const book = await client.getOrderBook(tokenId);
 const bestAsk = book.asks[0].price; // 市场卖一价
 
 if (Math.abs(bestAsk - targetPrice) / targetPrice > MAX_SLIPPAGE) {
-    console.warn("⚠️ 滑点过高，放弃跟单");
+    console.warn("滑点过高，放弃跟单");
     return;
 }
 ```
 
 ---
 
-## 🕳️ 那些需要注意的“坑”
+## 需要注意的"坑"
 
-在实际开发中，你需要注意一些 Polymarket 一些概念
+在实际开发中，你需要注意一些 Polymarket 特有的概念。
 
 ### 1. 账号体系 (Proxy Wallet)
 
-Polymarket 为了实现免 Gas 交易，引入了 Proxy Wallet 机制
+Polymarket 为了实现免 Gas 交易，引入了 Proxy Wallet 机制。
 
 - **前端显示的地址**：通常是你的 Proxy 地址
 - **你持有的私钥**：是用来控制 Proxy 的 EOA (Externally Owned Account)
@@ -137,25 +133,25 @@ Polymarket 为了实现免 Gas 交易，引入了 Proxy Wallet 机制
 - **Redeem (赎回)**：如果事件已经结束（结算了），或者你同时持有了 `Yes` 和 `No` (即 Merge 了一套完整份额)，你需要做的是赎回操作，而不是卖出
 - **Bot 逻辑**：你的 Bot 不仅要监听 `Buy/Sell`，还需要处理 `Redeem` 事件，否则会导致仓位残留
 
-### 3. API 频率限制 
+### 3. API 频率限制
 
-Polymarket 的公共 API 有频率限制。如果你监听的地址列表很长，或者轮询速度太快，很容易被 Cloudflare 拦截。 **建议**：生产环境要么上代理池，要么合理控制 `fetch` 的间隔
+Polymarket 的公共 API 有频率限制。如果你监听的地址列表很长，或者轮询速度太快，很容易被 Cloudflare 拦截。
 
----
-
-## 📦 总结
-
-写一个 Bot 并不难，难的是如何处理各种边界情况和异常
-
-通过官方文档和 SDK，我们可以快速搭建起一个 MVP。但要让它稳定盈利，还需要在**滑点控制**、**Gas 优化**以及**资金管理**上下功夫
-
-希望这篇文章能帮你迈出 Polymarket 量化开发的第一步
-
-Happy Coding! 🐳
+**建议**：生产环境要么上代理池，要么合理控制 `fetch` 的间隔。
 
 ---
 
-### 🔗 相关资料
+## 总结
+
+写一个 Bot 并不难，难的是如何处理各种边界情况和异常。
+
+通过官方文档和 SDK，我们可以快速搭建起一个 MVP。但要让它稳定盈利，还需要在**滑点控制**、**Gas 优化**以及**资金管理**上下功夫。
+
+希望这篇文章能帮你迈出 Polymarket 量化开发的第一步。
+
+---
+
+### 相关资料
 
 - [Polymarket 官方 API 文档](https://docs.polymarket.com/)
 - [CLOB Client SDK](https://github.com/Polymarket/clob-client)
