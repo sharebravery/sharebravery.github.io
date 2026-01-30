@@ -1,31 +1,31 @@
 import { navbar } from "vuepress-theme-hope";
 
 export const enNavbar = navbar([
-  "/",
+  "/en/",
   {
     text: "Frontend",
     icon: "laptop-code",
-    link: "/frontend/",
+    link: "/en/frontend/",
   },
   {
     text: "Backend",
     icon: "network-wired",
-    link: "/backend/",
+    link: "/en/backend/",
   },
   {
     text: "DevOps",
     icon: "server",
-    link: "/devops/",
+    link: "/en/devops/",
   },
   {
     text: "Hardware",
     icon: "microchip",
-    link: "/hardware/",
+    link: "/en/hardware/",
   },
   {
     text: "Tools",
     icon: "toolbox",
-    link: "/tools/",
+    link: "/en/tools/",
   },
-  { text: "Timeline", icon: "timeline", link: "/timeline/" },
+  { text: "Timeline", icon: "timeline", link: "/en/timeline/" },
 ]);

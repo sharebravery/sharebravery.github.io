@@ -1,8 +1,9 @@
 ---
+title: 后端技术
 index: false
 article: false
 ---
 
-# Backend Technology
+# 后端技术
 
-Notes on backend development.
+这里记录后端开发相关的技术笔记，包括 Node.js, Java, 数据库等。

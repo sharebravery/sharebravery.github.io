@@ -1,123 +1,147 @@
 ---
-title: "1248 Method: Quick Mental Binary Conversion"
+title: 1248 转换法：快捷心转二进制
 date: 2025-06-25
 categories:
-  - Hardware & Systems
+  - 硬件与系统
 tags:
   - Hardware
 ---
 
-# 1248 Method: Quick Mental Binary Conversion
+# 1248 转换法：快捷心转二进制
 
-The standard method for converting decimal to binary often involves repeated division by 2, which usually requires writing out calculations. Here, we introduce a method designed for mental arithmetic—the "1248 Method"—that allows you to perform these conversions quickly without needing scratch paper.
+某日，小坤坤顶着狂风暴雨出门面试，坐了地铁，转了共享单车，摔了一跤，走过马路，跨过人行天桥，一路又唱又跳终于到达面试地点，见到了面试官：
 
-# Binary to Decimal
+面试官：“1 的二进制是多少？”
 
-Let's start with some simple examples:
+小坤坤：“01”
+
+面试官：“2 呢？”
+
+小坤坤：“10”（坤：So easy）
+
+面试官：“13 的二进制是多少？”
+
+小坤坤：“这个需要算一下，平时不用” 说完掏出纸笔进行除二法运算
+
+小坤坤顶着面试官灼热的目光一通写画后：“是 1101”
+
+面试官：“那 15 呢？”
+
+小坤坤又一通写画道：“是 1111”
+
+面试官诧异：“就这还要笔算？合着你只背了 10 以内的二进制转换是吧？”
+
+小坤坤顿时无言，羞愧离去
+
+我们熟知的十进制转二进制的方法为除二法，需要列式计算，极为不便。这里介绍一种便于心算的方法，让面试官问到你不用再掏出草稿纸来列式计算。
+
+# 二进制转十进制
+
+先来点开胃小菜：
 
 - 110
 - 111
 - 1010
 
-Can you quickly determine the decimal values for these three binary numbers without memorizing them?
+快速写出这三个数的十进制数字，不是死记硬背哦
 
-The decimal values are 6, 7, and 10. How do we calculate this quickly? Look at the table below:
+十进制数字分别为 6、7、10, 怎么快捷算出来的呢，背后的指导理论是什么，观察下面的表格
 
 |  8   |  4   |  2   |  1   |
 | :--: | :--: | :--: | :--: |
 |      |  1   |  1   |  0   |
 
-For **110**: treating 0 as false and 1 as true, the positions with "true" (1) are 4 and 2. Adding them together: $4 + 2 = 6$. This is the decimal value of 110.
+110，以 0 为假，1 为真。为真的位的数字为 4、2，加起来为`6`，这就是 110 的十进制。
 
-Now apply this to **1010**. Based on the 1248 theory, we draw the model:
+代入 1010，根据 1248 理论画出表格模型：
 
 |  8   |  4   |  2   |  1   |
 | :--: | :--: | :--: | :--: |
 |  1   |  0   |  1   |  0   |
 
-The positions with 1 are 8 and 2. Adding them gives $8 + 2 = 10$.
+为真的位数字为 8 和 2，加起来是`10`。怎么样，根据 1248 转换法十进制转二进制是不是很简单，你可能会问，要是 101010 怎么办
 
-This makes decimal to binary conversion simple. But what about larger numbers, like 101010?
-
-The sequence continues: 1, 2, 4, 8, 16, 32, 64, 128... These are powers of 2.
+依此类推 1、2、4、8、16、32、64、128......，为 2 的幂次方递进，如下
 
 |  32  |  16  |  8   |  4   |  2   |  1   |
 | :--: | :--: | :--: | :--: | :--: | :--: |
 |  1   |  0   |  1   |  0   |  1   |  0   |
 
-Sum the numbers where the bit is 1: $32 + 8 + 2 = 42$. The decimal value of 101010 is **42**.
+为 1 的位的数字相加，即 32 + 8 + 2 = 42，101010 的十进制为`42`。
 
-# Decimal to Binary
+# 十进制转二进制
 
-Now, let's calculate the binary form for these three numbers:
+计算下面三个数的二进制：
 
 - 9
 - 23
 - 77
 
-Using the 1248 method, we decompose the number **9** into powers of 2: $9 = 8 + 1$. Mapping this to the table:
+还是使用 1248 转换法的理论来进行操作，对数字 9 进行拆解 `9 = 8 + 1`，列出 1248 表格
 
 |  8   |  4   |  2   |  1   |
 | :--: | :--: | :--: | :--: |
 |  1   |  0   |  0   |  1   |
 
-The "8" and "1" positions are set to 1, and the others are 0. The result is **1001**.
+则 "8" 位和 "1" 位为真，则为 1，余者补位 0，则最终得到`1001`，这就是 9 的二进制。
 
-For **23**, decompose it: $23 = 16 + 7 = 16 + 4 + 2 + 1$.
+对 23 拆解，`23 = 16 + 7 = 16 + 4 + 2 + 1`，列出 1248 表格：
 
 |  16  |  8   |  4   |  2   |  1   |
 | :--: | :--: | :--: | :--: | :--: |
 |  1   |  0   |  1   |  1   |  1   |
 
-The binary for 23 is **10111**.
+观察得知，23 的二进制为`10111`
 
-Similarly, for **77**: $77 = 64 + 13 = 64 + 8 + 4 + 1$.
+同理，`77 = 64 + 13 = 64 + 8 + 4 + 1`，列出 1248 表格：
 
 |  64  |  32  |  16  |  8   |  4   |  2   |  1   |
 | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
 |  1   |  0   |  0   |  1   |  1   |  0   |  1   |
 
-Filling in the zeros, 77 in binary is **1001101**.
+余位补 0，观察可知 77 的二进制为`1001101`.
 
-With this method, you can easily handle binary-decimal conversions mentally by visualizing the table.
+我们以后遇到二进制和十进制互转的题目就不用怕了，也不用顶着面试官灼热的目光拿出草稿纸进行除二法慢慢推算（😇），只要根据 1248 转换理论心列表格就迎刃而解了。
 
-# Decimal and Hexadecimal Conversion
+# 十进制和十六进制互转
 
-It's also worth mentioning decimal to hexadecimal conversion. It's simple but easy to overlook if not practiced.
+这里顺便提一下十进制转十六进制，方法其实也很简单，但是如果不主动去总结发现很容易就忽略了。
 
-Calculate the hexadecimal values for:
 - 24
 - 36
 - 82
 
+计算这三个数的 16 进制
 $$
-24 = 16 \times 1 + 8 \Rightarrow 0\text{x}18
-$$
-
-$$
-36 = 16 \times 2 + 4 \Rightarrow 0\text{x}24
+24 = 16 * 1+ 8 =>  0x18
 $$
 
 $$
-82 = 16 \times 5 + 2 \Rightarrow 0\text{x}52
-$$
-
-Hexadecimal numbers are composed of the multiples of 16 plus the remainder.
-
-Hexadecimal to Decimal is the reverse:
-
-$$
-0\text{x}18 = 1 \times 16^1 + 8 \times 16^0 = 24
+36 = 16 *2 + 4 => 0x24
 $$
 
 $$
-0\text{x}24 = 2 \times 16^1 + 4 \times 16^0 = 36
+82 = 16 * 5 + 2 => 0x52
+$$
+
+观察可知，由 16 的倍数加上剩余的数字组成 16 进制数。
+
+十六进制转十进制则为：
+$$
+0x18 = 1 * 16^1 + 8 * 16^0 = 24
 $$
 
 $$
-0\text{x}52 = 5 \times 16^1 + 2 \times 16^0 = 82
+0x24 = 2 * 16^1 + 4 * 16^0 = 36
+$$
+
+$$
+0x52 = 5*16^1 + 2 * 16^0 = 82
 $$
 
 ---
 
 *END*
+
+---
+

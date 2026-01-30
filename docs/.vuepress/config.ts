@@ -10,14 +10,14 @@ export default defineUserConfig({
 
   locales: {
     "/": {
+      lang: "zh-CN",
+      title: "不辞远的分享",
+      description: "做一个勇敢者 拥有坚定的信念",
+    },
+    "/en/": {
       lang: "en-US",
       title: "sharebravery",
       description: "Relentless Spirit, Unwavering Faith",
-    },
-    "/zh/": {
-      lang: "zh-CN",
-      title: "sharebravery",
-      description: "做一个勇敢者 拥有坚定的信念",
     },
   },
 

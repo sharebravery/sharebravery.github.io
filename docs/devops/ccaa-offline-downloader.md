@@ -1,5 +1,5 @@
 ---
-title: Building an Offline Download Server with CCAA
+title: CCAA 打造离线下载服务器
 date: 2020-08-10
 categories:
   - DevOps
@@ -8,68 +8,64 @@ tags:
 ---
 
 
-# Building an Offline Download Server with CCAA
+# CCAA 打造离线下载服务器
 
-### 1. Install CCAA (CentOS + Caddy + AriaNg + Aria2)
+### 一、 安装 CCAA(CentOS + Caddy + AriaNg + Aria)
 
-CCAA is a one-click script that sets up a complete download station.
+#### 1.1 在服务器输入以下命令：
 
-#### 1.1 Run the Script
+_#海外_
 
-**Overseas Servers:**
-```bash
-bash <(curl -Lsk https://raw.githubusercontent.com/helloxz/ccaa/master/ccaa.sh)
+```
+ bash <(curl -Lsk https://raw.githubusercontent.com/helloxz/ccaa/master/ccaa.sh)
 ```
 
-**Mainland China Servers:**
-```bash
+_#国内_
+
+```
 bash <(curl -Lsk https://raw.githubusercontent.com/helloxz/ccaa/master/ccaa.sh) cdn
 ```
 
-![CCAA Install](https://pic.downk.cc/item/5f2d57a114195aa594fd029e.png)
+![在这里插入图片描述](./images/CCAA1-2020081011352273.png)
 
-Enter `1` and hit Enter to start.
+输入 1，回车开始安装
 
-#### 1.2 Configuration
-After installation, the script will output:
-- Access Address
-- Aria2 RPC Key
-- File Browser Username & Password
-**Save these!**
+#### 1.2 填写相关信息
 
-#### 1.3 Firewall
-Open port `6080` in your server's security group settings.
+安装完毕后会提示访问地址、Aria2 RPC 密钥、File Browser 用户名、密码，记录保存.
 
-#### 1.4 Login
-Visit the address provided.
+#### 1.3 在服务器安全组设置里开放 6080 端口
 
-![CCAA Login](https://pic.downk.cc/item/5f2e36db14195aa594472f0e.png)
+#### 1.4 访问刚才提示的访问地址
 
-#### 1.5 Set RPC Key
-In AriaNg settings, enter the RPC key you saved earlier.
+![在这里插入图片描述](./images/CCAA2-20200810113623163.png)
 
-![RPC Key](https://pic.downk.cc/item/5f2e371614195aa594474813.png)
+#### 1.5 设置 RPC 密匙
 
-#### 1.6 Management Commands
+![在这里插入图片描述](./images/CCAA3-202008101136312.png)
 
-```bash
-# Enter Management Menu
-ccaa
+#### 1.6 管理 CCAA
 
-# Check Status
-ccaa status
+```
+#进入 CCAA 管理界面* ccaa
 
-# Start/Stop/Restart
-ccaa start
-ccaa stop
-ccaa restart
+*#查看 ccaa 状态* ccaa status
 
-# Check Version
-ccaa -v
+*#启动 ccaa* ccaa start
+
+*#停止 ccaa* ccaa stop
+
+*#重启 ccaa* ccaa restart
+
+*#查看当前版本* ccaa -v
 ```
 
-## 2. Start Downloading
+## 二、开始使用
 
-Create a new download task in the web interface and enjoy your private download server!
+#### 2.1 新建下载
 
-![Download Task](https://pic.downk.cc/item/5f2e37cf14195aa594478ad4.png)
+![在这里插入图片描述](./images/CCAA4-20200810113646867.png)
+
+​ END
+
+<!-- <Valine></Valine> -->

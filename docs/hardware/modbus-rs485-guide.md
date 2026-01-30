@@ -1,63 +1,63 @@
 ---
-title: Complete Guide to Modbus Communication via RS485
+title: 利用 RS485 实现 Modbus 通信的完整步骤
 date: 2025-06-11
 categories:
-  - Hardware & Systems
+  - 硬件与系统
 tags:
   - Hardware
 ---
 
-# Complete Guide to Modbus Communication via RS485
+# 利用 RS485 实现 Modbus 通信的完整步骤
 
-# 1. About Modbus
+# 1. 关于 Modbus
 
-> Modbus is a universal industrial communication protocol widely used for communication between devices in automation. It was originally developed by Modicon (now Schneider Electric) in 1979 and is an open standard protocol.
+> Modbus 是一种通用的工业通信协议，广泛应用于自动化领域中设备之间的通信。它最初由 Modicon（现在的施耐德电气）于 1979 年开发，是一个开放标准的协议。
 
-In the OSI model, Modbus is typically classified as an application layer protocol. **RS485** serves as the **physical layer** implementation in the OSI model, responsible for electrical and mechanical characteristics, while **Modbus** usually resides in the **application layer**, defining the structure, rules, and protocols for data transmission.
+在 OSI 模型中，Modbus 通常被归类为应用层协议，可以说**RS485** 是 OSI 模型中的**物理层**实现，负责电气和机械特性，**Modbus** 则通常处于 OSI 模型的**应用层**，负责定义数据传输的结构、规则和协议。
 
-The Modbus protocol supports various communication media and networks, including RS232, RS485, and TCP/IP. It is commonly used to establish master-slave communication, where the master sends requests (queries) to the slave, and the slave responds with data.
+Modbus 协议支持多种通信介质和网络，包括 RS232、RS485、TCP/IP，通常用于建立主从结构的通信，主站发送请求（查询）给从站，从站响应请求并返回数据。
 
-> **Protocol Types**:
+> **协议类型**：
 >
-> - **Modbus RTU**: Based on serial communication, typically using RS-232 or RS-485 interfaces.
-> - **Modbus ASCII**: Serial communication protocol based on ASCII encoding.
-> - **Modbus TCP**: Protocol based on TCP/IP network communication, using Ethernet.
+> - **Modbus RTU**：基于串行通信，通常使用 RS-232 或 RS-485 接口。
+> - **Modbus ASCII**：基于 ASCII 编码的串行通信协议。
+> - **Modbus TCP**：基于 TCP/IP 网络通信的协议，以太网为基础。
 
-**One Master, Multiple Slaves**
+**一主多从**
 
 ![](https://cdn.jsdelivr.net/gh/sharebravery/album@master/6ad6f828d03e90b8b9e19558e2818db8.png)
 
-# 2. Cross-compiling libmodbus
+# 2. 交叉编译 libmodbus
 
-Since we need to use the `libmodbus` library and will be running it on an ARM development board, we need to download and cross-compile the library.
+由于我们需要使用 libmodbus 这个库，而我将在 ARM 开发板上运行，所以需要下载 libmodbus 的库进行交叉编译
 
-## 2.1 Download libmodbus
+## 2.1 下载 libmodbus
 
 [github libmodbus](https://github.com/stephane/libmodbus/releases)
 
-I downloaded the latest version 3.1.10.
+我这里下载了最新的 3.1.10
 
-Extract the archive:
+解压
 
 ```shell
 tar -zxvf libmodbus-3.1.10.tar.gz
 ```
 
-## 2.2 Configure Compilation Environment
+## 2.2 配置编译环境
 
-Enter the `libmodbus-3.1.10` directory after extraction:
+解压后进入`libmodbus-3.1.10`目录
 
 ```shell
 ./configure --host=arm-linux-gnueabihf --prefix=/usr/local/arm-libmodbus
 ```
 
-If you haven't installed the ARM cross-compilation tools, run:
+如果你没有安装 ARM 的交叉编译工具，则
 
 ```shell
 sudo apt install gcc-arm-linux-gnueabihf
 ```
 
-## 2.3 Compile and Install Library
+## 2.3 编译并安装库
 
 ```shell
 make
@@ -66,45 +66,45 @@ sudo make install
 
 ![](https://cdn.jsdelivr.net/gh/sharebravery/album@master/20240627093518.png)
 
-# 3. Copy Compiled Files to ARM Board
+# 3. 复制编译好的文件到 ARM 板
 
-To run programs referencing `libmodbus` on the board, you need to copy the compiled library and header files to the ARM board.
+在板子上运行引用到 libmobus 的库还需要将编译好的库文件和头文件复制到 ARM 板上
 
-## 3.1 Package Library Files
+## 3.1 打包库文件
 
-Go to the `/usr/local/arm-libmodbus` directory and package the files:
+进入`/usr/local/arm-libmodbus`目录打包
 
 ```shell
 cd /usr/local/arm-libmodbus
 sudo tar czvf arm-libmodbus.tar.gz lib include
 ```
 
-## 3.2 Install Library
+## 3.2 安装库
 
-Transfer the archive to the board and extract it:
+将压缩包丢到板子上后进行解压
 
 ```shell
 tar xzvf arm-libmodbus.tar.gz
 ```
 
-Copy the files:
+复制文件
 
 ```shell
 sudo cp -r lib/* /usr/lib/
 sudo cp -r include/* /usr/include/
 ```
 
-The library is now installed.
+此时库安装完毕
 
-# 4. C Program Testing Modbus RTU
+# 4. C 程序测试 Modbus RTU
 
-> The Modbus protocol defines the data frame format, including address, function code, data area, and checksum.
+> Modbus 协议定义了数据的帧格式，包括地址、功能码、数据区域和校验等部分
 >
-> If you use RS485 communication directly without Modbus, there is no fixed data format or communication flow, requiring you to handle data frame validation, error detection, and recovery manually.
+> 如果直接使用 RS485 通信，没有固定的数据格式和通信流程，需要自行处理数据帧的校验、错误检测和恢复等问题
 
-With the preparation done, let's write a C program to test Modbus RTU using the RS485 interface.
+前面准备工作已经做完了，接下来写个 C 程序来测试使用 Modbus RTU，使用 RS485 接口
 
-In the code below, I've extracted the baud rate into a header file, but you can also hardcode it or pass it as an external parameter.
+我下面的代码特地将波特率抽了出来放在一个头文件中，你也可以直接写死或者进行外部传参
 
 ## 4.1 master.c
 
@@ -119,34 +119,34 @@ int main()
     modbus_t *ctx;
     uint16_t tab_reg[32];
 
-    // Create new RTU, set baud rate to 115200
+    // 创建新的 RTU，波特率设置为 115200
     ctx = modbus_new_rtu("/dev/ttyACM0", BAUD_RATE, 'N', 8, 1);
 
-    // Set Modbus Slave ID to 1
+    // 设置 Modbus 从机 ID 为 1
     modbus_set_slave(ctx, 1);
 
-    // Connect to Modbus Slave
+    // 连接到 Modbus 从机
     if (modbus_connect(ctx) == -1)
     {
-        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
+        fprintf(stderr, "连接失败: %s\n", modbus_strerror(errno));
         modbus_free(ctx);
         return -1;
     }
 
-    // Read 10 registers starting from address 0
+    // 从地址 0 开始读取 10 个寄存器
     if (modbus_read_registers(ctx, 0, 10, tab_reg) == -1)
     {
-        fprintf(stderr, "Read failed: %s\n", modbus_strerror(errno));
+        fprintf(stderr, "读取失败: %s\n", modbus_strerror(errno));
         modbus_free(ctx);
         return -1;
     }
 
     for (int i = 0; i < 10; i++)
     {
-        printf("Register %d: %d\n", i, tab_reg[i]);
+        printf("寄存器 %d: %d\n", i, tab_reg[i]);
     }
 
-    // Close connection and free Modbus context
+    // 关闭连接并释放 Modbus
     modbus_close(ctx);
     modbus_free(ctx);
     return 0;
@@ -166,25 +166,25 @@ int main()
     modbus_t *ctx;
     modbus_mapping_t *mb_mapping;
 
-    // Create new RTU, set baud rate to 115200
+    // 创建新的 RTU，波特率设置为 115200
     ctx = modbus_new_rtu("/dev/ttyACM0", BAUD_RATE, 'N', 8, 1);
 
-    // Set Modbus Slave ID to 1
+    // 设置 Modbus 从机 ID 为 1
     modbus_set_slave(ctx, 1);
 
-    // Connect to Modbus Master (opens the port)
+    // 连接到 Modbus 主机
     if (modbus_connect(ctx) == -1)
     {
-        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
+        fprintf(stderr, "连接失败: %s\n", modbus_strerror(errno));
         modbus_free(ctx);
         return -1;
     }
 
-    // Allocate Modbus mapping (100 holding registers)
+    // 分配 Modbus 映射（100 个保持寄存器）
     mb_mapping = modbus_mapping_new(0, 0, 100, 0);
     if (mb_mapping == NULL)
     {
-        fprintf(stderr, "Mapping failed: %s\n", modbus_strerror(errno));
+        fprintf(stderr, "映射失败: %s\n", modbus_strerror(errno));
         modbus_free(ctx);
         return -1;
     }
@@ -192,22 +192,22 @@ int main()
     while (1)
     {
         uint8_t query[MODBUS_RTU_MAX_ADU_LENGTH];
-        // Receive query from Modbus Master
+        // 从 Modbus 主机接收查询
         int rc = modbus_receive(ctx, query);
 
         if (rc > 0)
         {
-            // Reply to query
+            // 回复查询
             modbus_reply(ctx, query, rc, mb_mapping);
         }
         else if (rc == -1)
         {
-            fprintf(stderr, "Receive failed: %s\n", modbus_strerror(errno));
+            fprintf(stderr, "接收失败: %s\n", modbus_strerror(errno));
             break;
         }
     }
 
-    // Free Modbus mapping and context
+    // 释放 Modbus
     modbus_mapping_free(mb_mapping);
     modbus_close(ctx);
     modbus_free(ctx);
@@ -217,7 +217,7 @@ int main()
 
 ## 4.3 config.h
 
-Configuration header file. Note the header guards.
+放置配置的头文件，注意头文件保护符
 
 ```c
 #ifndef CONFIG_H
@@ -230,7 +230,7 @@ Configuration header file. Note the header guards.
 
 ## 4.4 Makefile
 
-A simple Makefile to facilitate compilation.
+写个简单的 Makefile 方便编译
 
 ```makefile
 CC = arm-linux-gnueabihf-gcc
@@ -255,18 +255,18 @@ clean:
 	rm -f master slave *.o
 ```
 
-## 4.5 Execution Results
+## 4.5 运行结果
 
-Use `chmod +x [file]` to grant execution permissions. If successful, you should see output indicating successful Modbus communication over RS485.
+使用`chmod +x [file]`给文件权限，运行成功你可以看到以下信息，代表基于 RS485 的 Modbus 通讯成功
 
 ![](https://cdn.jsdelivr.net/gh/sharebravery/album@master/20240627112118.png)
 
-If you just needed a simple communication test, this concludes the guide.
+如果只是简单测试通讯，那么到这里就可以了。
 
 ---
 
-Related Articles:
+相关文章：
 
-[RS-485 Serial Communication: Simple Guide and Code Examples](/linux/RS485.html)
+[RS-485 串口通信：简易指南与代码示例](https://sharebravery.github.io/linux/RS485.html)
 
 _END_

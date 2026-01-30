@@ -1,5 +1,5 @@
 ---
-title: Building a WeEngine WeChat Management System on ECS
+title: 基于 ECS 构建微信公众号管理系统 WeEngine
 date: 2020-08-08
 categories:
   - DevOps
@@ -7,96 +7,84 @@ tags:
   - DevOps
 ---
 
-# Building a WeEngine WeChat Management System on ECS
+## 一、微擎安装
 
-## 1. Installing WeEngine
+#### 1. 1 使用宝塔来安装 LAMP 环境
 
-### 1.1 Setting up the Environment with Baota Panel
-Installing **WeEngine** requires a LAMP environment (Linux + Apache + MySQL + PHP). To save our precious life for more exciting things, we'll use the Baota Linux Panel to simplify this process.
+![20200808092315](https://pic.downk.cc/item/5f2d57a114195aa594fd029e.png)
 
-![Baota Panel Setup](https://pic.downk.cc/item/5f2d57a114195aa594fd029e.png)
+#### 1. 2 下载微擎并解压
 
-### 1.2 Download and Unzip WeEngine
-Download the installation package:
+下载地址：
+
 ```bash
 https://cdn.w7.cc/download/WeEngine-Laster-Online.zip
 ```
 
-### 1.3 Create Directory
-Log in to your server via Xshell and create a `WeEngine` folder under `/www/wwwroot/default`.
+#### 1. 3 使用 Xshell 登录服务器，在 /www/wwwroot/default 下创建 WeEngine 文件夹
 
-### 1.4 Upload Files
-Use Xftp to upload the unzipped `install.php` file to the `WeEngine` directory.
+#### 1. 4 使用 Xftp 将解压后的 install.php 文件上传至 WeEngine
 
-### 1.5 Add Site in Baota
-In Baota Panel, add a new website. Make sure to check the "Create Database" option and remember the username and password.
+#### 1. 5 使用宝塔添加网站，勾选数据库，记住用户和密码。
 
-### 1.6 Run Installation Wizard
-Visit `your-domain/install.php` in your browser. Register and log in to your WeEngine account.
+#### 1. 6 在浏览器访问 '你的域名/install.php' 安装，注册并登录微擎账号
 
-<img src="https://pic.downk.cc/item/5f2e36db14195aa594472f0e.png" alt="Installation Wizard" style="zoom:75%;" />
+<img src="https://pic.downk.cc/item/5f2e36db14195aa594472f0e.png" alt="20200808090600" style="zoom:75%;" />
 
-### 1.7 Fix Permissions
-If you encounter permission issues, run the `chown` command in Xshell:
+#### 1. 7 在 Xshell 中运行 chown 命令为目录赋予权限：
 
 ```bash
 chown -R www /www/wwwroot/default
 ```
 
-If it complains about `.user.ini`, try running the command without `-R` or ignore that specific file.
+如果提示`chown: changing ownership of ‘/www/wwwroot/default/WeEngine/.user.ini’: Operation not permitted`，那么就把命令里的'-R'去掉
 
-### 1.8 Verify Environment
-If WeEngine detects any errors, click "Fix Exceptions" and follow the instructions.
+#### 1. 8 如果微擎检测出错误，点击修复异常，按照操作步骤执行即可
 
-![Environment Check](https://pic.downk.cc/item/5f2e371614195aa594474813.png)
+![41806c0cc29c22e1b8725b3f3d83f193_907x332](https://pic.downk.cc/item/5f2e371614195aa594474813.png)
 
-### 1.9 Configure Database
-Enter the database credentials you created in step 1.5.
+#### 1. 9 配置数据库参数
 
-![Database Config](https://pic.downk.cc/item/5f2e373b14195aa5944757db.png)
+将刚才记住的数据库信息输入
 
-### 1.10 Wait for Download
-Sit back while the system downloads necessary files.
+![20200808092116](https://pic.downk.cc/item/5f2e373b14195aa5944757db.png)
 
-<img src="https://pic.downk.cc/item/5f2e37cf14195aa594478ad4.png" alt="Downloading" style="zoom:75%;" />
+#### 1. 10 等待文件下载完成
 
-### 1.11 Login
-Finally, set up your system admin account and log in.
+<img src="https://pic.downk.cc/item/5f2e37cf14195aa594478ad4.png" alt="20200808092212" style="zoom:75%;" />
 
-## 2. Managing WeChat Official Accounts
+#### 1. 11 最后，设置系统账号并登陆
 
-### 2.1 Create an Account
-Go to the WeChat Official Platform (https://mp.weixin.qq.com/) and register an account.
+## 二、使用微擎管理公众号
 
-![WeChat Reg](https://pic.downk.cc/item/5f2e3f9e14195aa5944a867b.png)
+#### 2. 1 先创建一个公众号
 
-### 2.3 Check WeEngine Version
-Go to the WeEngine console and check for updates.
+打开微信公众平台官网：https://mp.weixin.qq.com/ 右上角点击“立即注册”，选择注册的账号类型
 
-### 2.4 Add Platform
-In the sidebar, select "Platform Management" and click "Add Platform".
+![9bbe5e53e78ec43d06afc8029f805d4f](https://pic.downk.cc/item/5f2e3f9e14195aa5944a867b.png)
+
+#### 2. 3 进入微擎控制台，检查版本更新。
+
+#### 2. 4 侧边栏选择“平台管理”，点击添加平台
 
 <img src="https://pic.downk.cc/item/5f2e3fb814195aa5944a9070.png" />
 
-### 2.5 Manual Addition
-Select "Create New Official Account" and choose manual addition.
+#### 2. 5 选择新建公众号，手动添加
 
 <img src="https://pic.downk.cc/item/5f2e3fe114195aa5944a9ebb.png" />
 
-### 2.6 Fill Information
-Fill in all the details for your WeChat Official Account.
+#### 2. 6 将公众号的各类信息填入
 
 <img src="https://pic.downk.cc/item/5f2e3ff514195aa5944aa863.png" />
 
-### 2.7 AppId and AppSecret
-You can find your AppId and AppSecret in the "Basic Configuration" section of the WeChat Official Platform.
+#### 2. 7 注意 AppId 和 AppSecret 在公众号的开发里的基本配置里
 
-![AppSecret](https://pic.downk.cc/item/5f2e400d14195aa5944ab489.png)
+![20200808111117](https://pic.downk.cc/item/5f2e400d14195aa5944ab489.png)
 
-### 2.8 Configure Developer Info
-In the WeChat backend, add developer information. Copy the Token and Key provided by WeEngine into the WeChat "Basic Configuration".
+#### 2. 8 在微信公众号的后台添加开发者信息，将系统给出的 Token 和 Key 复制到【基本配置】中
 
-<img src="https://pic.downk.cc/item/5f2e403414195aa5944ac31a.png" alt="Token Key" style="zoom:75%;" />
+<img src="https://pic.downk.cc/item/5f2e403414195aa5944ac31a.png" alt="20200808105053" style="zoom:75%;" />
 
-### 2.9 Test
-Once connected, test the integration to ensure everything is working smoothly.
+#### 2. 9 接入完成，测试
+
+<!-- <Valine></Valine> -->

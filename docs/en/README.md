@@ -1,0 +1,13 @@
+---
+home: true
+layout: Blog
+icon: home
+title: Home
+heroImage: /avatar.svg
+heroText: ShareBravery
+heroFullScreen: true
+tagline: Relentless Spirit, Unwavering Faith
+index: false
+bgImage: https://bing.com/th?id=OHR.MostarBridge_ZH-CN5920156936_1920x1080.jpg
+---
+

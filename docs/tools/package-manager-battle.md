@@ -1,49 +1,84 @@
 ---
-title: "📦 Package Manager Battle Royale: The Ultimate Cheat Sheet"
+title: 包管理器的战国时代：npm, yarn, pnpm 与 Bun
 date: 2021-07-23
-categories:
-  - Productivity Tools
-tags:
+category: 效率工具
+tag:
   - Tools
+  - Node.js
 ---
 
+# 包管理器的战国时代：npm, yarn, pnpm 与 Bun
 
-# 📦 Package Manager Battle Royale: The Ultimate Cheat Sheet
+前端圈有个笑话：每过 18 个月，我们就得重学一遍怎么安装依赖。
 
-> npm is the grandfather, Yarn is the reformer, pnpm is the minimalist, and Bun is... that hyperactive kid running at light speed.
+从 `npm` 的嵌套地狱，到 `yarn` 的扁平化革命，再到 `pnpm` 的硬链接魔法，最后是 `Bun` 这个不讲武德的“快枪手”。我经常看着 `node_modules` 陷入沉思：
 
-Still struggling to remember the commands for different tools? Don't worry, save your brain capacity for more important things (like what to order for dinner). Here is a cross-language, cross-tool translation guide.
+**我们到底是在写代码，还是在管理这些该死的包？**
 
-## 🚀 The Command Translation Table
+昨天我想给一个老项目升个级，结果就在 `npm install` 这一步卡了半小时，不仅磁盘爆满，还因为 phantom dependency（幻影依赖）炸了一堆错。那一刻我真的想把电脑扔出窗外。
 
-| Action | npm (Classic) | yarn (Classic v1) | pnpm (Space Saver) | Notes |
+今天不聊虚的，就聊聊作为一个开发者，在这些工具的混战中，我们到底该选谁。
+
+## 1. npm：那位年迈的老父亲
+
+**核心槽点**：慢，且重。
+
+早期的 npm 就像是一个没有规划的仓库管理员。你今天让他进货（安装），明天让他进货，拿到的东西可能都不一样（版本号非确定性）。虽然现在有了 `package-lock.json`，但它的效率依然让人捉急。
+
+最让我头疼的是它的“幻影依赖”。
+
+有时候你明明没安装 A，但因为你的依赖 B 依赖了 A，你居然能直接在代码里 `import A`。这就像是你邻居买了辆车，你没买，但你居然能直接开他的车。等到哪天邻居搬走了（B 升级去掉了 A），你的代码瞬间炸了，你还一脸懵逼：我车呢？
+
+## 2. yarn (v1)：曾经的救世主
+
+**核心贡献**：`yarn.lock` 和 并行安装。
+
+当年 yarn 出来的时候，真的感觉是降维打击。原本 npm 要跑 5 分钟的 install，yarn 可能 1 分钟就搞定了。它就像是一个受过专业训练的物流团队，高效、精准。
+
+但现在？yarn v1 已经停止维护了，v2/v3 的 PnP (Plug'n'Play) 模式步子迈得太大，把生态搞得有点分裂。我现在基本只在维护几年前的老项目时才会见到它，就像见到一位退役的老兵。
+
+## 3. pnpm：磁盘救星
+
+**核心洞察**：为什么每个项目都要把 `react` 重新下载一遍？
+
+pnpm 是我目前的**主力推荐**。它的逻辑非常硬核：
+
+1.  **全局存储**：所有项目的依赖都存在硬盘的同一个地方。
+2.  **硬链接 (Hard Links)**：项目里的 `node_modules` 只是指向全局存储的链接。
+
+自从换了 pnpm，我的 MacBook 磁盘空间瞬间释放了几个 G。这感觉就像是你原本要在每个房间都买一台电视，现在只需要在一个房间买，其他房间装个镜子反射过去就行了。
+
+而且它严格禁止了“幻影依赖”，你没安装的包绝对不能用。这种**“洁癖”**，深得我心。
+
+## 4. Bun：不讲武德的挑战者
+
+**核心优势**：快，太快了。
+
+Bun 不是一个简单的包管理器，它是一个全新的 Runtime。用 `bun install` 的速度，有时候快到让我怀疑它是不是在假装安装。
+
+但老实说，我在生产环境还是不太敢全量上 Bun。它的兼容性虽然一直在变好，但偶尔遇到一些奇奇怪怪的 edge case，真的会让人修到怀疑人生。它就像是一个天才少年，跑得飞快，但有时候做事不太稳重。
+
+## 终极速查表
+
+既然还得干活，这里有一份我整理的“多语言翻译表”。脑容量有限，这种死记硬背的东西就交给文档吧。
+
+| 动作 | npm (经典) | yarn (老将) | pnpm (主力) | 说明 |
 | :--- | :--- | :--- | :--- | :--- |
-| **Install Dependencies** | `npm install` | `yarn` | `pnpm i` | The first thing you do after `git clone` |
-| **Add a Package** | `npm i package` | `yarn add package` | `pnpm add package` | Defaults to production dependencies |
-| **Add Dev Package** | `npm i -D package` | `yarn add -D package` | `pnpm add -D package` | For TS, ESLint, etc. |
-| **Remove Package** | `npm uninstall pkg` | `yarn remove pkg` | `pnpm remove pkg` | It's not you, it's me |
-| **Run Script** | `npm run dev` | `yarn dev` | `pnpm dev` | `yarn` and `pnpm` let you skip the `run` keyword |
-| **Interactive Update** | - | `yarn upgrade-interactive --latest` | `pnpm up -i --latest` | **Game Changer!** Like ordering from a menu |
+| **安装依赖** | `npm install` | `yarn` | `pnpm i` | 拿到新项目的第一件事 |
+| **加个包** | `npm i package` | `yarn add package` | `pnpm add package` | 默认都是生产依赖 |
+| **加个开发包** | `npm i -D package` | `yarn add -D package` | `pnpm add -D package` | 比如 TS, ESLint |
+| **移除包** | `npm uninstall pkg` | `yarn remove pkg` | `pnpm remove pkg` | 分手快乐 |
+| **交互升级** | - | `upgrade-interactive` | `pnpm up -i -L` | **神器！** 像点菜一样选升级 |
+| **查谁用了它** | `npm ls pkg` | `yarn why pkg` | `pnpm why pkg` | 抓出那个引入奇怪依赖的元凶 |
 
-## 🧐 "Why do I have this package?"
+## 结论
 
-Your `node_modules` is heavier than a black hole, and you want to know which dependency secretly invited `is-odd` to the party?
+*   如果你是新项目：**闭眼选 pnpm**。
+*   如果你想尝鲜且不怕折腾：**试试 Bun**。
+*   如果你在维护祖传代码：**Respect npm/yarn**，别乱动，会炸。
 
-- **npm**: `npm list package-name`
-- **yarn**: `yarn why package-name` (Naming on point)
-- **pnpm**: `pnpm why package-name`
-
-## 🧹 The Nuclear Option
-
-Sometimes dependencies just break. The fastest fix is often... turn it off and on again (delete and reinstall).
-
-```bash
-# Don't try to be elegant here, just nuke it
-rm -rf node_modules
-# Then choose your weapon
-pnpm install
-```
+工具只是手段，代码才是目的。别在工具链上浪费太多生命，选个顺手的，然后去写那些真正改变世界的代码吧。
 
 ---
 
-*Pick a tool you like and stick with it. Unless your Tech Lead forces you to change.*
+*END*

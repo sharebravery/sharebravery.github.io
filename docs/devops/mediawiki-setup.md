@@ -1,5 +1,5 @@
 ---
-title: Building a MediaWiki Knowledge Base
+title: 搭建 Wiki 知识库 MediaWiki
 date: 2020-08-07
 categories:
   - DevOps
@@ -7,62 +7,63 @@ tags:
   - DevOps
 ---
 
-# Building a MediaWiki Knowledge Base
+## 1. 安装运行环境
 
-## 1. Environment Setup
+1. 1 安装 **MediaWiki** 需要搭建 LAMP 环境（ Linux + Apache + MySQL + PHP），这里我们使用宝塔 Linux 面板来简化操作步骤、节省时间，有限的生命应该用去更精彩的地方。
 
-### 1.1 LAMP Stack
-Installing **MediaWiki** requires a LAMP environment (Linux + Apache + MySQL + PHP). We'll use the Baota Linux Panel to make this painless. Life is too short to configure Apache conf files manually for the 100th time.
+![20200806171142](https://pic.downk.cc/item/5f2d57a114195aa594fd029e.png)
 
-![Baota Setup](https://pic.downk.cc/item/5f2d57a114195aa594fd029e.png)
+## 2. 下载上传 MediaWiki
 
-## 2. Download & Upload
+2. 1 使用 Xshell 远程登陆 ESC 服务器，用 Xftp 传输文件。
 
-### 2.1 Remote Access
-Log in to your ECS server using Xshell and use Xftp for file transfer.
+2. 2 下载 MediaWiki 并解压
 
-### 2.2 Download MediaWiki
-You can download it locally or directly on the server:
+下载地址：
+
+```bash
+https://releases.wikimedia.org/mediawiki/1.29/mediawiki-1.29.1.tar.gz
+```
+
+或者服务器直接下载：
 
 ```bash
 wget https://releases.wikimedia.org/mediawiki/1.29/mediawiki-1.29.1.tar.gz
 ```
 
-Unzip it:
+解压：
+
 ```bash
 tar -zxv mediawiki-1.29.1.tar.gz
 ```
 
-### 2.3 Prepare Directory
-Create a folder (e.g., `old`) under `/www/wwwroot/default` and move the unzipped files there.
+2. 3 进入 /www/wwwroot/default 创建 old 文件夹，将解压后的文件上传到 old
 
-<img src="https://pic.downk.cc/item/5f2d575a14195aa594fcdcdc.png" alt="Directory Setup" style="zoom:75%;" />
+<img src="https://pic.downk.cc/item/5f2d575a14195aa594fcdcdc.png" alt="20200806162900" style="zoom:75%;" />
 
-### 2.4 Permissions
-Grant permissions to the `www` user:
+2. 4 使用 chown 命令为目录赋予权限：
+
 ```bash
 chown -R www /www/wwwroot/default
 ```
 
-### 2.5 Add Website
-Add the site in Baota Panel.
+2. 5 使用宝塔添加网站
 
-![Add Site](https://pic.downk.cc/item/5f2d5fff14195aa594016dad.png)
+![20200806170617](https://pic.downk.cc/item/5f2d5fff14195aa594016dad.png)
 
-## 3. Installation
+## 3. 安装 MediaWiki
 
-![Install Screen](https://pic.downk.cc/item/5f2d6a5214195aa59405b15d.png)
+![20200806163613](https://pic.downk.cc/item/5f2d6a5214195aa59405b15d.png)
 
-### 3.1 Language
-Set your preferred language.
+3. 1 设置语言
 
-![Language](https://pic.downk.cc/item/5f2d6ac714195aa59405ddf8.png)
+![20200806163655](https://pic.downk.cc/item/5f2d6ac714195aa59405ddf8.png)
 
-### 3.2 Database
-Select **SQLite** for a simpler setup if you don't expect massive traffic immediately.
+3. 2 数据库选择 SQLite
 
-![Database](https://pic.downk.cc/item/5f2d6d0914195aa5940733ae.png)
+![20200806165806](https://pic.downk.cc/item/5f2d6d0914195aa5940733ae.png)
 
-## 4. Final Steps
+## 4. 最后
 
-Download the generated `LocalSettings.php` file and upload it to the root directory of your website. Boom, you have a Wiki!
+下载 LocalSettings.php 文件，然后将 LocalSettings.php 文件上传到网站的根目录即可。
+<!-- <Valine></Valine> -->

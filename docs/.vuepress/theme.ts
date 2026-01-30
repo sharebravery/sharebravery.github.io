@@ -26,30 +26,9 @@ export default hopeTheme({
 
   locales: {
     /**
-     * English locale config (Root)
+     * Chinese locale config (Root)
      */
     "/": {
-      // navbar
-      navbar: enNavbar,
-      // sidebar
-      sidebar: enSidebar,
-      footer: "Default footer",
-      displayFooter: true,
-
-      blog: {
-        description: "Relentless Spirit, Unwavering Faith",
-        intro: "/intro.html",
-      },
-
-      metaLocales: {
-        editLink: "Edit this page on GitHub",
-      },
-    },
-
-    /**
-     * Chinese locale config
-     */
-    "/zh/": {
       // navbar
       navbar: zhNavbar,
       // sidebar
@@ -59,7 +38,7 @@ export default hopeTheme({
 
       blog: {
         description: "世界的探索者",
-        intro: "/zh/intro.html",
+        intro: "/intro.html",
         medias: {
           Email: "sharebravery@gmail.com",
         },
@@ -69,6 +48,27 @@ export default hopeTheme({
       // page meta
       metaLocales: {
         editLink: "在 GitHub 上编辑此页",
+      },
+    },
+
+    /**
+     * English locale config
+     */
+    "/en/": {
+      // navbar
+      navbar: enNavbar,
+      // sidebar
+      sidebar: enSidebar,
+      footer: "Default footer",
+      displayFooter: true,
+
+      blog: {
+        description: "Relentless Spirit, Unwavering Faith",
+        intro: "/en/intro.html",
+      },
+
+      metaLocales: {
+        editLink: "Edit this page on GitHub",
       },
     },
   },

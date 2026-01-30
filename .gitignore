@@ -3,7 +3,7 @@ node_modules/
 .pnp
 .pnp.js
 
-example-doc
+example-docs
 .baoyu-skills
 .agents
 .claude
@@ -41,4 +41,4 @@ dist/
 
 # editors
 .vscode/
-.idea/
+.idea/example-docs/
