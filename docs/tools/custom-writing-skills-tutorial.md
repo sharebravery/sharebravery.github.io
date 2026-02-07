@@ -6,7 +6,7 @@ tag:
   - AI
   - Tools
   - Thinking
-cover: /cover-image/prompt-engineering-is-dead/cover.png
+cover: /covers/tools/prompt-engineering-is-dead.png
 ---
 
 # 提示词工程已死？Agent Skills 才是未来
@@ -39,7 +39,7 @@ cover: /cover-image/prompt-engineering-is-dead/cover.png
 
 $$ Skill = Role (角色卡) + Rulebook (规则书) + Context (上下文) $$
 
-![Skill Framework Analysis](/illustrations/prompt-engineering-is-dead/01-framework-skill-formula.png)
+![Skill Framework Analysis](illustrations/prompt-engineering-is-dead/01-framework-skill-formula.png)
 
 *   **Role (角色)**：定义了它“是谁”。这类似于面向对象中的 `Class` 定义。
 *   **Rulebook (规则书)**：定义了它“能做什么”，以及更重要的“**不能做什么**”。这是它的接口 (`Interface`) 和约束。
@@ -96,7 +96,7 @@ AI 瞬间就“懂”了你的偏好。它不再试图讨好你，而是按照�
 
 如果将这种转变放在计算机发展史的维度来看，它像极了从 **汇编语言** 到 **高级语言** 的进化，或者从 **过程式脚本** 到 **面向对象编程** 的范式转移。
 
-![Prompt vs Skill Evolution](/illustrations/prompt-engineering-is-dead/02-comparison-evolution.png)
+![Prompt vs Skill Evolution](illustrations/prompt-engineering-is-dead/02-comparison-evolution.png)
 
 *   **Prompt** 是脆弱的脚本。它是线性的，依赖运气的。
 *   **Skill** 是稳固的对象。它是封装的，可复用的，有确定性的。

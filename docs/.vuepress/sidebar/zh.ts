@@ -8,7 +8,6 @@ export const zhSidebar = sidebar({
   "/tools/": "structure",
   "/": [
     "",
-    "home",
-    "timeline",
+    "intro",
   ],
 });

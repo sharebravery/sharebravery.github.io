@@ -14,12 +14,16 @@ export default defineUserConfig({
       title: "不辞远的分享",
       description: "做一个勇敢者 拥有坚定的信念",
     },
-    "/en/": {
-      lang: "en-US",
-      title: "sharebravery",
-      description: "Relentless Spirit, Unwavering Faith",
-    },
   },
+
+  // 排除目录不渲染为页面
+  pagePatterns: [
+    "**/*.md",
+    "!.vuepress",
+    "!node_modules",
+    "!**/illustrations/**",
+    "!**/covers/**",
+  ],
 
   theme,
 

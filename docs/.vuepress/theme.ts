@@ -1,6 +1,6 @@
 import { hopeTheme } from "vuepress-theme-hope";
-import { enNavbar, zhNavbar } from "./navbar/index.js";
-import { enSidebar, zhSidebar } from "./sidebar/index.js";
+import { zhNavbar } from "./navbar/index.js";
+import { zhSidebar } from "./sidebar/index.js";
 
 export default hopeTheme({
   hostname: "https://sharebravery.github.io",
@@ -51,26 +51,6 @@ export default hopeTheme({
       },
     },
 
-    /**
-     * English locale config
-     */
-    "/en/": {
-      // navbar
-      navbar: enNavbar,
-      // sidebar
-      sidebar: enSidebar,
-      footer: "Default footer",
-      displayFooter: true,
-
-      blog: {
-        description: "Relentless Spirit, Unwavering Faith",
-        intro: "/en/intro.html",
-      },
-
-      metaLocales: {
-        editLink: "Edit this page on GitHub",
-      },
-    },
   },
 
   markdown: {
