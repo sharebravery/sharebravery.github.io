@@ -16,12 +16,23 @@ export default hopeTheme({
 
   docsDir: "docs",
 
+  // 禁用编辑链接
+  editLink: false,
+
   // Blog configuration
   blog: {
     // excerptLength: 200,
     medias: {
       Email: "sharebravery@gmail.com",
+      Twitter: "https://x.com/sharebravery",
     },
+  },
+
+  // 右上角导航栏社交链接
+  navbarLayout: {
+    start: ["Brand"],
+    center: [],
+    end: ["Links", "Language", "Repo", "Outlook", "Search"],
   },
 
   locales: {
@@ -33,7 +44,7 @@ export default hopeTheme({
       navbar: zhNavbar,
       // sidebar
       sidebar: zhSidebar,
-      footer: "默认页脚",
+      footer: '<a href="https://github.com/sharebravery" target="_blank">GitHub</a> | <a href="https://x.com/sharebravery" target="_blank">X (Twitter)</a> | <a href="mailto:sharebravery@gmail.com">Email</a><br/>© 2024-present sharebravery | 做一个勇敢者 拥有坚定的信念',
       displayFooter: true,
 
       blog: {
@@ -41,13 +52,9 @@ export default hopeTheme({
         intro: "/intro.html",
         medias: {
           Email: "sharebravery@gmail.com",
+          Twitter: "https://x.com/sharebravery",
         },
         timeline: "行星轨迹",
-      },
-
-      // page meta
-      metaLocales: {
-        editLink: "在 GitHub 上编辑此页",
       },
     },
 

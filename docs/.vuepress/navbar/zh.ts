@@ -3,29 +3,24 @@ import { navbar } from "vuepress-theme-hope";
 export const zhNavbar = navbar([
   "/",
   {
-    text: "前端开发",
-    icon: "laptop-code",
-    link: "/frontend/",
+    text: "观察",
+    icon: "eye",
+    link: "/insights/",
   },
   {
-    text: "后端技术",
-    icon: "network-wired",
-    link: "/backend/",
+    text: "Web3",
+    icon: "coins",
+    link: "/web3/",
   },
   {
-    text: "DevOps",
-    icon: "server",
-    link: "/devops/",
-  },
-  {
-    text: "硬件与系统",
-    icon: "microchip",
-    link: "/hardware/",
-  },
-  {
-    text: "效率工具",
-    icon: "toolbox",
-    link: "/tools/",
+    text: "技术",
+    icon: "code",
+    link: "/tech/",
   },
   { text: "行星轨迹", icon: "timeline", link: "/timeline/" },
+  {
+    text: "X",
+    icon: "fab fa-x-twitter",
+    link: "https://x.com/sharebravery",
+  },
 ]);
