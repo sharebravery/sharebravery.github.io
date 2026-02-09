@@ -18,28 +18,32 @@ cover: /covers/polymarket/polymarket-websocket-orderbook.png
 
 V1 版本的 Bot 用 REST API 轮询盘口，2 秒一次。结果很直接：单子要么成交不了，要么成交即亏损。
 
-原因是预测市场的盘口变化快，2 秒的延迟足以让你看到的价格和实际价格完全脱节。要做量化，必须接 WebSocket。
+预测市场的盘口变化快，2 秒的延迟足以让你看到的价格和实际价格完全脱节。要做量化，**必须接 WebSocket**。
 
 ---
 
-## Polymarket WebSocket 架构
+## 两个 WebSocket，选哪个
 
 Polymarket 提供两个 WebSocket 服务：
 
-1. **CLOB WebSocket** - `wss://ws-subscriptions-clob.polymarket.com/ws/market`
-   用于订阅盘口、成交、价格变动等市场数据
+1. **CLOB WebSocket** — `wss://ws-subscriptions-clob.polymarket.com/ws/market`
+   盘口、成交、价格变动，量化交易要的数据都在这里
 
-2. **RTDS** - `wss://ws-live-data.polymarket.com`
-   用于实时价格流和评论数据
+2. **RTDS** — `wss://ws-live-data.polymarket.com`
+   实时价格流和评论数据，更适合做前端展示
 
-量化交易主要用 CLOB WebSocket。它有两个频道：
+量化交易用 CLOB WebSocket。它分两个频道：
 
-- **Market Channel** - 公开市场数据，不需要认证
-- **User Channel** - 订单状态推送，需要 API Key 认证
+- **Market Channel** — 公开市场数据，不需要认证
+- **User Channel** — 订单状态推送，需要 API Key 认证
+
+我的 Bot 两个都接了。Market Channel 拿盘口数据做决策，User Channel 监听自己的订单状态，确认成交后再更新仓位。
+
+![Polymarket WebSocket 架构总览](illustrations/websocket-realtime/01-framework-ws-architecture.png)
 
 ## 连接与订阅
 
-连接 Market Channel 不需要认证，直接发送订阅消息：
+Market Channel 不需要认证，连上就能订阅：
 
 ```python
 import websockets
@@ -56,7 +60,7 @@ async def subscribe(ws, asset_ids: list[str]):
     await ws.send(json.dumps(msg))
 ```
 
-连接建立后，可以动态增减订阅：
+连接建立后可以动态增减订阅，不用断开重连：
 
 ```python
 # 追加订阅
@@ -77,7 +81,6 @@ await ws.send(json.dumps({
 User Channel 需要认证，订阅格式不同：
 
 ```python
-# User Channel 需要 API Key 认证
 msg = {
     "markets": [condition_id],
     "type": "user",
@@ -89,15 +92,17 @@ msg = {
 }
 ```
 
-注意区分：Market Channel 用 `assets_ids`（token ID），User Channel 用 `markets`（condition ID）。搞混了就收不到消息。
+这里有个容易踩的坑：**Market Channel 用 `assets_ids`（token ID），User Channel 用 `markets`（condition ID）**。两个 ID 不是同一个东西。搞混了不会报错，只是收不到消息，debug 半天才发现。
 
-## Market Channel 消息类型
+【注：token ID 是某个 outcome 的唯一标识（比如 Yes token），condition ID 是整个市场的标识。一个 condition 下通常有两个 token（Yes 和 No）。】
 
-订阅成功后会收到多种消息，每种用途不同。
+## 四种消息，各有用处
 
-### book - 盘口快照
+订阅成功后会收到四种消息。不是每种都要处理，取决于你的策略。
 
-首次订阅或盘口变动时推送，包含完整的买卖盘数据：
+### book — 盘口快照
+
+首次订阅或盘口大幅变动时推送，包含完整的买卖盘：
 
 ```json
 {
@@ -117,11 +122,11 @@ msg = {
 }
 ```
 
-`buys` 和 `sells` 是 OrderSummary 数组，每一项包含 `price`（价格）和 `size`（该价位的可用数量）。注意字段都是字符串，需要自己转换。
+`buys` 和 `sells` 是价位数组，每项包含 `price` 和 `size`。注意**字段全是字符串**，需要自己转 float。我一开始直接拿来比较大小，怎么比都不对，排查了好一阵才意识到在比较字符串。
 
-`hash` 是盘口内容的哈希值，可以用来校验本地维护的盘口是否和服务端一致。
+`hash` 是盘口内容的哈希值，可以校验本地盘口是否和服务端一致。实际跑下来，偶尔会出现本地盘口和服务端不同步的情况，定期用 hash 校验很有必要。
 
-### price_change - 价格变动
+### price_change — 价格变动
 
 有人下单或撤单时推送：
 
@@ -143,9 +148,11 @@ msg = {
 }
 ```
 
-这个消息直接告诉你当前的 best_bid 和 best_ask，不需要自己从完整盘口计算。对于只关心最优报价的策略，这个消息比 book 更高效。
+这个消息直接给你 `best_bid` 和 `best_ask`，不需要自己从完整盘口计算。如果你的策略只关心最优报价，**用 price_change 比 book 高效得多**——数据量小，推送频率高。
 
-### last_trade_price - 最新成交
+我的策略主要依赖这个消息。book 只在启动时用来初始化盘口状态，之后全靠 price_change 驱动。
+
+### last_trade_price — 最新成交
 
 有成交时推送：
 
@@ -161,11 +168,13 @@ msg = {
 }
 ```
 
-`fee_rate_bps` 是手续费率（基点），`side` 是主动方向。
+`side` 是主动方向——BUY 说明是买方吃了卖单，SELL 反之。`fee_rate_bps` 是手续费率，单位是基点（1 基点 = 0.01%）。
 
-### tick_size_change - 最小刻度变化
+成交数据对判断市场方向有用。连续出现大单 BUY，说明有人在扫货。
 
-当价格接近 0 或 1 时（>0.96 或 <0.04），最小报价刻度会改变：
+### tick_size_change — 最小刻度变化
+
+当价格接近 0 或 1（>0.96 或 <0.04），最小报价刻度会从 0.01 变成 0.001：
 
 ```json
 {
@@ -176,41 +185,38 @@ msg = {
 }
 ```
 
-这个消息容易被忽略。如果你的策略在极端价格区间运行（比如事件即将结算），不处理刻度变化会导致下单被拒。
+这个消息容易被忽略。但如果你的策略在极端价格区间运行（比如事件即将结算），**不处理刻度变化会导致下单被拒**。我在一次选举结算前就吃过这个亏，Bot 连续报错 INVALID_TICK_SIZE，排查才发现是刻度变了没更新。
 
-## 心跳维护
+## 心跳：10 秒一次 PING
 
-WebSocket 连接需要定时发送心跳，否则会被服务端断开：
+WebSocket 连接不发心跳会被服务端断开。Polymarket 要求每 10 秒发一次 PING：
 
 ```python
 import asyncio
 
 async def heartbeat(ws):
-    """每 10 秒发送一次 PING"""
     while True:
         await ws.send("PING")
         await asyncio.sleep(10)
 ```
 
-实际使用中，心跳和消息处理要并行运行：
+心跳和消息处理要并行跑：
 
 ```python
 async def run():
     async with websockets.connect(WS_URL) as ws:
         await subscribe(ws, asset_ids)
-
-        # 并行：心跳 + 消息处理
         await asyncio.gather(
             heartbeat(ws),
             handle_messages(ws)
         )
 ```
 
-## 数据过期保护
+## 断连处理：先撤单，再重连
 
 WebSocket 不是万能的。网络抖动、服务端重启都会导致数据中断。
 
-每条消息都带 `timestamp`，用它判断数据是否过期：
+每条消息都带 `timestamp`，用它判断数据新鲜度：
 
 ```python
 MAX_STALE_MS = 5000  # 5 秒
@@ -220,9 +226,9 @@ def is_stale(msg_timestamp: str) -> bool:
     return age > MAX_STALE_MS
 ```
 
-数据过期时，策略应该停止交易，而不是降级到 HTTP 轮询。HTTP 拿到的数据延迟更大，基于过时数据交易只会亏更多。
+数据过期时，策略应该**立即停止交易**。不要降级到 HTTP 轮询——HTTP 拿到的数据延迟更大，基于过时数据交易只会亏更多。
 
-断连时的处理原则：**先撤单，再重连。**
+断连时的原则很简单：**先撤单，再重连。**
 
 ```python
 async def handle_disconnect():
@@ -233,9 +239,13 @@ async def handle_disconnect():
     await reconnect()
 ```
 
+顺序不能反。先重连再撤单的话，重连期间挂单还在盘口上，盘口已经变了但你不知道，被成交了就是盲盒。
+
 ## 完整的消息处理框架
 
-把上面的内容串起来：
+![消息处理与断连流程](illustrations/websocket-realtime/02-flowchart-message-handling.png)
+
+把上面的逻辑串起来：
 
 ```python
 async def handle_messages(ws):
@@ -260,18 +270,11 @@ async def handle_messages(ws):
             on_tick_size_change(msg)
 ```
 
+框架本身不复杂。难的是每个 handler 里的具体逻辑——怎么维护本地盘口、怎么判断信号、怎么管理订单状态。这些在后续的文章里会详细展开。
+
 ---
 
-## 总结
-
-WebSocket 接入的关键点：
-
-1. Market Channel 用 `assets_ids` 订阅，User Channel 用 `markets` + 认证
-2. `book` 消息给全量盘口，`price_change` 给增量变动和最优报价
-3. 每 10 秒发 PING 维持心跳
-4. 数据过期就停止交易，断连先撤单再重连
-
-拿到实时数据流，才有资格谈量化。
+拿到实时数据流，才有资格谈策略。REST API 是看后视镜开车，WebSocket 才是挡风玻璃。
 
 ---
 
