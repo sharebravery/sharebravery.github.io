@@ -1,6 +1,6 @@
 ---
-title: Polymarket 量化交易实战（二）：WebSocket 订单簿设计
-shortTitle: WebSocket 订单簿设计
+title: Polymarket 量化交易实战（三）：WebSocket 实时数据流
+shortTitle: WebSocket 实时数据流
 date: 2025-10-08
 categories:
   - 量化交易
@@ -12,113 +12,271 @@ order: 3
 cover: /covers/polymarket/polymarket-websocket-orderbook.png
 ---
 
-# Polymarket 量化交易实战（二）：WebSocket 订单簿设计
+# Polymarket 量化交易实战（三）：WebSocket 实时数据流
 
-**2000ms vs 50ms。**
+**HTTP 轮询拿到的价格，是历史。**
 
-这是 HTTP 轮询和 WebSocket 的差距。在链上预测市场，2秒钟就像一个世纪那么漫长。
+V1 版本的 Bot 用 REST API 轮询盘口，2 秒一次。结果很直接：单子要么成交不了，要么成交即亏损。
 
-我开发 V1 版本机器人时，为了图省事用了 HTTP 轮询：
+原因是预测市场的盘口变化快，2 秒的延迟足以让你看到的价格和实际价格完全脱节。要做量化，必须接 WebSocket。
 
-```python
-while True:
-    data = requests.get(url).json()
-    decide_trade(data['price'])
-    time.sleep(2)
-```
+---
 
-结果很惨烈：单子永远成交不了，或者成交即亏损。
+## Polymarket WebSocket 架构
 
-原因很简单：**当你通过 HTTP 看到价格时，那已经是“历史”了。**
+Polymarket 提供两个 WebSocket 服务：
 
-要生存，必须升级到 WebSocket。
+1. **CLOB WebSocket** - `wss://ws-subscriptions-clob.polymarket.com/ws/market`
+   用于订阅盘口、成交、价格变动等市场数据
 
-#### 1. 核心决策：字典胜过列表
+2. **RTDS** - `wss://ws-live-data.polymarket.com`
+   用于实时价格流和评论数据
 
-![OrderBook Structure: Dictionary vs List](illustrations/websocket-orderbook-design/01-infographic-dict-vs-list.png)
+量化交易主要用 CLOB WebSocket。它有两个频道：
 
-为了在本地维护一个和交易所完全同步的 OrderBook，很多人第一反应是用列表（List）。
+- **Market Channel** - 公开市场数据，不需要认证
+- **User Channel** - 订单状态推送，需要 API Key 认证
 
-但我选择了双字典设计：
+## 连接与订阅
 
-*   **Key**: 价格（Price）
-*   **Value**: 数量（Size）
+连接 Market Channel 不需要认证，直接发送订阅消息：
 
 ```python
-class OrderBook:
-    def __init__(self):
-        self.bids = {}  # 买盘 {0.55: 100}
-        self.asks = {}  # 卖盘 {0.60: 50}
+import websockets
+import json
 
-    def get_best_bid(self):
-        # O(N) in keys, but usually fast enough for top of book
-        return max(self.bids.keys()) if self.bids else None
+WS_URL = "wss://ws-subscriptions-clob.polymarket.com/ws/market"
+
+async def subscribe(ws, asset_ids: list[str]):
+    """订阅指定 token 的市场数据"""
+    msg = {
+        "assets_ids": asset_ids,
+        "type": "market"
+    }
+    await ws.send(json.dumps(msg))
 ```
 
-**设计哲学很简单：**
-
-WebSocket 推送的是**价格层级的增量更新**。
-
-当收到 "价格 0.55 数量变为 0" 的消息时：
-*   字典操作是 **O(1)**
-*   列表操作是 **O(n)**
-
-在高频场景下，O(n) 是不可接受的。
-
-#### 2. 增量同步的“坑”
-
-![Incremental Update Logic](illustrations/websocket-orderbook-design/02-flowchart-incremental-update.png)
-
-Polymarket 的 WebSocket 协议有个大坑：**消息格式极其不一致**。
-
-它混合了全量快照和增量更新。处理的核心逻辑只有两条：
-
-1.  **更新**：Size > 0，直接覆盖字典。
-2.  **删除**：Size = 0，从字典移除（Pop）。
+连接建立后，可以动态增减订阅：
 
 ```python
-def update(self, bids=None):
-    for b in bids or []:
-        price, size = float(b["price"]), float(b["size"])
-        if size == 0:
-            self.bids.pop(price, None) # 数量为0即消失
-        else:
-            self.bids[price] = size
+# 追加订阅
+await ws.send(json.dumps({
+    "assets_ids": [new_token_id],
+    "type": "market",
+    "operation": "subscribe"
+}))
+
+# 取消订阅
+await ws.send(json.dumps({
+    "assets_ids": [old_token_id],
+    "type": "market",
+    "operation": "unsubscribe"
+}))
 ```
 
-**实战经验：**
-永远不要假设上游数据是完美的。字段名混用（token_id vs asset_id）、浮点数转换错误随时会发生。`try-except` 是最后的防线。
-
-#### 3. 数据过期即熔断
-
-![Market Data Circuit Breaker](illustrations/websocket-orderbook-design/03-infographic-circuit-breaker.png)
-
-即使有了 WebSocket，网络抖动也是常态。
-
-如果数据卡住了，机器人必须立刻感知。我在策略循环中加入了一个强校验：
+User Channel 需要认证，订阅格式不同：
 
 ```python
-max_stale_ms = 5000.0 # 5秒即过期
-
-if (now_ms - up_ts) > max_stale_ms:
-    logger.warning("Data too old, skip tick")
-    return
+# User Channel 需要 API Key 认证
+msg = {
+    "markets": [condition_id],
+    "type": "user",
+    "auth": {
+        "apiKey": api_key,
+        "secret": secret,
+        "passphrase": passphrase
+    }
+}
 ```
 
-这里我做了一个反直觉的决策：**拒绝 HTTP 回退**。
+注意区分：Market Channel 用 `assets_ids`（token ID），User Channel 用 `markets`（condition ID）。搞混了就收不到消息。
 
-很多系统设计是 "WS 断了就降级到 HTTP"，但在高频预测市场，HTTP 的滞后数据是毒药。
+## Market Channel 消息类型
 
-**我宁愿不交易，也不要基于“历史”去交易。**
+订阅成功后会收到多种消息，每种用途不同。
 
-同理，一旦心跳丢失，必须触发“断连自动撤单”。闭上眼的时候，先把手缩回来。
+### book - 盘口快照
 
-#### 总结
+首次订阅或盘口变动时推送，包含完整的买卖盘数据：
 
-构建毫秒级系统的三个原则：
+```json
+{
+  "event_type": "book",
+  "asset_id": "token_id",
+  "market": "condition_id",
+  "timestamp": "1700000000000",
+  "buys": [
+    { "price": "0.55", "size": "100" },
+    { "price": "0.54", "size": "200" }
+  ],
+  "sells": [
+    { "price": "0.60", "size": "50" },
+    { "price": "0.61", "size": "150" }
+  ],
+  "hash": "0xabc..."
+}
+```
 
-1.  **基于字典的 O(1) 存取**
-2.  **增量更新，全量校准**
-3.  **数据过期即熔断**
+`buys` 和 `sells` 是 OrderSummary 数组，每一项包含 `price`（价格）和 `size`（该价位的可用数量）。注意字段都是字符串，需要自己转换。
 
-掌握了实时数据流，你就拥有了和市场“同频呼吸”的能力。
+`hash` 是盘口内容的哈希值，可以用来校验本地维护的盘口是否和服务端一致。
+
+### price_change - 价格变动
+
+有人下单或撤单时推送：
+
+```json
+{
+  "event_type": "price_change",
+  "market": "condition_id",
+  "price_changes": [
+    {
+      "asset_id": "token_id",
+      "price": "0.56",
+      "size": "100",
+      "side": "BUY",
+      "best_bid": "0.55",
+      "best_ask": "0.60"
+    }
+  ],
+  "timestamp": "1700000000000"
+}
+```
+
+这个消息直接告诉你当前的 best_bid 和 best_ask，不需要自己从完整盘口计算。对于只关心最优报价的策略，这个消息比 book 更高效。
+
+### last_trade_price - 最新成交
+
+有成交时推送：
+
+```json
+{
+  "event_type": "last_trade_price",
+  "asset_id": "token_id",
+  "price": "0.55",
+  "side": "BUY",
+  "size": "50",
+  "fee_rate_bps": "0",
+  "timestamp": "1700000000000"
+}
+```
+
+`fee_rate_bps` 是手续费率（基点），`side` 是主动方向。
+
+### tick_size_change - 最小刻度变化
+
+当价格接近 0 或 1 时（>0.96 或 <0.04），最小报价刻度会改变：
+
+```json
+{
+  "event_type": "tick_size_change",
+  "asset_id": "token_id",
+  "old_tick_size": "0.01",
+  "new_tick_size": "0.001"
+}
+```
+
+这个消息容易被忽略。如果你的策略在极端价格区间运行（比如事件即将结算），不处理刻度变化会导致下单被拒。
+
+## 心跳维护
+
+WebSocket 连接需要定时发送心跳，否则会被服务端断开：
+
+```python
+import asyncio
+
+async def heartbeat(ws):
+    """每 10 秒发送一次 PING"""
+    while True:
+        await ws.send("PING")
+        await asyncio.sleep(10)
+```
+
+实际使用中，心跳和消息处理要并行运行：
+
+```python
+async def run():
+    async with websockets.connect(WS_URL) as ws:
+        await subscribe(ws, asset_ids)
+
+        # 并行：心跳 + 消息处理
+        await asyncio.gather(
+            heartbeat(ws),
+            handle_messages(ws)
+        )
+```
+
+## 数据过期保护
+
+WebSocket 不是万能的。网络抖动、服务端重启都会导致数据中断。
+
+每条消息都带 `timestamp`，用它判断数据是否过期：
+
+```python
+MAX_STALE_MS = 5000  # 5 秒
+
+def is_stale(msg_timestamp: str) -> bool:
+    age = time.time() * 1000 - int(msg_timestamp)
+    return age > MAX_STALE_MS
+```
+
+数据过期时，策略应该停止交易，而不是降级到 HTTP 轮询。HTTP 拿到的数据延迟更大，基于过时数据交易只会亏更多。
+
+断连时的处理原则：**先撤单，再重连。**
+
+```python
+async def handle_disconnect():
+    # 1. 立即撤销所有挂单
+    await client.cancel_all()
+    # 2. 等待后重连
+    await asyncio.sleep(2)
+    await reconnect()
+```
+
+## 完整的消息处理框架
+
+把上面的内容串起来：
+
+```python
+async def handle_messages(ws):
+    async for raw in ws:
+        if raw == "PONG":
+            continue
+
+        msg = json.loads(raw)
+        event = msg.get("event_type")
+
+        if is_stale(msg.get("timestamp", "0")):
+            logger.warning("数据过期，跳过")
+            continue
+
+        if event == "book":
+            update_orderbook(msg)
+        elif event == "price_change":
+            on_price_change(msg)
+        elif event == "last_trade_price":
+            on_trade(msg)
+        elif event == "tick_size_change":
+            on_tick_size_change(msg)
+```
+
+---
+
+## 总结
+
+WebSocket 接入的关键点：
+
+1. Market Channel 用 `assets_ids` 订阅，User Channel 用 `markets` + 认证
+2. `book` 消息给全量盘口，`price_change` 给增量变动和最优报价
+3. 每 10 秒发 PING 维持心跳
+4. 数据过期就停止交易，断连先撤单再重连
+
+拿到实时数据流，才有资格谈量化。
+
+---
+
+### 参考
+
+- [Polymarket WSS Overview](https://docs.polymarket.com/developers/CLOB/websocket/wss-overview)
+- [Market Channel](https://docs.polymarket.com/developers/CLOB/websocket/market-channel)
+- [WSS Quickstart](https://docs.polymarket.com/quickstart/websocket/)

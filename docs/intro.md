@@ -29,7 +29,7 @@ copyright: false
 - 链上数据分析与 Alpha 挖掘
 
 ## 联系我
-
+- X：[不辞远](https://x.com/sharebravery)
 - GitHub: [sharebravery](https://github.com/sharebravery)
 - Email: sharebravery@gmail.com
 
