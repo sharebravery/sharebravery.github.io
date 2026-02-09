@@ -3,10 +3,10 @@ import { zhNavbar } from "./navbar/index.js";
 import { zhSidebar } from "./sidebar/index.js";
 
 export default hopeTheme({
-  hostname: "https://sharebravery.github.io",
+  hostname: "https://sharebravery.com",
 
   author: {
-    name: "sharebravery",
+    name: "不辞远",
     url: "https://github.com/sharebravery",
   },
 
@@ -48,7 +48,7 @@ export default hopeTheme({
       displayFooter: true,
 
       blog: {
-        description: "世界的探索者",
+        description: "sharebravery 世界的探索者",
         intro: "/intro.html",
         medias: {
           Email: "sharebravery@gmail.com",
