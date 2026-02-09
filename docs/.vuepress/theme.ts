@@ -18,6 +18,7 @@ export default hopeTheme({
 
   // 禁用编辑链接
   editLink: false,
+  contributors: false,
 
   // Blog configuration
   blog: {
