@@ -16,8 +16,6 @@ cover: /covers/polymarket/polymarket-gnosis-safe-proxy.png
 
 **EOA 是给人类用的，Proxy 才是给机器人的。**
 
-这是我在 Polymarket 交易两周后得出的结论。
-
 如果你坚持用 MetaMask（EOA）跑脚本，你会遇到三个死结：
 1.  **Gas 爆炸**：每笔赎回都要 0.01 Matic，高频策略的利润会被磨损殆尽。
 2.  **并发锁死**：Nonce 机制强迫你串行交易，无法并发。

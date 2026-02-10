@@ -6,7 +6,7 @@ tag:
   - AI
   - Tools
   - Thinking
-cover: /covers/tools/prompt-engineering-is-dead.png
+cover: /covers/insights/prompt-engineering-is-dead.png
 ---
 
 # 提示词工程已死？Agent Skills 才是未来

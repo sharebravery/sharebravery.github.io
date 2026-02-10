@@ -1,5 +1,5 @@
 ---
-title: Polymarket 量化交易实战（三）：WebSocket 实时数据流
+title: Polymarket 量化交易实战（二）：WebSocket 实时数据流
 shortTitle: WebSocket 实时数据流
 date: 2025-10-08
 categories:
@@ -12,7 +12,7 @@ order: 3
 cover: /covers/polymarket/polymarket-websocket-orderbook.png
 ---
 
-# Polymarket 量化交易实战（三）：WebSocket 实时数据流
+# Polymarket 量化交易实战（二）：WebSocket 实时数据流
 
 **HTTP 轮询拿到的价格，是历史。**
 
