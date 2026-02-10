@@ -14,91 +14,169 @@ cover: /covers/polymarket/polymarket-batch-orders.png
 
 # Polymarket 量化交易实战（四）：批量下单与优化
 
-**从 1 秒 1 单，到 1 秒 10 单。**
+做交易系统，经常会看错问题。
 
-在 V3 版本中，我犯了一个新手错误：串行下单。
+表面看是“下单不够快”，实质是“状态不一致”。
+
+串行下单就是这个误区最典型的样子：
 
 ```python
-# 错误示范
-await self.place_order(yes_token) # 请求 1
-await self.place_order(no_token)  # 请求 2
+# 串行发送两条腿
+await self.place_order(yes_token)
+await self.place_order(no_token)
 ```
 
-这种写法有两个致命问题：
-1.  **慢**：两次握手，两次 RTT，延迟翻倍。
-2.  **险**：如果第一单成了，第二单网络超时怎么办？你的仓位瞬间**裸露（Naked Position）**，无法形成对冲。
+这段代码能跑，但实盘里有两个后果几乎必然出现：
 
-**在做市策略中，降低延迟和网络不确定性比单纯追求速度更重要。**
+1. 延迟翻倍：两次请求、两次 RTT。
+2. 仓位暴露：第一条腿成交、第二条腿失败，瞬间单边。
 
-#### 1. 批量下单的威力
+说白了，这不是“体验差一点”，而是策略风险模型被撕开了一道口子。
+
+这篇只解决一件事：把下单从串行改成批量，并把回包状态当状态机来处理。
+
+## Batch 解决的，不只是速度
 
 ![Serial vs Batch Orders](illustrations/batch-orders-optimization/01-comparison-serial-vs-batch.png)
 
-Polymarket 的 L2 接口支持 Batch API（最多 15 个订单）。我们可以把一篮子订单打包，一次性发出去。
+Polymarket CLOB 提供了批量下单接口：`POST /orders`，单次最多 `15` 单。
 
-**性能对比：**
+很多人把 Batch 理解成“节省请求数”。这只说对了一半。
 
-*   **单次下单**：签名(5ms) + 网络(150ms) = **155ms / 单**
-*   **批量下单(10单)**：签名(50ms) + 网络(150ms) = **200ms / 10单**
+另一半更关键：一篮子订单更接近同一时刻进入系统，腿间错位会明显收敛。
 
-效率提升了接近 **8 倍**。
+简单看一下差异：
 
-**注意：批量下单不是原子性操作。** 每个订单独立处理，可能部分成功部分失败。但它大幅降低了"网络竞态"的风险——订单在同一时刻到达服务器，比串行发送更可控。
+- 串行：签名 + 网络往返，重复 N 次
+- 批量：签名还是 N 次，但网络往返压成 1 次
 
-#### 2. 激进的策略：全撤全挂
+在做市里，这不是锦上添花，这是生存项。
+
+还有一个常见误解：Batch 不是原子事务。它返回逐单结果，天然会出现“部分成功、部分失败”。
+
+如果系统设计默认 all-or-nothing，线上迟早出事故。
+
+## 官方接口最容易漏掉的 4 个点
 
 ![Cancel-All-Then-Place Cycle](illustrations/batch-orders-optimization/02-flowchart-cancel-all-cycle.png)
 
-高频交易中，**修改订单（Modify）**是最复杂的操作。
+下面这 4 条，不复杂，但很致命。
 
-你需要处理：部分成交、挂单中、已取消、网络竞态... 状态机的复杂度呈指数级上升。
+1. `orderType` 必须和策略目标一致  
+   `FOK / FAK` 偏吃单，`GTC / GTD` 偏挂单。类型选错，后面所有统计都失真。
 
-为了睡个安稳觉，我采用了 **"Cancel-All-Then-Place"** 模式：
+2. `postOnly` 只适用于 `GTC / GTD`  
+   和 `FOK / FAK` 组合会报 `INVALID_POST_ONLY_ORDER_TYPE`。
+
+3. 不要只看 `success`  
+   还要看 `status` 和 `errorMsg`。`delayed` 的语义不是“失败”，而是“接受了，但执行时序延后”。
+
+4. `status` 必须进入状态机  
+   `matched / live / delayed / unmatched` 对应的是四种后续动作，不是四种日志文案。
+
+补一个经常被忽略的细节：如果直接走 REST，`PostOrder` 里要带 `owner`（API key），否则会被拒绝。
+
+【注：官方错误列表里有 `ORDER_DELAYED`、`MARKET_NOT_READY` 等场景。建议单独建监控，不要混在普通失败里。】
+
+## 为什么早期阶段我更倾向“全撤全挂”
+
+交易系统会越来越复杂，这件事几乎不可避免。
+
+但复杂度应该长在策略上，不应该长在一坨难以维护的订单状态机上。
+
+如果一开始就做“原地改单”，你要同时扛：部分成交、撤单竞态、回包乱序、改单失败重试。很多团队就是在这一层把系统拖慢的。
+
+所以早期我一般会用 `Cancel-All-Then-Place`：
 
 ```python
 async def tick(self):
-    # 1. 毫不留情：先撤掉上一轮的所有订单
+    # 1) 清理当前挂单
     await self.cancel_all_orders()
 
-    # 2. 重新计算：基于最新 Orderbook 计算新价格
+    # 2) 重新计算目标报价
     new_orders = calculate_strategy()
 
-    # 3. 批量挂单：将新的一组订单打包发出
+    # 3) 批量提交
     await self.place_orders_batch(new_orders)
 ```
 
-**为什么这么做？**
+代价是配额消耗高一些。
 
-虽然这会消耗更多 API Quota，但它保证了**状态的绝对纯净**。每次 Tick 都是一次全新的开始，永远不会有“幽灵订单”困扰你。
+换来的是边界清晰、排障直接、行为可预测。
 
-#### 3. 榨干网络性能：Keep-Alive
+我对这个取舍的态度很明确：**宁可多花配额，也不要把系统拖进不可控状态机。**
 
-在 Python 的 `requests` 库中，如果你直接调用 `post`，每次都会新建 TCP 连接。
+等策略稳定、监控完善，再逐步引入“部分改单”，这时优化才是正收益。
 
-对于位于 AWS/GCP 的服务器，建立 SSL 握手的开销（30-50ms）是巨大的。
+## 批量接口示例（Python）
 
-**解决方案：连接池复用。**
+官方 SDK 的典型流程是：先 `create_order`，再 `post_orders([...])`。
 
 ```python
-session = requests.Session()
-adapter = requests.adapters.HTTPAdapter(
-    pool_connections=20,
-    pool_maxsize=20
-)
-session.mount("https://", adapter)
+from py_clob_client.client import ClobClient
+from py_clob_client.clob_types import OrderArgs, OrderType, PostOrdersArgs
+from py_clob_client.order_builder.constants import BUY, SELL
+
+host = "https://clob.polymarket.com"
+client = ClobClient(host, key=PK, chain_id=137)
+client.set_api_creds(client.create_or_derive_api_creds())
+
+orders = [
+    PostOrdersArgs(
+        order=client.create_order(OrderArgs(
+            price=0.52,
+            size=80,
+            side=BUY,
+            token_id=yes_token_id,
+        )),
+        orderType=OrderType.GTC,
+    ),
+    PostOrdersArgs(
+        order=client.create_order(OrderArgs(
+            price=0.48,
+            size=80,
+            side=SELL,
+            token_id=no_token_id,
+        )),
+        orderType=OrderType.GTC,
+    ),
+]
+
+resp = client.post_orders(orders)
+for r in resp:
+    # 建议至少处理这些字段
+    # r.success / r.errorMsg / r.status / r.orderId
+    handle_post_result(r)
 ```
 
-这几行代码，能让你的延迟稳定下降 30%。
+这里建议做一件小事：每条回包都落库，关联策略批次 ID。
 
-#### 总结
+线上查问题时，这个信息几乎是救命的。没有它，讨论很容易退化成“我感觉是网络问题”。
 
-通过 `place_orders_batch` 和全局 Session 优化，我们将机器人的“手速”提升到了极限。
+## 网络层优化：Keep-Alive 默认开启
 
-*   **低延迟**：减少网络往返，多腿订单在同一时刻到达服务器。
-*   **高吞吐**：在 API 限流范围内做更多操作。
-*   **健壮性**：全撤全挂模式降低了状态维护复杂度，避免幽灵订单。
-*   **容错**：即使部分订单失败，也能通过返回值快速识别并处理。
+如果你有一部分请求是自己发 REST，不是全走 SDK，连接复用应该作为默认配置。
 
-至此，技术篇的核心模块（鉴权、数据流、资金流、交易流）已全部构建完成。
+```python
+import requests
 
-接下来的文章，我们将跳出代码，复盘这段时间的开发历程。看看一个“玩具脚本”是如何在真实市场的毒打中，一步步进化成现在这个样子的。
+session = requests.Session()
+session.mount("https://", requests.adapters.HTTPAdapter(
+    pool_connections=20,
+    pool_maxsize=20,
+))
+```
+
+这不是高级优化，但通常能稳定改善尾延迟抖动。
+
+低成本、高收益，不开反而奇怪。
+
+## 上线前检查清单
+
+1. 单次 batch 数量是否严格 `<= 15`
+2. `postOnly` 是否只在 `GTC / GTD` 下使用
+3. 是否逐单处理 `success + status + errorMsg`
+4. `ORDER_DELAYED / MARKET_NOT_READY` 是否有重试或降级
+5. 是否记录 `orderId`、策略批次 ID、发送时间、回包时间
+
+下一篇进入复盘：哪些设计应该坚持，哪些该换，哪些还不到时机。
