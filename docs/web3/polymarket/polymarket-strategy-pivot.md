@@ -77,7 +77,7 @@ if (src != "ws") or (now - ts > 5000):
 
 **结论：不做单（Missed Opportunity）永远优于做错单（Bad Trade）。**
 
-#### 总结
+#### SO
 
 这三次决策，本质上是认知的升级：
 
