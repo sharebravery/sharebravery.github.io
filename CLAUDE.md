@@ -60,8 +60,11 @@ cover: covers/api-guide/cover.png
 |------|------|
 | `docs/.vuepress/public/covers/{category}/{name}.png` | 网站引用（必须） |
 | `docs/{category}/{topic}/covers/{slug}/prompt.md` | 生成提示词（保留，方便重新生成） |
+| `docs/{category}/{topic}/covers/{slug}/source-*.md` | 源文件副本（可选） |
 
-注意：封面图只在 public 目录保留一份，原目录只保留 prompt.md。
+**自动化**：baoyu-cover-image 技能已配置为 VuePress 模式（`default_output_dir: vuepress`），会自动将文件放到正确位置。
+
+注意：封面图只在 public 目录保留一份，原目录只保留 prompt.md 和源文件。
 
 ## 文章 Frontmatter 规范
 

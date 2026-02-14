@@ -3,6 +3,7 @@ node_modules/
 .pnp
 .pnp.js
 
+source
 example-docs
 .baoyu-skills
 .agents
