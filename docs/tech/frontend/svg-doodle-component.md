@@ -2,7 +2,7 @@
 title: SVG 涂鸦组件
 date: 2022-06-09
 categories:
-  - 前端开发
+  - 技术
 tags:
   - Frontend
 ---

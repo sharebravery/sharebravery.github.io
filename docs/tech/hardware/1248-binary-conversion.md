@@ -2,7 +2,7 @@
 title: 1248 转换法：快捷心转二进制
 date: 2025-06-25
 categories:
-  - 硬件与系统
+  - 技术
 tags:
   - Hardware
 ---

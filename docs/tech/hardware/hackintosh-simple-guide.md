@@ -2,9 +2,9 @@
 title: 黑苹果 (Hackintosh) 简单步骤教程
 date: 2020-05-05
 categories:
-  - 硬件与系统
+  - 技术
 tags:
-  - Hackintosh
+  - macOS
 ---
 
 # 黑苹果 (Hackintosh) 简单步骤教程

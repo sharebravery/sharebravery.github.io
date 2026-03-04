@@ -1,11 +1,11 @@
 ---
 title: 提示词工程已死？Agent Skills 才是未来
 date: 2026-01-25
-category: 工具
-tag:
+categories:
+  - 观察
+tags:
   - AI
   - Tools
-  - Thinking
 cover: /covers/insights/prompt-engineering-is-dead.png
 ---
 

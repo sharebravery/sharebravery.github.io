@@ -3,8 +3,7 @@ title: Polymarket 量化交易实战（五）：Bot 开发纪实
 shortTitle: Bot 开发纪实
 date: 2025-10-29
 categories:
-  - 量化交易
-  - Polymarket
+  - Web3
 tags:
   - Python
   - Web3

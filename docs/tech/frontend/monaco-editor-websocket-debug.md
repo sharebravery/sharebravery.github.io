@@ -2,9 +2,10 @@
 title: 在线代码编辑器 Monaco Editor、WebSocket 在线调试
 date: 2022-12-02
 categories:
-  - 前端开发
+  - 技术
 tags:
-  - IDE
+  - Frontend
+  - WebSocket
 ---
 
 

@@ -1,8 +1,9 @@
 ---
 title: Git 救火指南：那些年我踩过的坑
 date: 2021-07-23
-category: 效率工具
-tag:
+categories:
+  - 技术
+tags:
   - Git
   - Workflow
 ---

@@ -2,7 +2,7 @@
 title: "node 爬虫爬取小说（nestjs、IP 代理池）"
 date: 2022-03-10
 categories:
-  - 后端技术
+  - 技术
 tags:
   - Node.js
   - NestJS

@@ -2,7 +2,7 @@
 title: 上帝说要有光
 date: 2025-06-11
 categories:
-  - 硬件与系统
+  - 技术
 tags:
   - Linux
   - GPIO

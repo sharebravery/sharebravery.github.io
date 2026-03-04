@@ -2,7 +2,7 @@
 title: Linux 下的 Socket 和进程使用
 date: 2025-06-11
 categories:
-  - DevOps
+  - 技术
 tags:
   - Linux
 ---

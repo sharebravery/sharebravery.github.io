@@ -4,7 +4,7 @@ date: 2025-06-11
 index: false
 article: false
 categories:
-  - 效率工具
+  - 技术
 tags:
   - Tools
 ---

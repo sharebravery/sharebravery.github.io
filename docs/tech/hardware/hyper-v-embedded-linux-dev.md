@@ -2,7 +2,7 @@
 title: 使用 Hyper-V 进行高效嵌入式 Linux 开发
 date: 2025-06-11
 categories:
-  - DevOps
+  - 技术
 tags:
   - Linux
 ---

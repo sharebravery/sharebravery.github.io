@@ -3,8 +3,7 @@ title: Polymarket 量化交易实战（三）：Gnosis Safe 自动化交易
 shortTitle: Gnosis Safe 自动化交易
 date: 2025-10-15
 categories:
-  - 量化交易
-  - Polymarket
+  - Web3
 tags:
   - Python
   - Web3

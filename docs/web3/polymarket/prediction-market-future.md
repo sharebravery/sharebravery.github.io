@@ -3,8 +3,7 @@ title: Polymarket 量化交易实战（终章）：预测市场的未来
 shortTitle: 预测市场的未来
 date: 2025-12-03
 categories:
-  - 量化交易
-  - Polymarket
+  - Web3
 tags:
   - Python
   - Web3

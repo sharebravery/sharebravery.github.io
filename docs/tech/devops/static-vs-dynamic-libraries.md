@@ -2,9 +2,9 @@
 title: 静态库和动态库的对比
 date: 2025-06-11
 categories:
-  - DevOps
+  - 技术
 tags:
-  - DevOps
+  - Linux
 ---
 
 # 静态库和动态库的对比

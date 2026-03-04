@@ -3,8 +3,7 @@ title: Polymarket 量化交易实战（八）：双向套利策略详解
 shortTitle: 双向套利策略详解
 date: 2025-11-19
 categories:
-  - 量化交易
-  - Polymarket
+  - Web3
 tags:
   - Python
   - Web3

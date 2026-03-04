@@ -2,7 +2,7 @@
 title: 前端容器化配置注入
 date: 2025-09-28
 categories:
-  - DevOps
+  - 技术
 tags:
   - Docker
   - Kubernetes

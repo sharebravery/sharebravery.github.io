@@ -2,9 +2,9 @@
 title: 搭建 Wiki 知识库 MediaWiki
 date: 2020-08-07
 categories:
-  - DevOps
+  - 技术
 tags:
-  - DevOps
+  - Linux
 ---
 
 ## 1. 安装运行环境

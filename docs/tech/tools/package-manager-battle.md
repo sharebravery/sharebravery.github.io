@@ -1,8 +1,9 @@
 ---
 title: 包管理器的战国时代：npm, yarn, pnpm 与 Bun
 date: 2021-07-23
-category: 效率工具
-tag:
+categories:
+  - 技术
+tags:
   - Tools
   - Node.js
 ---

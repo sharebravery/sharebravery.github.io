@@ -3,8 +3,7 @@ title: Polymarket 量化交易实战（序）：从零开发跟单 Bot
 shortTitle: 从零开发跟单 Bot
 date: 2025-09-20
 categories:
-  - 量化交易
-  - Polymarket
+  - Web3
 tags:
   - Python
   - Web3

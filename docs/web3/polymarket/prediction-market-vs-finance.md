@@ -3,8 +3,7 @@ title: Polymarket 量化交易实战（七）：预测市场认知升级
 shortTitle: 预测市场认知升级
 date: 2025-11-12
 categories:
-  - 量化交易
-  - Polymarket
+  - Web3
 tags:
   - Python
   - Web3

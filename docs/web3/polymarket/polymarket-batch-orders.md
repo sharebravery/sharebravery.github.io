@@ -3,8 +3,7 @@ title: Polymarket 量化交易实战（四）：批量下单与优化
 shortTitle: 批量下单与优化
 date: 2025-10-22
 categories:
-  - 量化交易
-  - Polymarket
+  - Web3
 tags:
   - Python
   - Web3

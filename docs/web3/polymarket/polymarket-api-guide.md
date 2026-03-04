@@ -3,8 +3,7 @@ title: Polymarket 量化交易实战（一）：API 鉴权与代理钱包
 shortTitle: API 鉴权与代理钱包
 date: 2025-10-01
 categories:
-  - 量化交易
-  - Polymarket
+  - Web3
 tags:
   - Python
   - Web3

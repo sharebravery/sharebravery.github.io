@@ -2,9 +2,9 @@
 title: CCAA 打造离线下载服务器
 date: 2020-08-10
 categories:
-  - DevOps
+  - 技术
 tags:
-  - DevOps
+  - Linux
 ---
 
 

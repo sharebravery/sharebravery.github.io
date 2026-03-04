@@ -2,9 +2,9 @@
 title: 基于 ECS 构建微信公众号管理系统 WeEngine
 date: 2020-08-08
 categories:
-  - DevOps
+  - 技术
 tags:
-  - DevOps
+  - Linux
 ---
 
 ## 一、微擎安装

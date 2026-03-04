@@ -2,10 +2,10 @@
 title: "Web3——TON 开发注意事项"
 date: 2024-04-29
 categories:
-  - 后端技术
-tags:
-  - Backend
   - Web3
+tags:
+  - Web3
+  - Node.js
 ---
 
 # Web3——TON 开发注意事项

@@ -3,8 +3,7 @@ title: Polymarket 量化交易实战（十）：风险管理实战
 shortTitle: 风险管理实战
 date: 2025-11-29
 categories:
-  - 量化交易
-  - Polymarket
+  - Web3
 tags:
   - Python
   - Web3

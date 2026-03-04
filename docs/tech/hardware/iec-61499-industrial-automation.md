@@ -2,7 +2,7 @@
 title: "探索 IEC 61499：工业自动化的创新之路"
 date: 2025-01-25
 categories:
-  - 硬件与系统
+  - 技术
 tags:
   - Hardware
 ---

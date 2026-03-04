@@ -4,7 +4,6 @@ shortTitle: 域名与 SEO
 date: 2026-02-09
 categories:
   - 观察
-  - 建站
 tags:
   - SEO
   - 域名

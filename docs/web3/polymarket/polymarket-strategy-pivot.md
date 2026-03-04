@@ -3,8 +3,7 @@ title: Polymarket 量化交易实战（六）：产品决策复盘
 shortTitle: 产品决策复盘
 date: 2025-11-05
 categories:
-  - 量化交易
-  - Polymarket
+  - Web3
 tags:
   - Python
   - Web3

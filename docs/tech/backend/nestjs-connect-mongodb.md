@@ -2,7 +2,7 @@
 title: "使用 node（nestjs）连接 mongodb"
 date: 2022-03-15
 categories:
-  - 后端技术
+  - 技术
 tags:
   - Node.js
   - NestJS

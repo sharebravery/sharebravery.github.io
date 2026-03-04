@@ -2,7 +2,7 @@
 title: 前端表格导出合并一
 date: 2022-10-22
 categories:
-  - 前端开发
+  - 技术
 tags:
   - Frontend
 ---

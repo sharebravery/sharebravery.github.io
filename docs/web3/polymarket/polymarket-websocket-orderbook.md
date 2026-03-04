@@ -3,8 +3,7 @@ title: Polymarket 量化交易实战（二）：WebSocket 实时数据流
 shortTitle: WebSocket 实时数据流
 date: 2025-10-08
 categories:
-  - 量化交易
-  - Polymarket
+  - Web3
 tags:
   - Python
   - Web3
