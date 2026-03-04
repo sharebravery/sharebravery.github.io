@@ -20,7 +20,7 @@ tags:
 4. 收获
 5. 植物标本NFT
 
-![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e1dd49c666b44168af3f23111f5c10b3~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=2267&h=1240&s=1078440&e=png&b=fefdfd)
+![tree](https://raw.githubusercontent.com/sharebravery/post/post/src/tree.png)
 
 ## 1.1 植物基本信息
 ```solidity
