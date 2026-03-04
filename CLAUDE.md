@@ -74,14 +74,36 @@ title: 完整标题
 shortTitle: 侧边栏短标题
 date: 2025-01-01
 categories:
-  - 分类1
-  - 分类2
+  - Web3       # 只填一个，见下方分类规范
 tags:
-  - 标签1
-  - 标签2
-order: 1                    # 排序（可选）
+  - Python     # 具体技术栈，可多个，统一英文
+order: 1       # 系列文章排序（可选）
 cover: /covers/xxx/yyy.png  # 封面图（绝对路径）
 ---
+```
+
+### categories 规范
+
+全站只有 3 个 category，按文章所在目录决定：
+
+| category | 对应目录 | 含义 |
+|----------|---------|------|
+| `Web3` | `docs/web3/` | Polymarket 系列、TON 开发等 |
+| `技术` | `docs/tech/` | 后端、前端、运维、硬件、工具等 |
+| `观察` | `docs/insights/` | 科技观察、AI、洞见等 |
+
+每篇文章只填 **1 个** category，不交叉。
+
+### tags 规范
+
+tags 负责具体技术栈/主题，统一英文，不与 category 重复：
+
+```
+# 常用 tags
+Python · Web3 · Node.js · NestJS · Java
+Linux · Docker · Kubernetes · Git · GitLab
+Frontend · Hardware · WebSocket · GPIO
+macOS · MongoDB · SEO · Tools · AI
 ```
 
 ## 敏感信息
