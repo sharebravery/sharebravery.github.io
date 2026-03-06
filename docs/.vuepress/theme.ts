@@ -3,6 +3,8 @@ import { zhNavbar } from "./navbar/index.js";
 import { zhSidebar } from "./sidebar/index.js";
 
 export default hopeTheme({
+  sidebarSorter: ["readme", "order", "date-desc", "title", "filename"],
+
   hostname: "https://sharebravery.com",
 
   author: {
