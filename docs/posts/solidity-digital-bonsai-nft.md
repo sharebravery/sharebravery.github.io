@@ -246,7 +246,7 @@ uint256 public constant MAX_SINGLE_MINT = 10; // 单次可mint最大数量
         address _owner
     ) external view returns (uint256[] memory) {
         uint256 tokenCount = balanceOf(_owner);
-        uint256[] memory tokenIdList = new uint256[](tokenCount);
+        uint256[] memory tokenIdList = new uint256[](web3/tokenCount);
 
         for (uint256 i = 0; i < tokenCount; i++) {
             tokenIdList[i] = tokenOfOwnerByIndex(_owner, i);
@@ -373,7 +373,7 @@ contract PlantNFT is ERC721Enumerable, Ownable {
         address _owner
     ) external view returns (uint256[] memory) {
         uint256 tokenCount = balanceOf(_owner);
-        uint256[] memory tokenIdList = new uint256[](tokenCount);
+        uint256[] memory tokenIdList = new uint256[](web3/tokenCount);
 
         for (uint256 i = 0; i < tokenCount; i++) {
             tokenIdList[i] = tokenOfOwnerByIndex(_owner, i);

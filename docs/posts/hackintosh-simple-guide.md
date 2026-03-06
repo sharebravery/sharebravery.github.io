@@ -13,15 +13,15 @@ tags:
 
 ### 1. 准备好一个 32G 的 U 盘和镜像
 
-![在这里插入图片描述](./images/uu1-20200810183246743.png)
+![在这里插入图片描述](/assets/posts/hackintosh-simple-guide/uu1-20200810183246743.png)
 
 ### 2. 使用 Etcher 或者 TransMac 刻录镜像，制作启动盘（Etcher 只需选择镜像便可以自动制作了）
 
-![在这里插入图片描述](./images/uu2-20200810183441409.png)
+![在这里插入图片描述](/assets/posts/hackintosh-simple-guide/uu2-20200810183441409.png)
 
 ### 3. 将合适的 EFI 文件替换 U 盘的 EFI 文件，一般情况下替换 config.plist 文件即可（使用 DiskGenius)
 
-![在这里插入图片描述](./images/uu3-20200810183516287.png)
+![在这里插入图片描述](/assets/posts/hackintosh-simple-guide/uu3-20200810183516287.png)
 
 ### 4. 重启从 U 盘启动进入 Clover 页面
 
@@ -35,7 +35,7 @@ tags:
 
 ### 9. 重启完毕进入第二次安装设置，一路 next 完毕即可进入 Mac 桌面
 
-![在这里插入图片描述](./images/uu4-20200810183833487.png)
+![在这里插入图片描述](/assets/posts/hackintosh-simple-guide/uu4-20200810183833487.png)
 
 ### 10. 进入桌面后插上网线，安装网卡及其他驱动。
 
@@ -43,4 +43,4 @@ tags:
 
 ### 12. 百度/问群
 
-![在这里插入图片描述](./images/uu5-20200810183942849.png)
+![在这里插入图片描述](/assets/posts/hackintosh-simple-guide/uu5-20200810183942849.png)

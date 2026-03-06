@@ -76,7 +76,7 @@ tags:
 
 ## 项目结构
 
-![avatar](./images/svgG1-2023-03-31_10-15-12.png)
+![avatar](/assets/posts/svg-doodle-component/svgG1-2023-03-31_10-15-12.png)
 
 ## 几个画图、解析数据的函数
 
@@ -187,7 +187,7 @@ function drawingText() {
 
 ## 数据百分比转换，保持图形比例、位置
 
-![avatar](./images/svgG2-2023-03-31_10-30-10.png)
+![avatar](/assets/posts/svg-doodle-component/svgG2-2023-03-31_10-30-10.png)
 
 ## template 图片拖动
 
@@ -276,4 +276,4 @@ import "ch2-paper-of-painter/lib/style.css";
 </template>
 ```
 
-![avatar](./images/svgG3-2023-03-31_10-42-11.png)
+![avatar](/assets/posts/svg-doodle-component/svgG3-2023-03-31_10-42-11.png)

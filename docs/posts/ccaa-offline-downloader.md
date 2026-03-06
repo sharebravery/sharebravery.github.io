@@ -26,7 +26,7 @@ _#国内_
 bash <(curl -Lsk https://raw.githubusercontent.com/helloxz/ccaa/master/ccaa.sh) cdn
 ```
 
-![在这里插入图片描述](./images/CCAA1-2020081011352273.png)
+![在这里插入图片描述](/assets/posts/ccaa-offline-downloader/CCAA1-2020081011352273.png)
 
 输入 1，回车开始安装
 
@@ -38,11 +38,11 @@ bash <(curl -Lsk https://raw.githubusercontent.com/helloxz/ccaa/master/ccaa.sh) 
 
 #### 1.4 访问刚才提示的访问地址
 
-![在这里插入图片描述](./images/CCAA2-20200810113623163.png)
+![在这里插入图片描述](/assets/posts/ccaa-offline-downloader/CCAA2-20200810113623163.png)
 
 #### 1.5 设置 RPC 密匙
 
-![在这里插入图片描述](./images/CCAA3-202008101136312.png)
+![在这里插入图片描述](/assets/posts/ccaa-offline-downloader/CCAA3-202008101136312.png)
 
 #### 1.6 管理 CCAA
 
@@ -64,7 +64,7 @@ bash <(curl -Lsk https://raw.githubusercontent.com/helloxz/ccaa/master/ccaa.sh) 
 
 #### 2.1 新建下载
 
-![在这里插入图片描述](./images/CCAA4-20200810113646867.png)
+![在这里插入图片描述](/assets/posts/ccaa-offline-downloader/CCAA4-20200810113646867.png)
 
 ​ END
 

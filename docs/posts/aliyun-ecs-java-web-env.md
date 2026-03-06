@@ -32,7 +32,7 @@ java -version
 
 如果显示如下图内容，则表示 JDK 安装成功。
 
-![在这里插入图片描述](./images/JavaWeb1-20200811102731714.png)
+![在这里插入图片描述](/assets/posts/aliyun-ecs-java-web-env/JavaWeb1-20200811102731714.png)
 
 ## 2. 安装 MySQL 数据库
 
@@ -44,7 +44,7 @@ yum -y install mysql57-community-release-el7-10.noarch.rpm
 yum -y install mysql-community-server
 ```
 
-![在这里插入图片描述](./images/JavaWeb2-20200811102740840.png)
+![在这里插入图片描述](/assets/posts/aliyun-ecs-java-web-env/JavaWeb2-20200811102740840.png)
 
 2. 2 执行以下命令，启动 MySQL 数据库。
 
@@ -58,7 +58,7 @@ systemctl start mysqld.service
 grep "password" /var/log/mysqld.log
 ```
 
-![在这里插入图片描述](./images/JavaWeb3-20200811102750674.png)
+![在这里插入图片描述](/assets/posts/aliyun-ecs-java-web-env/JavaWeb3-20200811102750674.png)
 
 2. 4 执行以下命令，登录数据库。
 
@@ -89,7 +89,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '12345678';
 wget https://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v8.5.57/bin/apache-tomcat-8.5.57.tar.gz
 ```
 
-![在这里插入图片描述](./images/JavaWeb4-20200811102801749.png)
+![在这里插入图片描述](/assets/posts/aliyun-ecs-java-web-env/JavaWeb4-20200811102801749.png)
 
 3.  2 执行以下命令，解压刚刚下载 Tomcat 包。
 
@@ -123,7 +123,7 @@ sed -i 's/Connector port="8080"/Connector port="80"/' /usr/local/Tomcat8.5/conf/
 /usr/local/Tomcat8.5/bin/./startup.sh
 ```
 
-![在这里插入图片描述](./images/JavaWeb5-20200811102813289.png)
+![在这里插入图片描述](/assets/posts/aliyun-ecs-java-web-env/JavaWeb5-20200811102813289.png)
 
 ## 4. 访问 Tomcat
 
@@ -131,6 +131,6 @@ sed -i 's/Connector port="8080"/Connector port="80"/' /usr/local/Tomcat8.5/conf/
 
 ​ 如果显示如下界面，则表示 Tomcat 安装配置成功。
 
-![在这里插入图片描述](./images/JavaWeb6-20200811102822876.png) 4. 2 至此，Java Web 开发环境搭建完成。
+![在这里插入图片描述](/assets/posts/aliyun-ecs-java-web-env/JavaWeb6-20200811102822876.png) 4. 2 至此，Java Web 开发环境搭建完成。
 
 <!-- <Valine></Valine> -->
