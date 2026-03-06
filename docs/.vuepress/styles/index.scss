@@ -1,1 +1,15 @@
-// place your custom styles here
+// Content-first home: start directly from article list.
+.vp-blog-home .vp-blog-hero {
+  display: none;
+}
+
+// Remove article cover images in list cards to keep list compact.
+.vp-blog-home .vp-article-cover {
+  display: none;
+}
+
+// Keep breathing room between navbar and article list.
+.vp-blog-home .blog-page-wrapper {
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
