@@ -47,15 +47,19 @@ $$ Skill = Role (角色卡) + Rulebook (规则书) + Context (上下文) $$
 
 这种封装带来的好处是显而易见的：我们把一头不可控的野兽（Raw LLM），训练成了一只可靠的导盲犬（Agent）。
 
-## 实战：打造一个“私人技术作家”
+## 实战：打造一个“发布前风险审查 Skill”
 
 为了更直观地理解 Skill 的价值，我们可以看一个真实的案例。
 
-写技术博客时，我们常常面临一个困境：AI 生成的内容往往带有一种浓重的“AI 味”——四平八稳，充满了“总而言之”、“综上所述”这样的废话，缺乏独特的观点和风格。
+团队在上线前最常见的问题，不是“不会写代码”，而是“漏检查”。比如：
 
-如果用 Prompt Engineering 的思路，我们需要每次都输入一段几百字的指令来纠正它的语气。但这非常繁琐。
+- 改了接口，但没同步更新鉴权；
+- 改了缓存策略，但没补回滚方案；
+- 改了订单逻辑，但没做边界条件验证。
 
-如果用 Skill 的思路，我们可以将这些要求固化下来，创建一个名为 `personal-tech-writer` 的技能。
+如果只靠 Prompt，每次都要临时写一段“请你帮我检查安全、性能、回滚、监控”的长指令，结果很不稳定。
+
+换成 Skill 思路，就可以把这套发布前检查固化下来，做成一个 `release-risk-reviewer`。
 
 ### 1. 结构化定义
 
@@ -63,32 +67,34 @@ $$ Skill = Role (角色卡) + Rulebook (规则书) + Context (上下文) $$
 
 ```yaml
 ---
-name: personal-tech-writer
-description: Baoyu's writing persona (Pragmatic, Story-driven, Vulnerable).
+name: release-risk-reviewer
+description: Pre-release risk audit for backend services.
 ---
 
 # Rulebook (规则书)
 
-## 1. The Hook (切入点)
-*   **Don't** start with definitions. Start with a phenomenon or a question.
-*   **Focus**: Clarity and Narrative Flow.
+## 1. Scope (范围)
+*   **Check** authentication, authorization, idempotency, and data consistency.
+*   **Reject** style-only suggestions.
 
-## 2. Tone (基调)
-*   **Objective**: Avoid "I think" overuse. Focus on the insight itself.
-*   **Lucid**: Explain complex concepts with simple analogies.
+## 2. Risk Model (风险模型)
+*   **P0**: security/data loss/order mismatch
+*   **P1**: availability/performance regression
+*   **P2**: maintainability concerns
 
-## 3. Formatting (格式)
-*   **No Emojis**: Keep it clean.
-*   **Rhythm**: Use breathable paragraphs.
+## 3. Output Contract (输出格式)
+*   Findings first, sorted by severity.
+*   Each finding must include file path, line, impact, and fix suggestion.
+*   End with verification checklist (tests, rollback, monitoring).
 ```
 
 ### 2. 隐式上下文注入
 
 Skill 的核心优势在于**上下文注入**。
 
-当调用 `/skill personal-tech-writer` 时，系统会自动加载预设的风格指南 (`style-guide.md`)。这就像是给浏览器安装了一个插件，或者给电脑安装了一个驱动程序。
+当调用 `/skill release-risk-reviewer` 时，系统会自动加载项目约束：接口规范、数据库 schema、告警规则、上线清单。它不是“临时想起来检查什么”，而是按既定协议执行。
 
-AI 瞬间就“懂”了你的偏好。它不再试图讨好你，而是按照预设的规则，以一种清晰、流畅、有节奏感的方式进行输出。
+AI 的角色也从“聊天助手”变成“流程节点”：该拦截的拦截、该提示的提示、该给证据的给证据。
 
 这就是 **Agent** 的力量。
 
