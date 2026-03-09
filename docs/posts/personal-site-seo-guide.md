@@ -1,6 +1,5 @@
 ---
 title: 个人站 SEO：从买域名到被搜索到
-shortTitle: 域名与 SEO
 date: 2026-02-09
 categories:
   - 观察
