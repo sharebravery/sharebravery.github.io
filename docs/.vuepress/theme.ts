@@ -28,6 +28,7 @@ export default hopeTheme({
     medias: {
       Email: "sharebravery@gmail.com",
       Twitter: "https://x.com/sharebravery",
+      WeChat: "wechat",
     },
   },
 
@@ -47,7 +48,7 @@ export default hopeTheme({
       navbar: zhNavbar,
       // sidebar
       sidebar: zhSidebar,
-      footer: '<a href="https://github.com/sharebravery" target="_blank">GitHub</a> | <a href="https://x.com/sharebravery" target="_blank">X (Twitter)</a> | <a href="mailto:sharebravery@gmail.com">Email</a><br/>© 2024-present sharebravery | 做一个勇敢者 拥有坚定的信念',
+      footer: '<a href="https://github.com/sharebravery" target="_blank">GitHub</a> | <a href="https://x.com/sharebravery" target="_blank">X (Twitter)</a> | <a href="mailto:sharebravery@gmail.com">Email</a> | 公众号：天空协议<br/>© 2024-present sharebravery | 做一个勇敢者 拥有坚定的信念',
       displayFooter: true,
 
       blog: {
@@ -56,6 +57,7 @@ export default hopeTheme({
         medias: {
           Email: "sharebravery@gmail.com",
           Twitter: "https://x.com/sharebravery",
+          WeChat: "wechat",
         },
         timeline: "行星轨迹",
       },

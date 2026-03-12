@@ -18,9 +18,14 @@ export const zhNavbar = navbar([
   //   link: "/tech/",
   // },
   { text: "行星轨迹", icon: "timeline", link: "/timeline/" },
+  // {
+  //   text: "X",
+  //   icon: "fab fa-x-twitter",
+  //   link: "https://x.com/sharebravery",
+  // },
   {
-    text: "X",
-    icon: "fab fa-x-twitter",
-    link: "https://x.com/sharebravery",
+    text: "公众号",
+    icon: "fab fa-weixin",
+    link: "/wechat",
   },
 ]);

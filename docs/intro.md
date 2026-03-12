@@ -32,6 +32,9 @@ copyright: false
 - X：[不辞远](https://x.com/sharebravery)
 - GitHub: [sharebravery](https://github.com/sharebravery)
 - Email: sharebravery@gmail.com
+- 公众号：天空协议（ID: skyprotocol）
+
+![天空协议公众号](/gzh/follow-banner.png){style="max-width: 400px; border-radius: 8px;"}
 
 ---
 
