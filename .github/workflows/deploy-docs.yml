@@ -1,13 +1,17 @@
-
 name: 部署文档
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: deploy-pages-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   deploy-gh-pages:
@@ -24,7 +28,6 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 10
-
 
       - name: 设置 Node.js
         uses: actions/setup-node@v4
@@ -47,6 +50,5 @@ jobs:
       - name: 部署文档
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          # 部署文档
           branch: gh-pages
           folder: docs/.vuepress/dist
