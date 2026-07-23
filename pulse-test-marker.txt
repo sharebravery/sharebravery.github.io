@@ -1,1 +1,0 @@
-Pulse article flow test branch. The reviewable article is docs/posts/openai-project-camellia-power-grid.md.
