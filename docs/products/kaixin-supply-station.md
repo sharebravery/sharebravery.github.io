@@ -6,7 +6,7 @@ kind: Experiment
 status: live
 tagline: 一个让人随手开心一下的小网站
 description: 随机笑话、今日宜忌，以及一键生成开心海报。
-url: https://hi.sharebraver.com
+url: https://hi.sharebravery.com
 preview: kaixin
 featured: true
 order: 2
