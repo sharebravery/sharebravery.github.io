@@ -2,12 +2,9 @@
 import { homePosts, homeProducts } from "@temp/home-data.js";
 
 const external = (url) => /^https?:\/\//.test(url ?? "");
-
 const productHref = (product) => product.url || product.path;
-
 const productType = (product) =>
   `PRODUCT · ${String(product.type || "Product").toUpperCase()}`;
-
 const ctaLabel = (product) =>
   /github\.com/.test(product.url || "") ? "查看项目" : "打开产品";
 
@@ -77,7 +74,10 @@ const formatDate = (value) => {
               v-for="(product, index) in homeProducts"
               :key="product.path"
               class="product"
-              :class="{ trace: index === 2 }"
+              :class="{
+                trace: index === 2,
+                chaincanvas: product.preview === 'chaincanvas',
+              }"
               :href="productHref(product)"
               :target="external(productHref(product)) ? '_blank' : undefined"
               :rel="external(productHref(product)) ? 'noreferrer' : undefined"
@@ -158,33 +158,16 @@ const formatDate = (value) => {
             </a>
           </div>
         </section>
-
-        <section>
-          <div class="section-head">
-            <div class="section-no">03 / About</div>
-            <h2 class="section-title">Currently.</h2>
-          </div>
-
-          <div class="about">
-            <div class="about-editorial">
-              <div class="about-label">XU DUOYAN</div>
-              <div class="about-word">Building.</div>
-              <div class="about-word muted-word">Writing.</div>
-              <div class="about-word muted-word">Exploring.</div>
-            </div>
-
-            <div class="now">
-              <div class="now-row"><b>Building</b><span>Shuangpin · ChainCanvas · TraceMemo</span></div>
-              <div class="now-row"><b>Writing</b><span>AI Engineering · Web3 Engineering · Software Systems</span></div>
-              <div class="now-row"><b>Elsewhere</b><span>GitHub · X · Email</span></div>
-            </div>
-          </div>
-        </section>
       </main>
 
       <footer>
-        <span>许多言的多言</span>
-        <span>© 2026</span>
+        <span class="footer-title">许多言的多言</span>
+        <span class="footer-links">
+          <a href="https://github.com/sharebravery" target="_blank" rel="noreferrer">GitHub ↗</a>
+          <a href="https://x.com/sharebravery" target="_blank" rel="noreferrer">X ↗</a>
+          <a href="mailto:sharebravery@gmail.com">Email ↗</a>
+          <span>© 2026</span>
+        </span>
       </footer>
     </div>
   </div>
@@ -229,11 +212,11 @@ const formatDate = (value) => {
 .entry {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 470px;
+  min-height: clamp(360px, 46vh, 410px);
   border-bottom: 1px solid var(--ink);
 }
 .entry-panel {
-  padding: 58px 42px 48px 0;
+  padding: 42px 42px 36px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -244,8 +227,7 @@ const formatDate = (value) => {
   padding-right: 0;
 }
 .entry-index,
-.section-no,
-.about-label {
+.section-no {
   color: var(--muted);
   font-size: 10px;
   letter-spacing: .15em;
@@ -276,7 +258,7 @@ const formatDate = (value) => {
   display: flex;
   justify-content: space-between;
   gap: 24px;
-  padding: 18px 0 54px;
+  padding: 18px 0 38px;
   color: var(--muted);
   font-size: 10px;
   letter-spacing: .08em;
@@ -295,7 +277,7 @@ const formatDate = (value) => {
 
 section {
   border-top: 1px solid var(--ink);
-  padding: 78px 0 96px;
+  padding: 72px 0 92px;
 }
 .section-head {
   display: grid;
@@ -343,6 +325,15 @@ section {
   font-weight: 400;
   line-height: .95;
   letter-spacing: -.05em;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+.product.chaincanvas .product-copy { width: 58%; }
+.product.chaincanvas .product-title {
+  max-width: none;
+  font-size: clamp(30px, 3vw, 40px);
+  white-space: nowrap;
 }
 .product-tagline {
   margin-top: 14px;
@@ -448,41 +439,23 @@ section {
 .article-title { font-size: 14px; }
 .article-arrow { text-align: right; }
 
-.about { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
-.about-editorial { align-self: start; }
-.about-label { margin-bottom: 22px; }
-.about-word {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(42px, 5vw, 66px);
-  line-height: 1.02;
-  letter-spacing: -.05em;
-}
-.muted-word { color: var(--muted); }
-.now { border-top: 1px solid var(--ink); }
-.now-row {
-  display: grid;
-  grid-template-columns: 88px 1fr;
-  gap: 20px;
-  padding: 13px 0;
-  border-bottom: 1px solid var(--line);
-  font-size: 11px;
-}
-.now-row b {
-  color: var(--muted);
-  font-size: 9px;
-  font-weight: 400;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
 footer {
   border-top: 1px solid var(--ink);
-  padding: 28px 0 42px;
+  padding: 30px 0 44px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 24px;
   color: var(--muted);
   font-size: 10px;
 }
+.footer-title {
+  color: var(--ink);
+  font-family: "Songti SC", "STSong", Georgia, serif;
+  font-size: 12px;
+}
+.footer-links { display: flex; align-items: center; gap: 18px; text-transform: uppercase; letter-spacing: .06em; }
+.footer-links a:hover { color: var(--ink); }
 
 @media (prefers-color-scheme: dark) {
   .xu-home {
@@ -499,27 +472,30 @@ footer {
   .shell { width: min(calc(100% - 32px), 1240px); }
   .masthead-meta { display: none; }
   .entry { grid-template-columns: 1fr; min-height: auto; }
-  .entry-panel { min-height: 300px; padding: 48px 0 34px; }
-  .entry-panel + .entry-panel { border-left: 0; border-top: 1px solid var(--ink); padding: 48px 0 34px; }
+  .entry-panel { min-height: 270px; padding: 40px 0 30px; }
+  .entry-panel + .entry-panel { border-left: 0; border-top: 1px solid var(--ink); padding: 40px 0 30px; }
   .entry-title { font-size: 76px; }
-  .identity-strip { padding-bottom: 42px; flex-direction: column; gap: 10px; }
+  .identity-strip { padding-bottom: 34px; flex-direction: column; gap: 10px; }
   .section-head { grid-template-columns: 1fr; gap: 14px; }
   .section-more { display: none; }
   .products { grid-template-columns: 1fr; }
   .product.trace { grid-column: auto; }
   .product { min-height: 490px; }
   .product-copy,
-  .product.trace .product-copy { width: 100%; height: auto; }
+  .product.trace .product-copy,
+  .product.chaincanvas .product-copy { width: 100%; height: auto; }
+  .product.chaincanvas .product-title { font-size: clamp(38px, 9vw, 55px); white-space: normal; }
   .preview,
   .product.trace .preview { width: 72%; right: -8%; }
   .article { grid-template-columns: 32px 1fr 20px; }
   .article-meta { display: none; }
-  .about { grid-template-columns: 1fr; gap: 55px; }
+  footer { align-items: flex-start; flex-direction: column; gap: 14px; }
+  .footer-links { flex-wrap: wrap; gap: 12px 16px; }
 }
 
 @media (max-width: 520px) {
   .masthead { padding-top: 20px; }
-  .entry-panel { min-height: 250px; }
+  .entry-panel { min-height: 230px; }
   .entry-title { font-size: 58px; }
   .identity-links { gap: 12px; flex-wrap: wrap; }
   .product { min-height: 450px; }
