@@ -1,7 +1,7 @@
 {
   "name": "sharebravery",
   "version": "2.0.2",
-  "description": "做一个勇敢者 拥有坚定的信念",
+  "description": "许多言的多言",
   "license": "Apache",
   "type": "module",
   "scripts": {
@@ -10,6 +10,9 @@
     "docs:dev": "vuepress-vite dev docs --open",
     "docs:update-package": "pnpm dlx vp-update",
     "release": "standard-version"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.0.0"
   },
   "devDependencies": {
     "@vuepress/bundler-vite": "2.0.0-rc.26",
