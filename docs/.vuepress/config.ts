@@ -22,6 +22,12 @@ export default defineUserConfig({
     "!**/covers/**",
   ],
 
+  markdown: {
+    assets: {
+      aliasSupport: false,
+    },
+  },
+
   plugins: [homeDataPlugin()],
 
   theme,
