@@ -4,7 +4,7 @@ import { homePosts, homeProducts } from "@temp/home-data.js";
 const external = (url) => /^https?:\/\//.test(url ?? "");
 const productHref = (product) => product.url || product.path;
 const productType = (product) =>
-  `PRODUCT · ${String(product.type || "Product").toUpperCase()}`;
+  `${String(product.kind || "Product").toUpperCase()} · ${String(product.type || "Product").toUpperCase()}`;
 const ctaLabel = (product) =>
   /github\.com/.test(product.url || "") ? "查看项目" : "打开产品";
 
@@ -66,7 +66,10 @@ const formatDate = (value) => {
         <section id="products">
           <div class="section-head">
             <div class="section-no">01 / Works</div>
-            <h2 class="section-title">Selected products.</h2>
+            <div class="section-title-wrap">
+              <h2 class="section-title">Selected works.</h2>
+              <div class="section-zh">精选作品</div>
+            </div>
           </div>
 
           <div class="products">
@@ -83,7 +86,10 @@ const formatDate = (value) => {
               :rel="external(productHref(product)) ? 'noreferrer' : undefined"
             >
               <div class="product-copy">
-                <div class="product-num">{{ productType(product) }}</div>
+                <div class="product-meta">
+                  <div class="product-num">{{ productType(product) }}</div>
+                  <div v-if="product.status === 'development'" class="product-status">开发中</div>
+                </div>
                 <h3 class="product-title">{{ product.name }}</h3>
                 <div class="product-tagline">{{ product.tagline }}</div>
                 <div class="product-desc">{{ product.description }}</div>
@@ -286,6 +292,14 @@ section {
   gap: 30px;
   margin-bottom: 42px;
 }
+.section-title-wrap { min-width: 0; }
+.section-zh {
+  margin-top: 10px;
+  color: var(--muted);
+  font-family: "Songti SC", "STSong", Georgia, serif;
+  font-size: 12px;
+  letter-spacing: .08em;
+}
 .section-title {
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
@@ -317,7 +331,9 @@ section {
   display: flex;
   flex-direction: column;
 }
+.product-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .product-num { color: var(--muted); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+.product-status { color: var(--muted); font-size: 10px; letter-spacing: .08em; white-space: nowrap; }
 .product-title {
   margin: auto 0 0;
   font-family: Georgia, "Times New Roman", serif;

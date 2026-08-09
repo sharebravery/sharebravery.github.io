@@ -2,6 +2,8 @@
 title: TraceMemo
 name: TraceMemo
 type: Extension
+kind: Project
+status: development
 tagline: Web3 地址上下文工具
 description: 记住地址在哪里见过，以及它为什么值得关注。
 url: https://github.com/sharebravery/tracememo

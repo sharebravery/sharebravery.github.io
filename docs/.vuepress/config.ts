@@ -5,6 +5,8 @@ import theme from "./theme.js";
 export default defineUserConfig({
   base: "/",
 
+  head: [["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }]],
+
   locales: {
     "/": {
       lang: "zh-CN",
