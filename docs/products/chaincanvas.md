@@ -11,6 +11,8 @@ order: 2
 article: false
 timeline: false
 pageInfo: false
+search: false
+sitemap: false
 ---
 
 链上身份与活动可视化项目。

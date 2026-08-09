@@ -95,9 +95,6 @@ export default hopeTheme({
 
     slimsearch: {
       indexContent: true,
-      // Product pages are Markdown data sources for the homepage cards,
-      // not standalone reading pages, so keep them out of search results.
-      filter: (page) => !page.filePathRelative?.startsWith("products/"),
     },
 
     comment: {

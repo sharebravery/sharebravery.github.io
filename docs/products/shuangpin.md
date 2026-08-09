@@ -11,6 +11,8 @@ order: 1
 article: false
 timeline: false
 pageInfo: false
+search: false
+sitemap: false
 ---
 
 双拼练习工具。

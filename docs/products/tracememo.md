@@ -11,6 +11,8 @@ order: 3
 article: false
 timeline: false
 pageInfo: false
+search: false
+sitemap: false
 ---
 
 为链上地址保留浏览上下文的浏览器扩展。
