@@ -1,13 +1,10 @@
 ---
-home: true
-layout: Blog
-icon: rocket
-title: 火星前进基地
-heroImage: /avatar.svg
-heroText: 不辞远的分享
-heroFullScreen: false
-tagline: 做一个勇敢者 拥有坚定的信念
-
+layout: Home
+title: 许多言的多言
+description: Products and writing by 许多言.
+navbar: false
+sidebar: false
+footer: false
+pageInfo: false
 index: false
-# bgImage: https://bing.com/th?id=OHR.MostarBridge_ZH-CN5920156936_1920x1080.jpg
 ---
