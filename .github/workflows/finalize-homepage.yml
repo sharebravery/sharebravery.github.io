@@ -10,7 +10,6 @@ permissions:
 
 jobs:
   finalize:
-    if: github.event.head_commit.message == 'chore: run homepage finalizer'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,62 +23,7 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-      - name: Apply homepage refinements
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          config = Path('docs/.vuepress/config.ts')
-          text = config.read_text()
-          text = text.replace('  base: "/",\n', '  base: "/",\n\n  head: [["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }]],\n')
-          config.write_text(text)
-
-          data = Path('docs/.vuepress/plugins/homeData.ts')
-          text = data.read_text()
-          text = text.replace('          type: String(frontmatter.type ?? "Product"),\n', '          type: String(frontmatter.type ?? "Product"),\n          kind: String(frontmatter.kind ?? "Product"),\n          status: String(frontmatter.status ?? ""),\n')
-          data.write_text(text)
-
-          product_updates = {
-              'docs/products/shuangpin.md': ('Web App', 'Product', 'live'),
-              'docs/products/chaincanvas.md': ('Web3', 'Project', 'development'),
-              'docs/products/tracememo.md': ('Extension', 'Project', 'development'),
-          }
-          for filename, (ptype, kind, status) in product_updates.items():
-              path = Path(filename)
-              text = path.read_text()
-              text = text.replace(f'type: {ptype}\n', f'type: {ptype}\nkind: {kind}\nstatus: {status}\n')
-              path.write_text(text)
-
-          home = Path('docs/.vuepress/layouts/Home.vue')
-          text = home.read_text()
-          text = text.replace(
-              'const productType = (product) =>\n  `PRODUCT · ${String(product.type || "Product").toUpperCase()}`;\n',
-              'const productType = (product) =>\n  `${String(product.kind || "Product").toUpperCase()} · ${String(product.type || "Product").toUpperCase()}`;\n'
-          )
-          text = text.replace(
-              '<h2 class="section-title">Selected products.</h2>',
-              '<div class="section-title-wrap">\n              <h2 class="section-title">Selected works.</h2>\n              <div class="section-zh">精选作品</div>\n            </div>'
-          )
-          text = text.replace(
-              '<div class="product-num">{{ productType(product) }}</div>\n                <h3 class="product-title">{{ product.name }}</h3>',
-              '<div class="product-meta">\n                  <div class="product-num">{{ productType(product) }}</div>\n                  <div v-if="product.status === \'development\'" class="product-status">开发中</div>\n                </div>\n                <h3 class="product-title">{{ product.name }}</h3>'
-          )
-          text = text.replace(
-              '.section-title {\n',
-              '.section-title-wrap { min-width: 0; }\n.section-zh {\n  margin-top: 10px;\n  color: var(--muted);\n  font-family: "Songti SC", "STSong", Georgia, serif;\n  font-size: 12px;\n  letter-spacing: .08em;\n}\n.section-title {\n'
-          )
-          text = text.replace(
-              '.product-num { color: var(--muted); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }\n',
-              '.product-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; }\n.product-num { color: var(--muted); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }\n.product-status { color: var(--muted); font-size: 10px; letter-spacing: .08em; white-space: nowrap; }\n'
-          )
-          home.write_text(text)
-
-          favicon = Path('docs/.vuepress/public/favicon.svg')
-          favicon.write_text('''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="10" fill="#f8f7f2"/>
-  <text x="32" y="43" text-anchor="middle" font-size="38" font-family="Songti SC, STSong, Georgia, serif" fill="#171715">多</text>
-</svg>\n''')
-          PY
+      - run: python .github/finalize_homepage.py
       - run: pnpm install --frozen-lockfile
       - run: pnpm run docs:build
         env:
@@ -88,7 +32,7 @@ jobs:
         run: |
           git config user.name "sharebravery"
           git config user.email "64069898+sharebravery@users.noreply.github.com"
-          git rm .github/workflows/finalize-homepage.yml
+          git rm .github/workflows/finalize-homepage.yml .github/finalize_homepage.py
           git add docs/.vuepress/config.ts docs/.vuepress/plugins/homeData.ts docs/.vuepress/layouts/Home.vue docs/.vuepress/public/favicon.svg docs/products/*.md
           git commit -m "refine homepage work states and favicon"
           git push origin HEAD:agent/homepage-markdown-first-upgrade
