@@ -32,17 +32,8 @@ jobs:
           node-version: 22
           cache: pnpm
 
-      - name: Upgrade direct dependencies
-        run: >-
-          pnpm up -D
-          vuepress@next
-          @vuepress/bundler-vite@next
-          @vuepress/plugin-slimsearch@next
-          vuepress-theme-hope@latest
-          vue@latest
-          katex@latest
-          mermaid@latest
-          sass-embedded@latest
+      - name: Install compatible dependencies
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build
         env:
