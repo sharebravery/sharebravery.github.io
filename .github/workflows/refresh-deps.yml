@@ -6,6 +6,7 @@ on:
       - agent/homepage-markdown-first-upgrade
     paths:
       - package.json
+      - docs/**
 
 permissions:
   contents: write
