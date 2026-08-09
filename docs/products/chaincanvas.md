@@ -2,6 +2,8 @@
 title: ChainCanvas
 name: ChainCanvas
 type: Web3
+tagline: 链上身份与数据画像
+description: 把分散的链上活动整理成可阅读的个人轨迹。
 url: https://github.com/sharebravery/chaincanvas
 preview: chaincanvas
 featured: true

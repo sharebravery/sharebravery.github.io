@@ -5,6 +5,12 @@ const external = (url) => /^https?:\/\//.test(url ?? "");
 
 const productHref = (product) => product.url || product.path;
 
+const productType = (product) =>
+  `PRODUCT · ${String(product.type || "Product").toUpperCase()}`;
+
+const ctaLabel = (product) =>
+  /github\.com/.test(product.url || "") ? "查看项目" : "打开产品";
+
 const formatDate = (value) => {
   if (!value) return "";
   const date = new Date(value);
@@ -28,7 +34,10 @@ const formatDate = (value) => {
         <div class="entry" aria-label="Primary sections">
           <a class="entry-panel" href="#products">
             <div class="entry-index">01 / Selected</div>
-            <h1 class="entry-title">Products.</h1>
+            <div class="entry-head">
+              <h1 class="entry-title">Products.</h1>
+              <div class="entry-zh">产品</div>
+            </div>
             <div class="entry-bottom">
               <span class="entry-note">Tools · Apps · Experiments</span>
               <span class="entry-arrow">↘</span>
@@ -37,7 +46,10 @@ const formatDate = (value) => {
 
           <a class="entry-panel" href="#writing">
             <div class="entry-index">02 / Recent</div>
-            <h1 class="entry-title">Writing.</h1>
+            <div class="entry-head">
+              <h1 class="entry-title">Writing.</h1>
+              <div class="entry-zh">文章</div>
+            </div>
             <div class="entry-bottom">
               <span class="entry-note">AI · Web3 · Engineering</span>
               <span class="entry-arrow">↘</span>
@@ -71,11 +83,11 @@ const formatDate = (value) => {
               :rel="external(productHref(product)) ? 'noreferrer' : undefined"
             >
               <div class="product-copy">
-                <div class="product-num">
-                  {{ String(index + 1).padStart(3, "0") }} / {{ product.type }}
-                </div>
+                <div class="product-num">{{ productType(product) }}</div>
                 <h3 class="product-title">{{ product.name }}</h3>
-                <div class="product-link">↗</div>
+                <div class="product-tagline">{{ product.tagline }}</div>
+                <div class="product-desc">{{ product.description }}</div>
+                <div class="product-link">{{ ctaLabel(product) }} ↗</div>
               </div>
 
               <div class="preview" :class="`preview-${product.preview || 'default'}`">
@@ -246,9 +258,16 @@ const formatDate = (value) => {
   font-weight: 400;
   line-height: .84;
   letter-spacing: -.07em;
-  transition: transform .25s ease;
 }
-.entry-panel:hover .entry-title { transform: translateX(6px); }
+.entry-zh {
+  margin-top: 14px;
+  color: var(--muted);
+  font-family: "Songti SC", "STSong", Georgia, serif;
+  font-size: 15px;
+  letter-spacing: .12em;
+}
+.entry-head { transition: transform .25s ease; }
+.entry-panel:hover .entry-head { transform: translateX(6px); }
 .entry-bottom { display: flex; justify-content: space-between; align-items: end; gap: 20px; }
 .entry-note { color: var(--muted); font-size: 11px; letter-spacing: .04em; }
 .entry-arrow { font-family: Georgia, serif; font-size: 28px; }
@@ -316,16 +335,29 @@ section {
   display: flex;
   flex-direction: column;
 }
-.product-num { color: var(--muted); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+.product-num { color: var(--muted); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
 .product-title {
-  margin: auto 0 6px;
+  margin: auto 0 0;
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(38px, 4vw, 55px);
   font-weight: 400;
   line-height: .95;
   letter-spacing: -.05em;
 }
-.product-link { margin-top: 24px; font-size: 17px; }
+.product-tagline {
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.product-desc {
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.product-link { margin-top: 22px; font-size: 13px; letter-spacing: .03em; color: var(--ink); }
 
 .preview {
   position: absolute;

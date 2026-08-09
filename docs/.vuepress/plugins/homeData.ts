@@ -10,6 +10,8 @@ export const homeDataPlugin = () => ({
         return {
           name: String(frontmatter.name ?? page.title),
           type: String(frontmatter.type ?? "Product"),
+          tagline: String(frontmatter.tagline ?? ""),
+          description: String(frontmatter.description ?? ""),
           url: String(frontmatter.url ?? ""),
           image: String(frontmatter.image ?? ""),
           preview: String(frontmatter.preview ?? ""),
