@@ -17,6 +17,7 @@ export default defineUserConfig({
     "**/*.md",
     "!.vuepress",
     "!node_modules",
+    "!posts/polymarket/**",
     "!**/illustrations/**",
     "!**/covers/**",
   ],
