@@ -1,29 +1,36 @@
 import { defineUserConfig } from "vuepress";
+import { homeDataPlugin } from "./plugins/homeData.js";
 import theme from "./theme.js";
 
 export default defineUserConfig({
   base: "/",
 
-  head: [
-    ["link", { rel: "icon", href: "/avatar.svg" }],
-  ],
+  head: [["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }]],
 
   locales: {
     "/": {
       lang: "zh-CN",
-      title: "不辞远的分享",
-      description: "做一个勇敢者 拥有坚定的信念",
+      title: "许多言的多言",
+      description: "Products and writing by 许多言.",
     },
   },
 
-  // 排除目录不渲染为页面
   pagePatterns: [
     "**/*.md",
     "!.vuepress",
     "!node_modules",
+    "!posts/polymarket/**",
     "!**/illustrations/**",
     "!**/covers/**",
   ],
+
+  markdown: {
+    assets: {
+      aliasSupport: false,
+    },
+  },
+
+  plugins: [homeDataPlugin()],
 
   theme,
 

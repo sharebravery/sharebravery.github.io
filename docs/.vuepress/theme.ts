@@ -8,61 +8,41 @@ export default hopeTheme({
   hostname: "https://sharebravery.com",
 
   author: {
-    name: "不辞远",
+    name: "许多言",
     url: "https://github.com/sharebravery",
   },
 
-  logo: "/avatar.svg",
-
-  repo: "https://github.com/sharebravery",
-
   docsDir: "docs",
 
-  // 禁用编辑链接
   editLink: false,
   contributors: false,
 
-  // Blog configuration
-  blog: {
-    // excerptLength: 200,
-    medias: {
-      Email: "sharebravery@gmail.com",
-      Twitter: "https://x.com/sharebravery",
-      WeChat: "wechat",
-    },
-  },
-
-  // 右上角导航栏社交链接
   navbarLayout: {
     start: ["Brand"],
     center: [],
-    end: ["Links", "Language", "Repo", "Outlook", "Search"],
+    end: ["Links", "Outlook", "Search"],
   },
 
   locales: {
-    /**
-     * Chinese locale config (Root)
-     */
     "/": {
-      // navbar
       navbar: zhNavbar,
-      // sidebar
       sidebar: zhSidebar,
-      footer: '<a href="https://github.com/sharebravery" target="_blank">GitHub</a> | <a href="https://x.com/sharebravery" target="_blank">X (Twitter)</a> | <a href="mailto:sharebravery@gmail.com">Email</a> | 公众号：天空协议<br/>© 2024-present sharebravery | 做一个勇敢者 拥有坚定的信念',
+      footer:
+        '<a href="https://github.com/sharebravery" target="_blank">GitHub</a> · <a href="https://x.com/sharebravery" target="_blank">X</a> · <a href="mailto:sharebravery@gmail.com">Email</a><br/>© 2026 许多言',
       displayFooter: true,
 
       blog: {
-        description: "sharebravery 世界的探索者",
+        name: "许多言",
+        description: "AI · Web3 · Software Engineering",
         intro: "/intro.html",
         medias: {
           Email: "sharebravery@gmail.com",
+          GitHub: "https://github.com/sharebravery",
           Twitter: "https://x.com/sharebravery",
-          WeChat: "wechat",
         },
-        timeline: "行星轨迹",
+        timeline: "时间线",
       },
     },
-
   },
 
   markdown: {
@@ -101,14 +81,18 @@ export default hopeTheme({
   },
 
   plugins: {
-    blog: true,
+    blog: {
+      filter: ({ filePathRelative, frontmatter }) =>
+        frontmatter.article ??
+        (Boolean(filePathRelative) &&
+          !frontmatter.home &&
+          !filePathRelative?.startsWith("products/")),
+    },
 
-    // Fixed: Correct way to configure icon assets in V2
     icon: {
       assets: "fontawesome-with-brands",
     },
 
-    // Enable local search
     slimsearch: {
       indexContent: true,
     },
