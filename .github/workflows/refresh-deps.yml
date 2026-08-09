@@ -1,0 +1,59 @@
+name: Refresh dependencies
+
+on:
+  push:
+    branches:
+      - agent/homepage-markdown-first-upgrade
+    paths:
+      - package.json
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: agent/homepage-markdown-first-upgrade
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.6.3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Upgrade direct dependencies
+        run: >-
+          pnpm up -D
+          vuepress@next
+          @vuepress/bundler-vite@next
+          @vuepress/plugin-slimsearch@next
+          vuepress-theme-hope@latest
+          vue@latest
+          katex@latest
+          mermaid@latest
+          sass-embedded@latest
+
+      - name: Build
+        env:
+          NODE_OPTIONS: --max_old_space_size=8192
+        run: pnpm run docs:build
+
+      - name: Commit refreshed lockfile
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/refresh-deps.yml
+          git add package.json pnpm-lock.yaml
+          git commit -m "chore: upgrade VuePress dependencies"
+          git push
