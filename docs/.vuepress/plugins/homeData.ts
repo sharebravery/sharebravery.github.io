@@ -22,6 +22,7 @@ export const homeDataPlugin = () => ({
           path: page.path,
         };
       })
+      .filter((product) => product.featured)
       .sort((a, b) => a.order - b.order);
 
     const posts = app.pages
