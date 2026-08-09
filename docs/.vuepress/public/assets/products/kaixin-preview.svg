@@ -1,0 +1,17 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" rx="28" fill="#FFDC4A"/>
+  <rect x="28" y="28" width="1144" height="704" rx="22" stroke="#1D1740" stroke-width="8"/>
+  <circle cx="1080" cy="660" r="180" fill="#FF6E91" stroke="#1D1740" stroke-width="6"/>
+  <circle cx="110" cy="90" r="145" fill="#7357D7" stroke="#1D1740" stroke-width="6"/>
+
+  <text x="82" y="110" fill="#1D1740" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="24" font-weight="800" letter-spacing="4">HAPPINESS SUPPLY STATION</text>
+  <text x="82" y="290" fill="#1D1740" font-family="Songti SC, STSong, Georgia, serif" font-size="118" font-weight="700">开心补给站</text>
+  <text x="88" y="380" fill="#FF6E91" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="42" font-weight="900">先别皱眉，笑完再说。</text>
+  <text x="88" y="450" fill="#1D1740" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="29" font-weight="700">随机笑话 · 今日宜忌 · 开心海报</text>
+  <text x="88" y="650" fill="#1D1740" font-family="Arial, sans-serif" font-size="23" font-weight="800">hi.sharebravery.com</text>
+
+  <circle cx="930" cy="215" r="108" fill="#C7F36A" stroke="#1D1740" stroke-width="8"/>
+  <circle cx="892" cy="190" r="8" fill="#1D1740"/>
+  <circle cx="968" cy="190" r="8" fill="#1D1740"/>
+  <path d="M878 226C887 269 909 286 930 286C951 286 973 269 982 226" stroke="#1D1740" stroke-width="10" stroke-linecap="round"/>
+</svg>
