@@ -44,8 +44,8 @@ const formatDate = (value) => {
           <div class="hero-kicker"><i />Software · Web3 · Systems</div>
           <h1>Building useful systems around crypto, markets and agents.</h1>
           <p class="hero-copy">
-            我做产品，也研究底层机制。现在主要关注链上数据、Prediction Markets、
-            Agent 工作流与开发者工具，把复杂系统变成可以真正使用和验证的软件。
+            目前关注链上数据、Prediction Markets、Agent 工作流与开发者工具，
+            也持续记录其中值得深入的工程与研究问题。
           </p>
           <div class="hero-actions">
             <a class="button primary" href="#work">Explore work ↓</a>
@@ -66,7 +66,7 @@ const formatDate = (value) => {
           <div class="dashboard">
             <div class="dash-head">
               <span>PREDICTION MARKET / SIGNAL VIEW</span>
-              <span class="live">LIVE</span>
+              <span class="live">RESEARCH</span>
             </div>
             <div class="market-row">
               <div>
@@ -83,7 +83,7 @@ const formatDate = (value) => {
           </div>
 
           <div class="float-card agent-card">
-            <div class="agent-head"><span>Agent run</span><span>active</span></div>
+            <div class="agent-head"><span>Agent run</span><span>workflow</span></div>
             <div class="agent-list">
               <div class="agent-item"><i /><span>Collect market context</span></div>
               <div class="agent-item"><i /><span>Compare contract state</span></div>
@@ -99,7 +99,7 @@ const formatDate = (value) => {
             <span class="section-kicker">Selected work</span>
             <h2>Products from real problems.</h2>
           </div>
-          <p>首页只展示少量代表项目。项目本身负责证明能力，而不是再做一层“技能介绍”。</p>
+          <p>链上上下文、数据可视化，以及一些专注解决具体问题的工具。</p>
         </div>
 
         <a
@@ -202,8 +202,8 @@ const formatDate = (value) => {
         <h2>I build things, study how systems behave, and keep the useful parts.</h2>
         <div>
           <p>
-            这个站是作品、研究和写作的统一入口，不承担在线简历的职责。
-            首页保持产品与系统感；Writing 则进入专门的浅色阅读空间。
+            长期关注 Web3、AI 与软件系统，偏好从具体问题出发做工具、产品和实验。
+            项目之外，也会记录过程中遇到的工程问题与研究结果。
           </p>
           <div class="about-links">
             <a href="https://github.com/sharebravery" target="_blank" rel="noreferrer">GitHub ↗</a>
