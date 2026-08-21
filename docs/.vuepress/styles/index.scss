@@ -1,15 +1,181 @@
-// Content-first home: start directly from article list.
+// Light reading mode for all Theme Hope pages.
+// The custom Home.vue owns the dark workspace visual system separately.
+
+html,
+body {
+  background: var(--vp-c-bg);
+}
+
+body {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Noto Sans CJK SC", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.vp-navbar {
+  box-shadow: none !important;
+  border-bottom: 1px solid #e3e6eb;
+  background: rgba(246, 247, 249, 0.88) !important;
+  backdrop-filter: blur(18px);
+}
+
+.vp-navbar .vp-site-name {
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+
+.vp-navbar .vp-nav-item,
+.vp-navbar .vp-action-link {
+  font-size: 0.82rem;
+}
+
+// Blog index: remove the old content-site hero and keep the page focused on reading.
 .vp-blog-home .vp-blog-hero {
   display: none;
 }
 
-// Remove article cover images in list cards to keep list compact.
+.vp-blog-home {
+  background: #f6f7f9;
+}
+
+.vp-blog-home .blog-page-wrapper {
+  margin-top: 0;
+  padding-top: 2.5rem;
+}
+
 .vp-blog-home .vp-article-cover {
   display: none;
 }
 
-// Keep breathing room between navbar and article list.
-.vp-blog-home .blog-page-wrapper {
-  margin-top: 1rem;
+.vp-blog-home .vp-article-item,
+.vp-blog-home .vp-article-wrapper {
+  border: 1px solid #e2e5ea;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.vp-blog-home .vp-article-item:hover,
+.vp-blog-home .vp-article-wrapper:hover {
+  border-color: #cfd4df;
+  box-shadow: 0 16px 38px rgba(20, 25, 35, 0.06);
+}
+
+.vp-blog-home .vp-article-title,
+.vp-blog-home .vp-article-title a {
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+
+.vp-blog-home .vp-page-info,
+.vp-blog-home .vp-article-info {
+  color: #777d88;
+}
+
+// Article pages: quiet, narrow, light reading surface.
+.vp-page {
+  background: #f6f7f9;
+}
+
+.vp-page-title,
+.theme-hope-content,
+.vp-page-meta,
+.vp-page-nav,
+.giscus-wrapper {
+  max-width: 780px;
+}
+
+.vp-page-title {
   padding-top: 1rem;
+}
+
+.vp-page-title h1,
+.theme-hope-content > h1:first-child {
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
+
+.theme-hope-content {
+  color: #292d35;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.theme-hope-content p,
+.theme-hope-content li {
+  line-height: 1.9;
+}
+
+.theme-hope-content h2 {
+  margin-top: 2.8rem;
+  margin-bottom: 0.9rem;
+  color: #17191d;
+  font-size: 1.7rem;
+  letter-spacing: -0.035em;
+  line-height: 1.25;
+}
+
+.theme-hope-content h3 {
+  margin-top: 2rem;
+  color: #1f2229;
+  letter-spacing: -0.02em;
+}
+
+.theme-hope-content a {
+  text-underline-offset: 0.2em;
+}
+
+.theme-hope-content blockquote {
+  margin: 1.8rem 0;
+  padding: 1rem 1.15rem;
+  border-left: 3px solid #6676f5;
+  border-radius: 0 10px 10px 0;
+  background: #eef0ff;
+  color: #545a68;
+}
+
+.theme-hope-content pre,
+.theme-hope-content div[class*="language-"] {
+  border-radius: 14px;
+  box-shadow: 0 14px 34px rgba(20, 25, 35, 0.08);
+}
+
+.theme-hope-content code:not(pre code) {
+  border-radius: 5px;
+}
+
+.vp-sidebar {
+  background: #f1f3f6;
+  border-inline-end-color: #e1e4e9;
+}
+
+.vp-sidebar .vp-sidebar-link {
+  font-size: 0.83rem;
+}
+
+.vp-toc-placeholder + .vp-toc,
+.vp-toc {
+  color: #777d88;
+  font-size: 0.76rem;
+}
+
+.vp-footer-wrapper {
+  border-top: 1px solid #e1e4e9;
+  background: #f6f7f9;
+  color: #777d88;
+}
+
+@media (max-width: 719px) {
+  .vp-blog-home .blog-page-wrapper {
+    padding-top: 1.5rem;
+  }
+
+  .theme-hope-content {
+    font-size: 0.96rem;
+    line-height: 1.82;
+  }
+
+  .theme-hope-content p,
+  .theme-hope-content li {
+    line-height: 1.82;
+  }
 }

@@ -1,1 +1,30 @@
-// you can change colors here
+// Reading pages intentionally stay light even when the OS prefers dark mode.
+// The custom Home layout owns its dark digital-workspace palette independently.
+$vp-c-text: (
+  light: #17191d,
+  dark: #17191d,
+);
+$vp-c-text-mute: (
+  light: #70757f,
+  dark: #70757f,
+);
+$vp-c-text-subtle: (
+  light: #9297a1,
+  dark: #9297a1,
+);
+$vp-c-bg: (
+  light: #f6f7f9,
+  dark: #f6f7f9,
+);
+$vp-c-bg-alt: (
+  light: #eef0f4,
+  dark: #eef0f4,
+);
+$vp-c-bg-elv: (
+  light: #ffffff,
+  dark: #ffffff,
+);
+$vp-c-shadow: (
+  light: rgba(20, 25, 35, 0.10),
+  dark: rgba(20, 25, 35, 0.10),
+);
