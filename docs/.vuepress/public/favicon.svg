@@ -1,4 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="10" fill="#f8f7f2"/>
-  <text x="32" y="43" text-anchor="middle" font-size="38" font-family="Songti SC, STSong, Georgia, serif" fill="#171715">多</text>
+  <defs>
+    <linearGradient id="mark" x1="18" y1="18" x2="45" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7082FF"/>
+      <stop offset="1" stop-color="#62DFBD"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#0D1016"/>
+  <circle cx="29" cy="35" r="13" fill="url(#mark)"/>
+  <circle cx="44" cy="20" r="5" fill="#62DFBD"/>
 </svg>
