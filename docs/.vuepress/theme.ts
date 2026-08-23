@@ -20,7 +20,7 @@ export default hopeTheme({
   navbarLayout: {
     start: ["Brand"],
     center: [],
-    end: ["Links", "Outlook", "Search"],
+    end: ["Links", "Search"],
   },
 
   locales: {
@@ -32,8 +32,8 @@ export default hopeTheme({
       displayFooter: true,
 
       blog: {
-        name: "许多言",
-        description: "AI · Web3 · Software Engineering",
+        name: "许多言的多言",
+        description: "Notes, research & field work.",
         intro: "/intro.html",
         medias: {
           Email: "sharebravery@gmail.com",
